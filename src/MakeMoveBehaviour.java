@@ -9,7 +9,7 @@ public class MakeMoveBehaviour extends Behaviour{
 //	private Round ronda;
 //	private Mao hand;
 	private Jogo sueca;
-	public MakeMoveBehaviour(Jogo sueca) {
+	public MakeMoveBehaviour(Jogo sueca,int player) {
 		this.sueca=sueca;
 	}
 	@Override
@@ -28,6 +28,7 @@ public class MakeMoveBehaviour extends Behaviour{
 		String cartaValue=this.returnPLay().toString();
 		inform.setContent(cartaValue);
 		this.myAgent.send(inform);
+		System.out.println("agent " + this.myAgent.getAID().getLocalName() + "\n");
 	}
 	
 	public Carta returnPLay() {

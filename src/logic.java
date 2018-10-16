@@ -6,6 +6,7 @@ public class logic {
 		
 	};
 	public int winner(Round ronda,Jogo game) {
+		//Jogadores 1 2 3 4
 		Carta biggest=ronda.RetornaCartasNaMesa(1);
 		int winnerPlayer=1;
 		if (ronda.temTrunfoNaMesa()){		

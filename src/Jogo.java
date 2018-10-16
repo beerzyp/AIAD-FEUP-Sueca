@@ -54,13 +54,19 @@ method) or from within other behaviours.
 
 		mao4= new Mao(cartas4);
 		player4 = new Jogador(mao4);
-		
-		//PRINT HAND PLAYER 1
-//		System.out.println("\nJogador 1:" + mao1.getMao().size());
-//		for(int i=0;i<cartas1.size();i++) {
-//			System.out.println(cartas1.get(i).toString());
-//			
-//		}
+	
+		System.out.println("\nJogador 1:" + mao1.getMao().size());
+		for(int i=0;i<cartas1.size();i++) {
+			System.out.println(cartas1.get(i).toString());
+			
+		}
+		System.out.println("\nJogador 2:" + mao2.getMao().size());
+		for(int i=0;i<cartas2.size();i++) {
+			System.out.println(cartas2.get(i).toString());
+			
+		}
+
+	
 		
 		matchRounds= new ArrayList<Round>();
 

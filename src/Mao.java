@@ -13,7 +13,7 @@ public class Mao {
 		int i=0;
 		Iterator<Carta> it=maoJogador.iterator();
 		while(it.hasNext()) {
-			if(it.next()==carta) {
+			if(it.next().equals(carta)) {
 				maoJogador.remove(i);
 				//System.out.println("entrou\n" +  maoJogador.size()+ "\n");
 				//Ronda.addCarta(Jogador,Carta)
@@ -22,7 +22,7 @@ public class Mao {
 			i++;
 		
 		}
-		System.out.println(maoJogador.size());
+		//System.out.println(maoJogador.size());
 		return false;
 
 	}

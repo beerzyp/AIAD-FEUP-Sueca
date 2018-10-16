@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class Carta {
@@ -52,5 +53,63 @@ public class Carta {
 		return 0;
 	}
 	public int getPonto() { return valor; }
-	public String toString() { return nome + " de " + naipe; }			
+	public String toString() { return nome + " de " + naipe; }		
+	
+	public Naipe convertStringToNaipe(String carta) {
+		String[] parts = carta.split(" ");
+		String aux = parts[2];
+		switch(aux) {
+		case "ESPADAS":
+			return naipe.ESPADAS;
+		case "COPAS":
+			return naipe.COPAS;
+		case "PAUS":
+			return naipe.PAUS;
+		case "OUROS":
+			return naipe.OUROS;
+		default:
+			return null;
+		}
+		
+	}
+	@Override
+	public boolean equals(Object o) {
+		
+		if(o instanceof Carta) {
+			Carta p = (Carta) o;
+			return  ((Objects.equals(((Carta) o).getNaipe(),this.getNaipe())) && (Objects.equals(((Carta) o).getNome(), this.getNome())));
+		}
+		return false;
+		
+	}
+	
+	public Nome convertStringToNome(String carta) {
+		String[] parts = carta.split(" ");
+		String aux = parts[0];
+		switch(aux) {
+		case "DOIS":
+			return nome.DOIS;
+		case "TRES":
+			return nome.TRES;
+		case "QUATRO":
+			return nome.QUATRO;
+		case "CINCO":
+			return nome.CINCO;
+		case "SEIS":
+			return nome.SEIS;
+		case "SETE":
+			return nome.SETE;
+		case "DAMA":
+			return nome.DAMA;
+		case "VALETE":
+			return nome.VALETE;
+		case "REI":
+			return nome.REI;
+		case "AS":
+			return nome.AS;
+			default:
+				return null;
+		}
+
+	}
 }

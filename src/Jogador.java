@@ -9,7 +9,7 @@ public class Jogador {
 	public int jogNum;
 	public Jogador(Mao mao) {
 		hand=mao;
-		jogNum=counter++;
+		jogNum=++counter;
 	}
 	
 	public int getJogNum() {
