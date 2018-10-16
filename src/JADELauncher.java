@@ -24,10 +24,10 @@ public class JADELauncher {
 		//p2.setParameter(...);
 		ContainerController container = rt.createAgentContainer(p2);
 
-		
-		Agent randomBotAgent = new RandomBotAgent();
+		Jogo sueca = new Jogo();
+		Agent randomBotAgent = new RandomBotAgent(sueca);
 	
-		Agent gameAgent = new AgentGame();
+		Agent gameAgent = new AgentGame(sueca);
 		AgentController ac1;
 		try {
 			ac1 = mainContainer.acceptNewAgent("randomBotAgent", randomBotAgent);

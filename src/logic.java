@@ -4,7 +4,7 @@ public class logic {
 	//reaproveitar logica
 	public logic() {
 		
-	}
+	};
 	public int winner(Round ronda,Jogo game) {
 		Carta biggest=ronda.RetornaCartasNaMesa(1);
 		int winnerPlayer=1;

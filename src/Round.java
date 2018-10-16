@@ -10,6 +10,7 @@ public class Round {
     private Pair<Carta, Integer> par1, par2, par3, par4;
     private int pontosA, pontosB;
     private Jogo game;
+    //Array com par Carta-Jogador pela ordem que foi jogado na ronda
     private ArrayList<Pair<Carta,Integer>> cardsPlayerByOrder;
     public Round(Jogo game,ArrayList<Pair<Carta,Integer>> playerCardInOrder) {
     	this.game=game;

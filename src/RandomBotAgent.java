@@ -4,16 +4,17 @@ import jade.lang.acl.ACLMessage;
 public class RandomBotAgent extends Agent {
 	
 	Mao botHand;
-	
-	public RandomBotAgent() {
-	};
+	private Jogo sueca;
+	public RandomBotAgent(Jogo sueca) {
+		this.sueca=sueca;
+	}
 	/*
 	 * (non-Javadoc)
 	 * @see jade.core.Agent#setup()
 	 */
 	
 	public void setup() {
-		addBehaviour(new MakeMoveBehaviour(null, null));
+		addBehaviour(new MakeMoveBehaviour(this.sueca));
 		
 	}
 	protected void takeDown() {

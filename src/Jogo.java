@@ -3,20 +3,38 @@ import java.util.List;
 import jade.core.Agent;
 import jade.util.leap.Serializable;
 
-public class Jogo implements Serializable{
+public class Jogo {
 	private Mao mao1,mao2,mao3,mao4;
-		/*
+	private Jogador player1,player2,player3,player4;
+/*
 		 * (non-Javadoc)
 		 * @see jade.core.Agent#setup()
 		 * The setup() method is intended to include agent initializations. 
 		 * Behaviours can be added at any time: when an agent starts (in the setup()
 method) or from within other behaviours. 
 		 */
+	private ArrayList<Round> matchRounds;
+	private logic gameLogic;
+	public logic getGameLogic() {
+		return gameLogic;
+	}
+	public void setGameLogic(logic gameLogic) {
+		this.gameLogic = gameLogic;
+	}
+	public void insertRound(Round round) {
+		this.matchRounds.add(round);
+	}
+	public ArrayList<Round> getMatchRounds() {
+		return matchRounds;
+	}
+	public void setMatchRounds(ArrayList<Round> matchRounds) {
+		this.matchRounds = matchRounds;
+	}
 	public Jogo() {
 		//System.out.println(this.getAID().getName());
 		int jogadores = 4;
 		List<List> maos = new ArrayList<List>(4);
-		logic gameLogic= new logic();
+		gameLogic= new logic();
 		Baralho baralho = new Baralho();
 		baralho.shuffle();
 		setTrunfo(baralho.getBaralho().get(0));
@@ -25,17 +43,17 @@ method) or from within other behaviours.
 		List<Carta> cartas3 = baralho.dar(2);
 		List<Carta> cartas4 = baralho.dar(1);
 		mao1= new Mao(cartas1);
-		Jogador player1 = new Jogador(mao1);
+		player1 = new Jogador(mao1);
 
 		mao2= new Mao(cartas2);
-		Jogador player2 = new Jogador(mao2);
+		player2 = new Jogador(mao2);
 
 		mao3= new Mao(cartas3);
-		Jogador player3 = new Jogador(mao3);
+		player3 = new Jogador(mao3);
 		//System.out.println("\nJogador 3:" + cartas3.size());
 
 		mao4= new Mao(cartas4);
-		Jogador player4 = new Jogador(mao4);
+		player4 = new Jogador(mao4);
 		
 		//PRINT HAND PLAYER 1
 //		System.out.println("\nJogador 1:" + mao1.getMao().size());
@@ -44,7 +62,7 @@ method) or from within other behaviours.
 //			
 //		}
 		
-		ArrayList<Round> matchRounds= new ArrayList<Round>();
+		matchRounds= new ArrayList<Round>();
 
 		
 	}
@@ -132,6 +150,31 @@ method) or from within other behaviours.
 	public void setMao4(Mao mao4) {
 		this.mao4 = mao4;
 	}
+	public Jogador getPlayer1() {
+	return player1;
+}
+	public void setPlayer1(Jogador player1) {
+		this.player1 = player1;
+	}
+	public Jogador getPlayer2() {
+		return player2;
+	}
+	public void setPlayer2(Jogador player2) {
+		this.player2 = player2;
+	}
+	public Jogador getPlayer3() {
+		return player3;
+	}
+	public void setPlayer3(Jogador player3) {
+		this.player3 = player3;
+	}
+	public Jogador getPlayer4() {
+		return player4;
+	}
+	public void setPlayer4(Jogador player4) {
+		this.player4 = player4;
+	}
+
 
 	
 
