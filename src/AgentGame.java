@@ -8,9 +8,7 @@ public class AgentGame extends Agent{
 	public void setup() {
 		System.out.println("entrou");
 		addBehaviour(new AskForPlayerMove(this.suecaGame));
-		suecaGame = new Jogo();
-//		System.out.println("chegou" + suecaGame.getMao1().getMao().size());
-//		System.out.println(this.getAID().getLocalName());
+
 	}
 	
 	public Jogo getSueca(){

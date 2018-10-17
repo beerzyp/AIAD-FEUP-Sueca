@@ -71,8 +71,8 @@ public class logic {
 		if(ronda.getNumPlays()==0) // primeira jogada é sempre valida
 			return true;
 		else {
-			if(player.getPlayerHand().checkIfHasNaipe(ronda.RetornaCartasNaMesa(1).getNaipe())) {//se tiver cartas do mesmo naipe que a jogada
-				if(attempt.getNaipe()==ronda.RetornaCartasNaMesa(1).getNaipe()) { //se joga do mesmo naipe
+			if(player.getPlayerHand().checkIfHasNaipe(ronda.RetornaCartasNaMesa(player.getJogNum()).getNaipe())) {//se tiver cartas do mesmo naipe que a jogada
+				if(attempt.getNaipe()==ronda.RetornaCartasNaMesa(player.getJogNum()).getNaipe()) { //se joga do mesmo naipe
 					return true;
 				}
 				else return false;

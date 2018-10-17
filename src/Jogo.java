@@ -4,7 +4,7 @@ import jade.core.Agent;
 import jade.util.leap.Serializable;
 
 public class Jogo {
-	private Mao mao1,mao2,mao3,mao4;
+	private Mao player1Mao,player2Mao,player3Mao,player4Mao;
 	private Jogador player1,player2,player3,player4;
 /*
 		 * (non-Javadoc)
@@ -42,30 +42,40 @@ method) or from within other behaviours.
 		List<Carta> cartas2 = baralho.dar(3);
 		List<Carta> cartas3 = baralho.dar(2);
 		List<Carta> cartas4 = baralho.dar(1);
-		mao1= new Mao(cartas1);
-		player1 = new Jogador(mao1);
+		player1Mao= new Mao(cartas1);
+		player1 = new Jogador(player1Mao);
 
-		mao2= new Mao(cartas2);
-		player2 = new Jogador(mao2);
+		player2Mao= new Mao(cartas2);
+		player2 = new Jogador(player2Mao);
 
-		mao3= new Mao(cartas3);
-		player3 = new Jogador(mao3);
+		player3Mao = new Mao(cartas3);
+		player3 = new Jogador(player3Mao);
 		//System.out.println("\nJogador 3:" + cartas3.size());
 
-		mao4= new Mao(cartas4);
-		player4 = new Jogador(mao4);
+		player4Mao= new Mao(cartas4);
+		player4 = new Jogador(player4Mao);
 	
-		System.out.println("\nJogador 1:" + mao1.getMao().size());
+		System.out.println("\nJogador 1:" + player1Mao.getMao().size());
 		for(int i=0;i<cartas1.size();i++) {
 			System.out.println(cartas1.get(i).toString());
 			
 		}
-		System.out.println("\nJogador 2:" + mao2.getMao().size());
+		System.out.println("\nJogador 2:" + player2Mao.getMao().size());
 		for(int i=0;i<cartas2.size();i++) {
 			System.out.println(cartas2.get(i).toString());
 			
 		}
-
+		
+		System.out.println("\nJogador 3:" + player3Mao.getMao().size());
+		for(int i=0;i<cartas3.size();i++) {
+			System.out.println(cartas3.get(i).toString());
+			
+		}
+		System.out.println("\nJogador 4:" + player4Mao.getMao().size());
+		for(int i=0;i<cartas4.size();i++) {
+			System.out.println(cartas4.get(i).toString());
+			
+		}
 	
 		
 		matchRounds= new ArrayList<Round>();
@@ -133,53 +143,34 @@ method) or from within other behaviours.
 
 	
 	public Mao getMao1() {
-		return mao1;
+		return player1Mao;
 	}
-	public void setMao1(Mao mao1) {
-		this.mao1 = mao1;
-	}
+
 	public Mao getMao2() {
-		return mao2;
+		return player2Mao;
 	}
-	public void setMao2(Mao mao2) {
-		this.mao2 = mao2;
-	}
+
 	public Mao getMao3() {
-		return mao3;
+		return player3Mao;
 	}
-	public void setMao3(Mao mao3) {
-		this.mao3 = mao3;
-	}
+
 	public Mao getMao4() {
-		return mao4;
+		return player4Mao;
 	}
-	public void setMao4(Mao mao4) {
-		this.mao4 = mao4;
-	}
+
 	public Jogador getPlayer1() {
 	return player1;
-}
-	public void setPlayer1(Jogador player1) {
-		this.player1 = player1;
 	}
 	public Jogador getPlayer2() {
 		return player2;
 	}
-	public void setPlayer2(Jogador player2) {
-		this.player2 = player2;
-	}
 	public Jogador getPlayer3() {
 		return player3;
-	}
-	public void setPlayer3(Jogador player3) {
-		this.player3 = player3;
 	}
 	public Jogador getPlayer4() {
 		return player4;
 	}
-	public void setPlayer4(Jogador player4) {
-		this.player4 = player4;
-	}
+
 
 
 	

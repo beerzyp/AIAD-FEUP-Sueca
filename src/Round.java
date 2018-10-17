@@ -66,7 +66,7 @@ public class Round {
     }
     
     public Carta RetornaCartasNaMesa(int jogador) {
-        return returnTableHand().get(jogador-1).getKey();
+        return returnTableHand().get(jogador-2).getKey();
     }
     
     
