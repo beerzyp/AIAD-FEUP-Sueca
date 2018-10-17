@@ -39,13 +39,21 @@ public class MakeMoveBehaviour extends Behaviour{
 		int Result = r.nextInt(High-Low) + Low;
 		switch(this.player) {
 		case 1:
-			return this.sueca.getMao1().getCartaAt(Result);
+			High = this.sueca.getPlayer1().getPlayerHand().getMao().size() - 1;
+			Result = r.nextInt(High-Low) + Low;
+			return this.sueca.getPlayer1().getPlayerHand().getCartaAt(Result);
 		case 2:
-			return this.sueca.getMao2().getCartaAt(Result);
+			High = this.sueca.getPlayer2().getPlayerHand().getMao().size() - 1;
+			Result = r.nextInt(High-Low) + Low;
+			return this.sueca.getPlayer2().getPlayerHand().getCartaAt(Result);
 		case 3:
-			return this.sueca.getMao3().getCartaAt(Result);
+			High = this.sueca.getPlayer3().getPlayerHand().getMao().size() - 1;
+			Result = r.nextInt(High-Low) + Low;
+			return this.sueca.getPlayer3().getPlayerHand().getCartaAt(Result);
 		case 4:
-			return this.sueca.getMao4().getCartaAt(Result);
+			High = this.sueca.getPlayer4().getPlayerHand().getMao().size() - 1;
+			Result = r.nextInt(High-Low) + Low;
+			return this.sueca.getPlayer4().getPlayerHand().getCartaAt(Result);
 		
 		default:
 			return null;
