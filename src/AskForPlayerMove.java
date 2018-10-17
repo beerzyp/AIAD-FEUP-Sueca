@@ -27,7 +27,7 @@ public class AskForPlayerMove extends Behaviour {
 		Round round=new Round(sueca, jogadas);
 		this.sueca.insertRound(round);
 		while(roundNumber==0){
-			if(counter>2)
+			if(counter>4)
 				break;
 			String botToPlay = "randomBotAgent"+counter;
 			//SEND REQUEST

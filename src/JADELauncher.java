@@ -49,6 +49,20 @@ public class JADELauncher {
 			e.printStackTrace();
 		}
 		
+		try {
+			ac1 = mainContainer.acceptNewAgent("randomBotAgent3", randomBotAgent3);
+			ac1.start();
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			ac1 = mainContainer.acceptNewAgent("randomBotAgent4", randomBotAgent4);
+			ac1.start();
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
+
 
 		AgentController ac2;
 		try {

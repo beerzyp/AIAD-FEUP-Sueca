@@ -4,9 +4,9 @@ public class AgentGame extends Agent{
 	Jogo suecaGame;
 	public AgentGame(Jogo sueca) {
 		this.suecaGame=sueca;
+		System.out.println("TRUNFO: " + this.suecaGame.getTrunfo().toString() + "\n\n");
 	}
 	public void setup() {
-		System.out.println("entrou");
 		addBehaviour(new AskForPlayerMove(this.suecaGame));
 
 	}
