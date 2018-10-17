@@ -33,7 +33,19 @@ public class JADELauncher {
 		Agent gameAgent = new AgentGame(sueca);
 		AgentController ac1;
 
-
+		AgentController ac3;
+		try {
+			ac3 = mainContainer.acceptNewAgent("myRMA", new jade.tools.rma.rma());
+			ac3.start();
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		try {
 			ac1 = mainContainer.acceptNewAgent("randomBotAgent1", randomBotAgent1);
 			ac1.start();
@@ -72,14 +84,7 @@ public class JADELauncher {
 			e.printStackTrace();
 		}
 		
-		AgentController ac3;
-		try {
-			ac3 = mainContainer.acceptNewAgent("myRMA", new jade.tools.rma.rma());
-			ac3.start();
-		} catch (StaleProxyException e) {
-			e.printStackTrace();
-		}
-
+	
 	}
 
 }
