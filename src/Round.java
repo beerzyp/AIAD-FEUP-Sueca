@@ -100,7 +100,7 @@ public class Round {
 
 	public void printRonda() {
 		for(int i=0;i<this.cardsPlayerByOrder.size();i++) {
-			System.out.println("Jogador Nº" + (i+1) + ":"+ this.cardsPlayerByOrder.get(i).getKey().getNome());
+			System.out.println("Jogador Nº" + this.cardsPlayerByOrder.get(i).getValue() + ":"+ this.cardsPlayerByOrder.get(i).getKey().toString());
 		}
 	}
     

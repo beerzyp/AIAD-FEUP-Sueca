@@ -18,11 +18,23 @@ public class AskForPlayerMove extends Behaviour {
 		this.carta=sueca.getMao1().getCartaAt(0);
 	}
 	
-	private int roundNumber=0;
+	private static int roundNumber=0;
+	private static int counter;
+	
+	public  static void incrementCounter() {
+		if(counter>=4) {
+			counter=0;
+		}
+		else counter++;
+	}
+	public static void setCounter(int i) 
+	{
+		counter=i;
+	}
 	
 	@Override 
 	public void action() {
-		int counter=1;
+		counter=1;
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
 		Round round=new Round(sueca, jogadas);
 		this.sueca.insertRound(round);
@@ -53,7 +65,7 @@ public class AskForPlayerMove extends Behaviour {
 					//System.out.println(this.sueca.getPlayer1().getJogNum());
 					round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer1().getJogNum()));
 					System.out.println("size hand player1: " +this.sueca.getMao1().getMao().size());
-					counter++;
+					incrementCounter();
 				}
 				break;
 			case 2:
@@ -62,7 +74,7 @@ public class AskForPlayerMove extends Behaviour {
 					//System.out.println(this.sueca.getPlayer2().getJogNum());
 					round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer2().getJogNum()));
 					System.out.println("size hand player2:  " +this.sueca.getMao2().getMao().size());
-					counter++;
+					incrementCounter();
 				}
 				break;
 			case 3:
@@ -71,7 +83,7 @@ public class AskForPlayerMove extends Behaviour {
 					//System.out.println(this.sueca.getPlayer2().getJogNum());
 					round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer3().getJogNum()));
 					System.out.println("size hand player3:  " +this.sueca.getMao3().getMao().size());
-					counter++;
+					incrementCounter();
 				}
 				break;
 			case 4:
@@ -80,7 +92,7 @@ public class AskForPlayerMove extends Behaviour {
 					//System.out.println(this.sueca.getPlayer2().getJogNum());
 					round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer4().getJogNum()));
 					System.out.println("size hand player4:  " +this.sueca.getMao4().getMao().size());
-					counter++;
+					incrementCounter();
 					roundNumber++;
 				}
 				break;
@@ -92,10 +104,23 @@ public class AskForPlayerMove extends Behaviour {
 			}	
 		}
 		while(roundNumber<10) {
-			Round round1To9=new Round(sueca, jogadas);
-			this.sueca.insertRound(round);
+			/*Round round1To9=new Round(sueca, jogadas);
+			this.sueca.insertRound(round);*/
 			int lastRoundWinner=this.sueca.getGameLogic().winner(this.sueca.getMatchRounds().get(roundNumber-1), this.sueca);
-			System.out.println("\nLast Round Winner: "+ (lastRoundWinner-1));
+			System.out.println("\nLast Round Winner: "+ (lastRoundWinner) + "    ");
+			this.sueca.getMatchRounds().get(roundNumber-1).printRonda();
+			System.out.println("----------NEW ROUND------------\n");
+			//SEND REQUEST
+//			String botToPlay = "randomBotAgent"+Integer.toString(lastRoundWinner);
+//			setCounter(lastRoundWinner);
+//			ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
+//			request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
+//			request.setLanguage("Portugues");
+//			request.setOntology("Sueca-Ronda");
+//			request.setContent("Your turn");
+//			this.myAgent.send(request);
+			//RECEIVE REQUEST
+			
 			break;
 		}
 		
