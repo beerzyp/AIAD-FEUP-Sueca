@@ -52,16 +52,16 @@ public class logic {
 			return winnerPlayer;
 		}
 		else {
-			if ((ronda.RetornaCartasNaMesa(2).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(2).getNaipe()==biggest.getNaipe())){
-				biggest = ronda.RetornaCartasNaMesa(2);
+			if ((ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getNaipe()==biggest.getNaipe())){
+				biggest = ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1);
 				winnerPlayer = 2;
 		    	}
-			if ((ronda.RetornaCartasNaMesa(3).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(3).getNaipe()==biggest.getNaipe())){
-				biggest = ronda.RetornaCartasNaMesa(3);
+			if ((ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getNaipe()==biggest.getNaipe())){
+				biggest = ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1);
 				winnerPlayer = 3;
 		    	}
-			if ((ronda.RetornaCartasNaMesa(4).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(4).getNaipe()==biggest.getNaipe())){
-				biggest = ronda.RetornaCartasNaMesa(4);
+			if ((ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getNaipe()==biggest.getNaipe())){
+				biggest = ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1);
 				winnerPlayer = 4;
 		    	}
 			return winnerPlayer;
@@ -72,7 +72,7 @@ public class logic {
 			return true;
 		else {
 			if(player.getPlayerHand().checkIfHasNaipe(ronda.RetornaCartasNaMesa(player.getJogNum()).getNaipe())) {//se tiver cartas do mesmo naipe que a jogada
-				if(attempt.getNaipe()==ronda.RetornaCartasNaMesa(player.getJogNum()).getNaipe()) { //se joga do mesmo naipe
+				if(attempt.getNaipe()==ronda.RetornaCartasNaMesa(2).getNaipe()) { //se joga do mesmo naipe
 					return true;
 				}
 				else return false;
