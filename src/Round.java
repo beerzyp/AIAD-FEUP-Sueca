@@ -36,7 +36,7 @@ public class Round {
     
     
     public boolean insertPlay(Pair<Carta,Integer> newPlay) {
-    	passToNextPlayer();
+    	//passToNextPlayer();
     	return this.cardsPlayerByOrder.add(newPlay);
     }
     private void passToNextPlayer() {

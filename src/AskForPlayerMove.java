@@ -81,6 +81,7 @@ public class AskForPlayerMove extends Behaviour {
 					round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer4().getJogNum()));
 					System.out.println("size hand player4:  " +this.sueca.getMao4().getMao().size());
 					counter++;
+					roundNumber++;
 				}
 				break;
 			default:
@@ -90,9 +91,12 @@ public class AskForPlayerMove extends Behaviour {
 				}
 			}	
 		}
-		while(roundNumber<=10) {
+		while(roundNumber<10) {
+			Round round1To9=new Round(sueca, jogadas);
+			this.sueca.insertRound(round);
+			int lastRoundWinner=this.sueca.getGameLogic().winner(this.sueca.getMatchRounds().get(roundNumber-1), this.sueca);
+			System.out.println("\nLast Round Winner: "+ (lastRoundWinner-1));
 			break;
-			
 		}
 		
 		this.done();

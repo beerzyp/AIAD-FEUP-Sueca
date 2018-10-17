@@ -7,44 +7,44 @@ public class logic {
 	};
 	public int winner(Round ronda,Jogo game) {
 		//Jogadores 1 2 3 4
-		Carta biggest=ronda.RetornaCartasNaMesa(1);
+		Carta biggest=ronda.RetornaCartasNaMesa(game.getPlayer1().getJogNum()+1);
 		int winnerPlayer=1;
 		if (ronda.temTrunfoNaMesa()){		
-			if (ronda.RetornaCartasNaMesa(2).getNaipe() == game.getTrunfo().getNaipe()){//JOGADOR 2 JOGA TRUNFO
+			if (ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getNaipe() == game.getTrunfo().getNaipe()){//JOGADOR 2 JOGA TRUNFO
 				if (biggest.getNaipe() == game.getTrunfo().getNaipe()){//JOGADOR 1 JOGOU TRUNFO
-					if( ronda.RetornaCartasNaMesa(2).getPonto() > biggest.getPonto() ){
-						biggest = ronda.RetornaCartasNaMesa(2);
+					if( ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getPonto() > biggest.getPonto() ){
+						biggest = ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1);
 						winnerPlayer = 2;
 					}
 				}
 				else {
-					biggest=ronda.RetornaCartasNaMesa(2);
+					biggest=ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1);
 					winnerPlayer = 2;
 				}
 				
 			}
-			if (ronda.RetornaCartasNaMesa(3).getNaipe() == game.getTrunfo().getNaipe()){
+			if (ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getNaipe() == game.getTrunfo().getNaipe()){
 				if (biggest.getNaipe() == game.getTrunfo().getNaipe()){
-					if( ronda.RetornaCartasNaMesa(3).getPonto() > biggest.getPonto()){
-						biggest = ronda.RetornaCartasNaMesa(3);
+					if( ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getPonto() > biggest.getPonto()){
+						biggest = ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1);
 						winnerPlayer = 3;
 					}
 				}
 				else {
-					biggest = ronda.RetornaCartasNaMesa(3);
+					biggest = ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1);
 					winnerPlayer = 3;
 				}
 				
 			}
-			if (ronda.RetornaCartasNaMesa(4).getNaipe() == game.getTrunfo().getNaipe()){
+			if (ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getNaipe() == game.getTrunfo().getNaipe()){
 				if (biggest.getNaipe() == game.getTrunfo().getNaipe()){
-					if( ronda.RetornaCartasNaMesa(4).getPonto() > biggest.getPonto()){
-						biggest = ronda.RetornaCartasNaMesa(4);
+					if( ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getPonto() > biggest.getPonto()){
+						biggest = ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1);
 						winnerPlayer = 4;
 					}
 				}
 				else {
-					biggest = ronda.RetornaCartasNaMesa(4);
+					biggest = ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1);
 					winnerPlayer = 4;
 				}
 				
