@@ -25,12 +25,12 @@ public class JADELauncher {
 		ContainerController container = rt.createAgentContainer(p2);
 
 		Jogo sueca = new Jogo();
-		Agent randomBotAgent1 = new RandomBotAgent(sueca,sueca.getPlayer1());
-		Agent randomBotAgent2 = new RandomBotAgent(sueca,sueca.getPlayer2());
-		Agent randomBotAgent3 = new RandomBotAgent(sueca,sueca.getPlayer3());
-		Agent randomBotAgent4 = new RandomBotAgent(sueca,sueca.getPlayer4());
+		Agent randomBotAgent1 = new RandomBotAGENT(sueca,sueca.getPlayer1());
+		Agent randomBotAgent2 = new RandomBotAGENT(sueca,sueca.getPlayer2());
+		Agent randomBotAgent3 = new RandomBotAGENT(sueca,sueca.getPlayer3());
+		Agent randomBotAgent4 = new RandomBotAGENT(sueca,sueca.getPlayer4());
 
-		Agent gameAgent = new AgentGame(sueca);
+		Agent gameAgent = new GameAGENT(sueca);
 		AgentController ac1;
 
 		AgentController ac3;

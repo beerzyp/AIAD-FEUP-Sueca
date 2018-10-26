@@ -84,6 +84,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		}
 		//Tests play for current Round
 		}
+		currRound.printRonda();
 	}	
 	
 

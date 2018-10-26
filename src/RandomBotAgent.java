@@ -1,13 +1,13 @@
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 
-public class RandomBotAgent extends Agent {
+public class RandomBotAGENT extends Agent {
 	private int counter;
 	Mao botHand;
 	private Jogo sueca;
 	private Jogador player;
 
-	public RandomBotAgent(Jogo sueca,Jogador player) {
+	public RandomBotAGENT(Jogo sueca,Jogador player) {
 		this.sueca = sueca;
 		this.player=player;
 		counter=player.getJogNum();
