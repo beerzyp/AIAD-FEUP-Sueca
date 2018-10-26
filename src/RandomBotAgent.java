@@ -2,12 +2,15 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 
 public class RandomBotAgent extends Agent {
-	private static int counter = 0;
+	private int counter;
 	Mao botHand;
 	private Jogo sueca;
+	private Jogador player;
 
-	public RandomBotAgent(Jogo sueca) {
+	public RandomBotAgent(Jogo sueca,Jogador player) {
 		this.sueca = sueca;
+		this.player=player;
+		counter=player.getJogNum();
 	}
 	/*
 	 * (non-Javadoc)
@@ -16,7 +19,6 @@ public class RandomBotAgent extends Agent {
 	 */
 
 	public void setup() {
-		counter++;
 		addBehaviour(new MakeMoveBehaviour(this.sueca, counter));
 
 	}

@@ -10,9 +10,9 @@ public class MakeMoveBehaviour extends Behaviour{
 //	private Mao hand;
 	private Jogo sueca;
 	private int player;
-	public MakeMoveBehaviour(Jogo sueca,int player) {
+	public MakeMoveBehaviour(Jogo sueca,int jogador) {
 		this.sueca=sueca;
-		this.player=player;
+		this.player=jogador;
 	}
 	@Override
 	public void action() {
@@ -35,29 +35,10 @@ public class MakeMoveBehaviour extends Behaviour{
 	public Carta returnPLay() {
 		Random r = new Random();
 		int Low = 0;
-		int High = 9;
+		int High = this.sueca.getPlayer(this.player).getPlayerHand().getMao().size() - 1;
 		int Result = r.nextInt(High-Low) + Low;
-		switch(this.player) {
-		case 1:
-			High = this.sueca.getPlayer1().getPlayerHand().getMao().size() - 1;
-			Result = r.nextInt(High-Low) + Low;
-			return this.sueca.getPlayer1().getPlayerHand().getCartaAt(Result);
-		case 2:
-			High = this.sueca.getPlayer2().getPlayerHand().getMao().size() - 1;
-			Result = r.nextInt(High-Low) + Low;
-			return this.sueca.getPlayer2().getPlayerHand().getCartaAt(Result);
-		case 3:
-			High = this.sueca.getPlayer3().getPlayerHand().getMao().size() - 1;
-			Result = r.nextInt(High-Low) + Low;
-			return this.sueca.getPlayer3().getPlayerHand().getCartaAt(Result);
-		case 4:
-			High = this.sueca.getPlayer4().getPlayerHand().getMao().size() - 1;
-			Result = r.nextInt(High-Low) + Low;
-			return this.sueca.getPlayer4().getPlayerHand().getCartaAt(Result);
-		
-		default:
-			return null;
-		}
+		return this.sueca.getPlayer(this.player).getPlayerHand().getCartaAt(Result);
+
 	}
 	@Override
 	public boolean done() {

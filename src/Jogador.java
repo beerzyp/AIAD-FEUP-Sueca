@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Jogador {
 	
@@ -7,21 +8,24 @@ public class Jogador {
 
 	private Mao hand;
 	public int jogNum;
-	public Jogador(Mao mao) {
-		hand=mao;
-		jogNum=++counter;
+	public Jogador() {
+		// TODO Auto-generated constructor stub
 	}
 	
+	public Jogador(List<Carta> cartas1) {
+		jogNum=++counter;
+		hand =new Mao(cartas1);
+	}
+
 	public int getJogNum() {
 		return this.jogNum;
 	}
 	public Mao getPlayerHand() {
-		// TODO Auto-generated method stub
 		return this.hand;
 	}
 	
 	public boolean fazJogada(Carta carta) {
-		if(hand.jogaCarta(carta))
+		if(this.hand.jogaCarta(carta))
 			return true;
 		return false;
 	}

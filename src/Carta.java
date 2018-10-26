@@ -12,7 +12,7 @@ public class Carta {
 	private Naipe naipe;
 	private Nome nome;
 	private int valor;
-
+	public Carta() {};
 	public Carta(Nome nome, Naipe naipe){
 		this.nome = nome;
 		this.naipe = naipe;

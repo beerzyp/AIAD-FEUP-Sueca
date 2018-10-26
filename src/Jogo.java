@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jade.core.Agent;
 import jade.util.leap.Serializable;
-
+import javafx.util.Pair;
 public class Jogo {
 	private Mao player1Mao,player2Mao,player3Mao,player4Mao;
 	private Jogador player1,player2,player3,player4;
@@ -30,6 +30,24 @@ method) or from within other behaviours.
 	public void setMatchRounds(ArrayList<Round> matchRounds) {
 		this.matchRounds = matchRounds;
 	}
+	
+	public Jogador getPlayer(int n) {
+		switch(n) {
+		case 1:
+			return this.getPlayer1();
+		case 2:
+			return this.getPlayer2();
+		case 3:
+			return this.getPlayer3();
+		case 4:
+			return this.getPlayer4();
+		
+		default:
+			return null;
+		}
+	}
+	
+		
 	public Jogo() {
 		//System.out.println(this.getAID().getName());
 		int jogadores = 4;
@@ -42,36 +60,28 @@ method) or from within other behaviours.
 		List<Carta> cartas2 = baralho.dar(3);
 		List<Carta> cartas3 = baralho.dar(2);
 		List<Carta> cartas4 = baralho.dar(1);
-		player1Mao= new Mao(cartas1);
-		player1 = new Jogador(player1Mao);
-
-		player2Mao= new Mao(cartas2);
-		player2 = new Jogador(player2Mao);
-
-		player3Mao = new Mao(cartas3);
-		player3 = new Jogador(player3Mao);
-		//System.out.println("\nJogador 3:" + cartas3.size());
-
-		player4Mao= new Mao(cartas4);
-		player4 = new Jogador(player4Mao);
+		player1 = new Jogador(cartas1);
+		player2 = new Jogador(cartas2);
+		player3 = new Jogador(cartas3);
+		player4 = new Jogador(cartas4);
 	
-		System.out.println("\nJogador 1:" + player1Mao.getMao().size());
+		System.out.println("\nJogador 1:" + player1.getPlayerHand().getMao().size());
 		for(int i=0;i<cartas1.size();i++) {
 			System.out.println(cartas1.get(i).toString());
 			
 		}
-		System.out.println("\nJogador 2:" + player2Mao.getMao().size());
+		System.out.println("\nJogador 2:" +  player2.getPlayerHand().getMao().size());
 		for(int i=0;i<cartas2.size();i++) {
 			System.out.println(cartas2.get(i).toString());
 			
 		}
 		
-		System.out.println("\nJogador 3:" + player3Mao.getMao().size());
+		System.out.println("\nJogador 3:" +  player3.getPlayerHand().getMao().size());
 		for(int i=0;i<cartas3.size();i++) {
 			System.out.println(cartas3.get(i).toString());
 			
 		}
-		System.out.println("\nJogador 4:" + player4Mao.getMao().size());
+		System.out.println("\nJogador 4:" +  player4.getPlayerHand().getMao().size());
 		for(int i=0;i<cartas4.size();i++) {
 			System.out.println(cartas4.get(i).toString());
 			
@@ -81,6 +91,22 @@ method) or from within other behaviours.
 		matchRounds= new ArrayList<Round>();
 
 		
+	}
+//	 if(	this.sueca.getGameLogic().validPlay(attempt, this.sueca.getPlayer1(), round)){
+//			this.sueca.getMao1().jogaCarta(attempt);
+//			//System.out.println(this.sueca.getPlayer1().getJogNum());
+//			round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer1().getJogNum()));
+//			System.out.println("size hand player1: " +this.sueca.getMao1().getMao().size());
+//			incrementCounter();
+//		}
+//	
+	public boolean makeMove(Carta attempt,Jogador player,Round round) {
+		if(this.gameLogic.validPlay(attempt, player, round)) {
+			this.player1.fazJogada(attempt);
+			round.insertPlay(new Pair<Carta, Integer>(attempt,player.getJogNum()));
+			return true;
+		}
+		return false;
 	}
 	public int callGameLogicRound(Round round,Mao mao1,Mao mao2,Mao mao3,Mao mao4) {
 	
@@ -142,24 +168,9 @@ method) or from within other behaviours.
 	}
 
 	
-	public Mao getMao1() {
-		return player1Mao;
-	}
-
-	public Mao getMao2() {
-		return player2Mao;
-	}
-
-	public Mao getMao3() {
-		return player3Mao;
-	}
-
-	public Mao getMao4() {
-		return player4Mao;
-	}
-
+	
 	public Jogador getPlayer1() {
-	return player1;
+		return player1;
 	}
 	public Jogador getPlayer2() {
 		return player2;

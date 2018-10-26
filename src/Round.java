@@ -36,7 +36,6 @@ public class Round {
     
     
     public boolean insertPlay(Pair<Carta,Integer> newPlay) {
-    	//passToNextPlayer();
     	return this.cardsPlayerByOrder.add(newPlay);
     }
     private void passToNextPlayer() {
@@ -103,6 +102,7 @@ public class Round {
 			System.out.println("Jogador Nº" + this.cardsPlayerByOrder.get(i).getValue() + ":"+ this.cardsPlayerByOrder.get(i).getKey().toString());
 		}
 	}
+
     
 
  
