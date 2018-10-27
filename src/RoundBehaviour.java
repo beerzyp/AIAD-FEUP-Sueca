@@ -18,20 +18,7 @@ public class RoundBehaviour extends SimpleBehaviour {
 	public void action() {
 		// TODO Auto-generated method stub
 		while(counter<10) {
-		Behaviour seqRoundBehaviour = new SequentialBehaviour();
-		Behaviour checkWinnerRoundBehaviour = new SequentialBehaviour();
-		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
-		Round round=new Round(suecaGame, jogadas);
-		suecaGame.insertRound(round);
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer1(),round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round));
 
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
-		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round);
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
-		this.myAgent.addBehaviour(checkWinnerRoundBehaviour);
 		}
 	}
 
