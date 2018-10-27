@@ -102,7 +102,7 @@ method) or from within other behaviours.
 //	
 	public boolean makeMove(Carta attempt,Jogador player,Round round) {
 		if(this.gameLogic.validPlay(attempt, player, round)) {
-			this.player1.fazJogada(attempt);
+			this.getPlayer(player.getJogNum()).fazJogada(attempt);
 			round.insertPlay(new Pair<Carta, Integer>(attempt,player.getJogNum()));
 			return true;
 		}
