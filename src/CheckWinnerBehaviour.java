@@ -10,6 +10,7 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		int lastRoundWinner=this.sueca.getGameLogic().winner(ronda, sueca);
+		((GameAGENT)this.myAgent).setWinner(lastRoundWinner);
 		System.out.println("VENCEDOR RONDA: player"+ lastRoundWinner+"\n");
 		
 		System.out.println("\nJogador 1:" + sueca.getPlayer1().getPlayerHand().getMao().size());
