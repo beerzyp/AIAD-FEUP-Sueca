@@ -8,7 +8,7 @@ import javafx.util.Pair;
 public class GameAGENT extends Agent{
 	Jogo suecaGame;
 	Jogador playerToMove;
-	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1;
+	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1,checkWinnerRoundBehaviour,checkWinnerRoundBehaviour1;
 	static int numRonda;
 	public GameAGENT(Jogo sueca) {
 		this.suecaGame=sueca;
@@ -29,8 +29,6 @@ public class GameAGENT extends Agent{
 		//Behaviour allRoundsInGame = new RoundBehaviour();
 
 		Behaviour seqRoundBehaviour = new SequentialBehaviour();
-		Behaviour checkWinnerRoundBehaviour = new SequentialBehaviour();
-		Behaviour checkWinnerRoundBehaviour1 = new SequentialBehaviour();
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
 		Round round=new Round(suecaGame, jogadas);
 		suecaGame.insertRound(round);
@@ -38,23 +36,27 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round));
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round));
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round));
-
+		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
+		
+		checkWinnerRoundBehaviour = new SequentialBehaviour();
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
-		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round);
+
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
 		
 		
-		
+		Behaviour seqRoundBehaviour1 = new SequentialBehaviour();
 		Round round1=new Round(suecaGame, jogadas);
 		suecaGame.insertRound(round1);
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer1(),round1));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round1));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round1));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round1));
+		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer1(),round1));
+		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round1));
+		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round1));
+		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round1));
 		
-		((SequentialBehaviour) checkWinnerRoundBehaviour1).addSubBehaviour(seqRoundBehaviour);
 		checkWinnerRound1=new CheckWinnerBehaviour(suecaGame,round1);
+		
+		checkWinnerRoundBehaviour1 = new SequentialBehaviour();
+		((SequentialBehaviour) checkWinnerRoundBehaviour1).addSubBehaviour(seqRoundBehaviour1);
 		((SequentialBehaviour) checkWinnerRoundBehaviour1).addSubBehaviour(checkWinnerRound1);
 		
 		Behaviour TwoRounds = new SequentialBehaviour();

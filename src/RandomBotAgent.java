@@ -11,6 +11,7 @@ public class RandomBotAGENT extends Agent {
 		this.sueca = sueca;
 		this.player=player;
 		counter=player.getJogNum();
+		
 	}
 	/*
 	 * (non-Javadoc)
