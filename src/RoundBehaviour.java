@@ -6,17 +6,11 @@ import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
 import javafx.util.Pair;
 
-public class RoundBehaviour extends OneShotBehaviour {
+public class RoundBehaviour extends Behaviour {
 	public boolean flag=false;
 	Jogo suecaGame;
 	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound;
 	public RoundBehaviour(Jogo sueca) {
-		suecaGame=sueca;
-	}
-	@Override
-	public void action() {
-		// TODO Auto-generated method stub
-
 		Behaviour seqRoundBehaviour = new SequentialBehaviour();
 		Behaviour checkWinnerRoundBehaviour = new SequentialBehaviour();
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
@@ -31,7 +25,17 @@ public class RoundBehaviour extends OneShotBehaviour {
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round);
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
 		this.myAgent.addBehaviour(checkWinnerRoundBehaviour);
+		suecaGame=sueca;
+	}
+	@Override
+	public void action() {
+		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public boolean done() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

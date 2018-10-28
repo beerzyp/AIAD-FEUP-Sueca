@@ -24,10 +24,25 @@ public class GameAGENT extends Agent{
 		/*
 		 * JOGADA de SUECA
 		 */
-
-		
 		//Behaviour allRoundsInGame = new RoundBehaviour();
-
+		ArrayList<ArrayList<SequentialBehaviour>> allRounds = new ArrayList<ArrayList<SequentialBehaviour>>();
+		Behaviour TenRounds = new SequentialBehaviour();
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		this.addBehaviour(TenRounds);
+		
+	}
+	
+	
+	public Behaviour callBaseRoundBehaviour() {
 		Behaviour seqRoundBehaviour = new SequentialBehaviour();
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
 		Round round=new Round(suecaGame, jogadas);
@@ -43,32 +58,8 @@ public class GameAGENT extends Agent{
 
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
-		
-		
-		Behaviour seqRoundBehaviour1 = new SequentialBehaviour();
-		Round round1=new Round(suecaGame, jogadas);
-		suecaGame.insertRound(round1);
-		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer1(),round1));
-		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round1));
-		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round1));
-		((SequentialBehaviour) seqRoundBehaviour1).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round1));
-		
-		checkWinnerRound1=new CheckWinnerBehaviour(suecaGame,round1);
-		
-		checkWinnerRoundBehaviour1 = new SequentialBehaviour();
-		((SequentialBehaviour) checkWinnerRoundBehaviour1).addSubBehaviour(seqRoundBehaviour1);
-		((SequentialBehaviour) checkWinnerRoundBehaviour1).addSubBehaviour(checkWinnerRound1);
-		
-		Behaviour TwoRounds = new SequentialBehaviour();
-		((SequentialBehaviour) TwoRounds).addSubBehaviour(checkWinnerRoundBehaviour);
-		((SequentialBehaviour) TwoRounds).addSubBehaviour(checkWinnerRoundBehaviour1);
-		this.addBehaviour(TwoRounds);
-		//this.myAgent.addBehaviour(checkWinnerRoundBehaviour);
-		/*RoundBehaviour b1 = new RoundBehaviour(suecaGame);
-		addBehaviour(b1);*/
-		
+		return checkWinnerRoundBehaviour;
 	}
-	
 	public Jogo getSueca(){
 		return this.suecaGame;
 	}

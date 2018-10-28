@@ -35,7 +35,7 @@ public class MakeMoveBehaviour extends Behaviour{
 	public Carta returnPLay() {
 		Random r = new Random();
 		int Low = 0;
-		int High = this.sueca.getPlayer(this.player).getPlayerHand().getMao().size() - 1;
+		int High = this.sueca.getPlayer(this.player).getPlayerHand().getMao().size();
 		int Result = r.nextInt(High-Low) + Low;
 		return this.sueca.getPlayer(this.player).getPlayerHand().getCartaAt(Result);
 
