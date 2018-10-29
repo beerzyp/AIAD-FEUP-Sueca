@@ -16,7 +16,7 @@ public class GameAGENT extends Agent{
 		numRonda=0;
 		
 	}
-	int winner;
+	int winner=0;
 	public void setWinner(int n) {
 		winner=n;
 	}
@@ -28,15 +28,17 @@ public class GameAGENT extends Agent{
 		ArrayList<ArrayList<SequentialBehaviour>> allRounds = new ArrayList<ArrayList<SequentialBehaviour>>();
 		Behaviour TenRounds = new SequentialBehaviour();
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		
+		
 		this.addBehaviour(TenRounds);
 		
 	}
@@ -51,6 +53,26 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round));
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round));
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round));
+		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
+		
+		checkWinnerRoundBehaviour = new SequentialBehaviour();
+		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
+
+		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
+		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
+		return checkWinnerRoundBehaviour;
+	}
+	
+	
+	public Behaviour callNextRoundBehaviour() {
+		Behaviour seqRoundBehaviour = new SequentialBehaviour();
+		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
+		Round round=new Round(suecaGame, jogadas);
+		suecaGame.insertRound(round);
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,round));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,round));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,round));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,round));
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
 		
 		checkWinnerRoundBehaviour = new SequentialBehaviour();

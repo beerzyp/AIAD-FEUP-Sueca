@@ -18,10 +18,12 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	private Jogo sueca;
 	private Jogador player;
 	private Round currRound;
+	private static int playerToMove=1;
 	public AskForPlayerMove(Jogo Sueca) {
 		sueca=Sueca;
 		
 	}
+	private static int numOfTimesEntered=0;
 	
 	public AskForPlayerMove(Jogo suecaGame, Jogador playerToMove,Round round) {
 		sueca=suecaGame;
@@ -29,41 +31,43 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		player=playerToMove;
 		currRound=round;
 	}
+	public AskForPlayerMove(Jogo suecaGame,Round round) {
+		sueca=suecaGame;
+		currRound=round;
+		c1=new Carta();
+	}
 
 //	private static int counter=1;
 	
-//	public  static void incrementCounter() {
-//		if(counter>=4) {
-//			counter=1;
-//		}
-//		else counter++;
-//	}
-//	public static void setCounter(int i) 
-//	{
-//		counter=i;
-//	}
+	public  static void incrementCounter() {
+		if(playerToMove>=4) {
+			playerToMove=1;
+		}
+		else playerToMove++;
+	}
+	public static void setCounter(int i) 
+	{
+		playerToMove=i;
+	}
 	
-	/*
-	 * if(	this.sueca.getGameLogic().validPlay(attempt, this.sueca.getPlayer1(), round)){
-					this.sueca.getMao1().jogaCarta(attempt);
-					//System.out.println(this.sueca.getPlayer1().getJogNum());
-					round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer1().getJogNum()));
-					System.out.println("size hand player1: " +this.sueca.getMao1().getMao().size());
-					incrementCounter();
-				}
-	 */
-	/*
-	 * (non-Javadoc)
-	 * @see jade.core.behaviours.Behaviour#action()
-	 */
+	
+	public int nextPlayerToMove() {
+		if(((GameAGENT)this.myAgent).winner==0)
+			return 1;
+		else return ((GameAGENT)this.myAgent).winner;
+	}
 	@Override 
 	public void action() {
 		
-		
-		
+		if (numOfTimesEntered>=4) {
+			playerToMove=nextPlayerToMove();
+			numOfTimesEntered=0;
+		}
+		numOfTimesEntered++;
 		boolean validPlay=false;
 		while(!validPlay) {
-		String botToPlay = "randomBotAgent"+player.getJogNum();
+
+		String botToPlay = "randomBotAgent"+playerToMove;
 		//SEND REQUEST
 		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
 		request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
@@ -78,13 +82,14 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		System.out.println(carta + "\n");
 		Carta attempt;
 		attempt= new Carta(c1.convertStringToNome(carta), c1.convertStringToNaipe(carta));
-		if(this.sueca.makeMove(attempt, player, currRound)) {
+		if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
 			validPlay=true;
 			break;
 		}
 		//Tests play for current Round
 		}
 		currRound.printRonda();
+		incrementCounter();
 	}	
 	
 

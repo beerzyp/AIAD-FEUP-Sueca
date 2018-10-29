@@ -100,10 +100,10 @@ method) or from within other behaviours.
 //			incrementCounter();
 //		}
 //	
-	public boolean makeMove(Carta attempt,Jogador player,Round round) {
-		if(this.gameLogic.validPlay(attempt, player, round)) {
-			this.getPlayer(player.getJogNum()).fazJogada(attempt);
-			round.insertPlay(new Pair<Carta, Integer>(attempt,player.getJogNum()));
+	public boolean makeMove(Carta attempt,int player,Round round) {
+		if(this.gameLogic.validPlay(attempt, this.getPlayer(player), round)) {
+			this.getPlayer(this.getPlayer(player).getJogNum()).fazJogada(attempt);
+			round.insertPlay(new Pair<Carta, Integer>(attempt,this.getPlayer(player).getJogNum()));
 			return true;
 		}
 		return false;
