@@ -12,6 +12,7 @@ public class CardDatabaseBehaviour extends CyclicBehaviour {
 		this.sueca=sueca;
 		this.playerHand=playerHand;
 		cartasJogador = new ArrayList<Carta>(playerHand.getMao());
+		Carta carta;
 		cartasRestantes=new ArrayList<Carta>(this.sueca.getInitialDeck());
 		getCartasRestantes();
 		
@@ -26,6 +27,18 @@ public class CardDatabaseBehaviour extends CyclicBehaviour {
 				}
 			}
 		}
+	}
+	
+	public float getOddOfNaipe(int naipe){
+		float odd=0;
+		int numOfCards=0;
+		for(int i=0;i<this.cartasRestantes.size();i++) {
+			if(this.cartasRestantes.get(i).getNaipe()==naipe)
+				numOfCards++;
+		}
+		odd=numOfCards/this.cartasRestantes.size();
+		return odd;
+		
 	}
 	@Override
 	public void action() {
