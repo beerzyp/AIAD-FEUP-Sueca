@@ -47,9 +47,8 @@ public class GameAGENT extends Agent{
 	}
 	
 	/*
-	 * RANDOM BOT
+	 * CALL NEXT ROUND BEHAVIOUR
 	 */
-	
 	public Behaviour callNextRoundBehaviour() {
 		Behaviour seqRoundBehaviour = new SequentialBehaviour();
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
