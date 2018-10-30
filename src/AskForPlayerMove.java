@@ -19,8 +19,10 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	private Jogador player;
 	private Round currRound;
 	private static int playerToMove=1;
-	public AskForPlayerMove(Jogo Sueca) {
+	private String BotType;
+	public AskForPlayerMove(Jogo Sueca,String botType) {
 		sueca=Sueca;
+		BotType=botType;
 		
 	}
 	private static int numOfTimesEntered=0;
@@ -31,8 +33,9 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		player=playerToMove;
 		currRound=round;
 	}
-	public AskForPlayerMove(Jogo suecaGame,Round round) {
+	public AskForPlayerMove(Jogo suecaGame,Round round,String botType) {
 		sueca=suecaGame;
+		BotType=botType;
 		currRound=round;
 		c1=new Carta();
 	}
@@ -67,7 +70,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		boolean validPlay=false;
 		while(!validPlay) {
 
-		String botToPlay = "randomBotAgent"+playerToMove;
+		String botToPlay = this.BotType+playerToMove;
 		//SEND REQUEST
 		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
 		request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));

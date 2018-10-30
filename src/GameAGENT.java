@@ -9,9 +9,11 @@ public class GameAGENT extends Agent{
 	Jogo suecaGame;
 	Jogador playerToMove;
 	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1,checkWinnerRoundBehaviour,checkWinnerRoundBehaviour1;
+	String typeOfBot;
 	static int numRonda;
-	public GameAGENT(Jogo sueca) {
+	public GameAGENT(Jogo sueca,String typeOfBot) {
 		this.suecaGame=sueca;
+		this.typeOfBot=typeOfBot;
 		System.out.println("TRUNFO: " + this.suecaGame.getTrunfo().toString() + "\n\n");
 		numRonda=0;
 		
@@ -27,7 +29,6 @@ public class GameAGENT extends Agent{
 		//Behaviour allRoundsInGame = new RoundBehaviour();
 		ArrayList<ArrayList<SequentialBehaviour>> allRounds = new ArrayList<ArrayList<SequentialBehaviour>>();
 		Behaviour TenRounds = new SequentialBehaviour();
-		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callBaseRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
@@ -37,42 +38,27 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		//CALL BEHAVIOUR COUNT POINTS
 		
 		
 		this.addBehaviour(TenRounds);
 		
 	}
 	
-	
-	public Behaviour callBaseRoundBehaviour() {
-		Behaviour seqRoundBehaviour = new SequentialBehaviour();
-		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
-		Round round=new Round(suecaGame, jogadas);
-		suecaGame.insertRound(round);
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer1(),round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer2(),round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer3(),round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,suecaGame.getPlayer4(),round));
-		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
-		
-		checkWinnerRoundBehaviour = new SequentialBehaviour();
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
-
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
-		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
-		return checkWinnerRoundBehaviour;
-	}
-	
+	/*
+	 * RANDOM BOT
+	 */
 	
 	public Behaviour callNextRoundBehaviour() {
 		Behaviour seqRoundBehaviour = new SequentialBehaviour();
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
 		Round round=new Round(suecaGame, jogadas);
 		suecaGame.insertRound(round);
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,round));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,round));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
 		
 		checkWinnerRoundBehaviour = new SequentialBehaviour();

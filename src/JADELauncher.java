@@ -29,8 +29,9 @@ public class JADELauncher {
 		Agent randomBotAgent2 = new RandomBotAGENT(sueca,sueca.getPlayer2());
 		Agent randomBotAgent3 = new RandomBotAGENT(sueca,sueca.getPlayer3());
 		Agent randomBotAgent4 = new RandomBotAGENT(sueca,sueca.getPlayer4());
+		Agent SmartBotAGENT = new SmartBotAGENT(sueca,sueca.getPlayer1());
 
-		Agent gameAgent = new GameAGENT(sueca);
+		Agent gameAgent = new GameAGENT(sueca,"randomBotAgent");
 		AgentController ac1;
 
 		AgentController ac3;
@@ -75,6 +76,12 @@ public class JADELauncher {
 			e.printStackTrace();
 		}
 
+		try {
+			ac1 = mainContainer.acceptNewAgent("SmartBotAgent1", SmartBotAGENT);
+			ac1.start();
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
 
 		AgentController ac2;
 		try {

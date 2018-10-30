@@ -6,7 +6,15 @@ import javafx.util.Pair;
 public class Jogo {
 	private Mao player1Mao,player2Mao,player3Mao,player4Mao;
 	private Jogador player1,player2,player3,player4;
-/*
+	private ArrayList<Carta> initialDeck;
+
+	public ArrayList<Carta> getInitialDeck() {
+		return initialDeck;
+	}
+	public void setInitialDeck(ArrayList<Carta> initialDeck) {
+		this.initialDeck = initialDeck;
+	}
+	/*
 		 * (non-Javadoc)
 		 * @see jade.core.Agent#setup()
 		 * The setup() method is intended to include agent initializations. 
@@ -54,6 +62,7 @@ method) or from within other behaviours.
 		List<List> maos = new ArrayList<List>(4);
 		gameLogic= new logic();
 		Baralho baralho = new Baralho();
+		this.initialDeck=new ArrayList<Carta>(baralho.getBaralho());
 		baralho.shuffle();
 		setTrunfo(baralho.getBaralho().get(0));
 		List<Carta> cartas1 = baralho.dar(4);
