@@ -23,33 +23,29 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		request.addReceiver(new AID("SmartBotAgent1", AID.ISLOCALNAME));
 		request.setLanguage("Portugues");
 		request.setOntology("Sueca-Ronda-Final");
-		String s1="";
-		for(int i=0;i<4;i++) {
-			s1+=ronda.returnTableHand().get(i).getKey().toString()+",";
-		}
-		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
-		request.setByteSequenceContent(cardsSequenceSplitByComma);
+		request.setContent("print Ronda \n");
 		this.myAgent.send(request);
-//		System.out.println("\nJogador 1:" + sueca.getPlayer1().getPlayerHand().getMao().size());
-//		for(int i=0;i<sueca.getPlayer1().getPlayerHand().getMao().size();i++) {
-//			System.out.println(sueca.getPlayer1().getPlayerHand().getMao().get(i).toString());
-//			
-//		}
-//		System.out.println("\nJogador 2:" + sueca.getPlayer2().getPlayerHand().getMao().size());
-//		for(int i=0;i<sueca.getPlayer2().getPlayerHand().getMao().size();i++) {
-//			System.out.println(sueca.getPlayer2().getPlayerHand().getMao().get(i).toString());
-//			
-//		}
-//		System.out.println("\nJogador 3:" + sueca.getPlayer3().getPlayerHand().getMao().size());
-//		for(int i=0;i<sueca.getPlayer3().getPlayerHand().getMao().size();i++) {
-//			System.out.println(sueca.getPlayer3().getPlayerHand().getMao().get(i).toString());
-//			
-//		}
-//		System.out.println("\nJogador 4:" + sueca.getPlayer4().getPlayerHand().getMao().size());
-//		for(int i=0;i<sueca.getPlayer4().getPlayerHand().getMao().size();i++) {
-//			System.out.println(sueca.getPlayer4().getPlayerHand().getMao().get(i).toString());
-//			
-//		}
+		
+		System.out.println("\nJogador 1:" + sueca.getPlayer1().getPlayerHand().getMao().size());
+		for(int i=0;i<sueca.getPlayer1().getPlayerHand().getMao().size();i++) {
+			System.out.println(sueca.getPlayer1().getPlayerHand().getMao().get(i).toString());
+			
+		}
+		System.out.println("\nJogador 2:" + sueca.getPlayer2().getPlayerHand().getMao().size());
+		for(int i=0;i<sueca.getPlayer2().getPlayerHand().getMao().size();i++) {
+			System.out.println(sueca.getPlayer2().getPlayerHand().getMao().get(i).toString());
+			
+		}
+		System.out.println("\nJogador 3:" + sueca.getPlayer3().getPlayerHand().getMao().size());
+		for(int i=0;i<sueca.getPlayer3().getPlayerHand().getMao().size();i++) {
+			System.out.println(sueca.getPlayer3().getPlayerHand().getMao().get(i).toString());
+			
+		}
+		System.out.println("\nJogador 4:" + sueca.getPlayer4().getPlayerHand().getMao().size());
+		for(int i=0;i<sueca.getPlayer4().getPlayerHand().getMao().size();i++) {
+			System.out.println(sueca.getPlayer4().getPlayerHand().getMao().get(i).toString());
+			
+		}
 	}
 
 }
