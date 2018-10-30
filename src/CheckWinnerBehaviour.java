@@ -17,6 +17,7 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		int lastRoundWinner=this.sueca.getGameLogic().winner(ronda, sueca);
 		int realWinner=ronda.returnTableHand().get(lastRoundWinner-1).getValue();
 		((GameAGENT)this.myAgent).setWinner(realWinner);
+		((GameAGENT)this.myAgent).insertRonda(ronda);
 		System.out.println("VENCEDOR RONDA: player"+ realWinner+"\n");
 		//SEND REQUEST
 		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);

@@ -11,10 +11,18 @@ public class GameAGENT extends Agent{
 	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1,checkWinnerRoundBehaviour,checkWinnerRoundBehaviour1;
 	String typeOfBot;
 	static int numRonda;
+	private ArrayList<Round> rondas;
+	public ArrayList<Round> getRondas() {
+		return rondas;
+	}
+	public void setRondas(ArrayList<Round> rondas) {
+		this.rondas = rondas;
+	}
 	public GameAGENT(Jogo sueca,String typeOfBot) {
 		this.suecaGame=sueca;
 		this.typeOfBot=typeOfBot;
 		System.out.println("TRUNFO: " + this.suecaGame.getTrunfo().toString() + "\n\n");
+		this.rondas=new ArrayList<Round>();
 		numRonda=0;
 		
 	}
@@ -64,11 +72,15 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
 
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
+		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(new CalcScoreRoundBehaviour(this.suecaGame,round));
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
 		return checkWinnerRoundBehaviour;
 	}
 	public Jogo getSueca(){
 		return this.suecaGame;
+	}
+	public void insertRonda(Round ronda) {
+		this.rondas.add(ronda);	
 	}
 	
 }
