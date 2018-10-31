@@ -11,12 +11,38 @@ import java.util.ArrayList;
 
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import javafx.util.Pair;
 
 public class CreateDataSetBehaviour extends OneShotBehaviour {
 	private Jogo sueca;
 	private ArrayList<Round> rondas;
-	public CreateDataSetBehaviour(Jogo suecaGame) {
+	public boolean percepton;
+	int teamAPoints=0;
+	int teamBPoints=0;
+	public CreateDataSetBehaviour(Jogo suecaGame,boolean flag) {
 		this.sueca=suecaGame;
+		percepton=flag;
+		calculateInitialScore ();
+	}
+	
+	public  void calculateInitialScore (){
+		teamAPoints=0;
+		teamBPoints=0;
+		for(int i=0;i<this.sueca.getPlayer1().getPlayerHand().getMao().size();i++) {
+			teamAPoints+=this.sueca.getPlayer1().getPlayerHand().getMao().get(i).getPonto();
+		}
+		for(int j=0;j<this.sueca.getPlayer3().getPlayerHand().getMao().size();j++) {
+			teamAPoints+=this.sueca.getPlayer3().getPlayerHand().getMao().get(j).getPonto();
+		}
+		for(int i=0;i<this.sueca.getPlayer2().getPlayerHand().getMao().size();i++) {
+			teamBPoints+=this.sueca.getPlayer2().getPlayerHand().getMao().get(i).getPonto();
+		}
+		for(int j=0;j<this.sueca.getPlayer4().getPlayerHand().getMao().size();j++) {
+			teamBPoints+=this.sueca.getPlayer4().getPlayerHand().getMao().get(j).getPonto();
+		}
+		GameAGENT.setInitialteamPointsA(teamAPoints);
+		GameAGENT.setInitialteamPointsB(teamBPoints);
+		System.out.println("Team A initial Points:"+teamAPoints + "\nTeam B initial Points:"+teamBPoints+"\n");
 	}
 	
 	@Override
@@ -32,29 +58,65 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		}
 		BufferedWriter bw= new BufferedWriter(fw);
 		pw = new PrintWriter(bw);
-
+		boolean perceptron=true;
         StringBuilder sb = new StringBuilder();
-		for(int i=0;i<this.rondas.size();i++) {
-			
-			for(int j=0;j<this.rondas.get(i).returnTableHand().size();j++) {
+        if(perceptron) {
+            sb.append("teamAiPoints"); //jogNum
+	        sb.append(',');
+	        sb.append("teamAfPoints"); //jog.cardValue
+	        sb.append(',');
+            sb.append("teamBiPoints"); //jogNum
+	        sb.append(',');
+	        sb.append("teamBfPoints"); //jog.cardValue
+	        sb.append('\n');
+	        
+	        sb.append(this.teamAPoints); //jogNum
+	        sb.append(',');
+	        sb.append(Integer.toString(GameAGENT.getTeamPointsA())); //final Score PLay 1 and 3
+	        sb.append(',');
+            sb.append(this.teamBPoints); //jogNum
+	        sb.append(',');
+	        sb.append(Integer.toString(GameAGENT.getTeamPointsB())); //ply 2 and 4 final score
+	        sb.append('\n');
+        	
+        }
+        else {
+	        for(int i=0;i<4;i++) {
+		        sb.append("playerNum"); //jogNum
+		        sb.append(',');
+		        sb.append("card"); //jog.cardValue
+		        sb.append(',');
+		        sb.append("suit");//jog.Suit
+		        sb.append(',');
+	        }
+	        sb.append("roundWinningPlayer");//jog.Suit
+	        sb.append(',');
+	        sb.append("handNumber");//jog.Suit
+	        sb.append(',');
+	        sb.append("trunfo");//jog.Suit
+	        sb.append("\n");//jog.Suit
+			for(int i=0;i<this.rondas.size();i++) {
 				
-				Carta c1 =this.rondas.get(i).returnTableHand().get(j).getKey();
-				int player = this.rondas.get(i).returnTableHand().get(j).getValue();
-		        sb.append(player); //jogNum
+				for(int j=0;j<this.rondas.get(i).returnTableHand().size();j++) {
+					
+					Carta c1 =this.rondas.get(i).returnTableHand().get(j).getKey();
+					int player = this.rondas.get(i).returnTableHand().get(j).getValue();
+			        sb.append(player); //jogNum
+			        sb.append(',');
+			        sb.append(c1.getDataSetCardValue()); //jog.cardValue
+			        sb.append(',');
+			        sb.append(c1.getNaipe());//jog.Suit
+			        sb.append(',');
+				}
+				int lastRoundWinner=this.sueca.getGameLogic().winner(this.rondas.get(i), sueca);
+				int realWinner=this.rondas.get(i).returnTableHand().get(lastRoundWinner-1).getValue();
+		        sb.append(realWinner);//WinningHandPlayer
 		        sb.append(',');
-		        sb.append(c1.getDataSetCardValue()); //jog.cardValue
+		        sb.append(i+1);//Hand number
 		        sb.append(',');
-		        sb.append(c1.getNaipe());//jog.Suit
-		        sb.append(',');
+				sb.append(this.sueca.getTrunfo().getNaipe()); //trunfo jogo
+			    sb.append('\n');
 			}
-			int lastRoundWinner=this.sueca.getGameLogic().winner(this.rondas.get(i), sueca);
-			int realWinner=this.rondas.get(i).returnTableHand().get(lastRoundWinner-1).getValue();
-	        sb.append(realWinner);//WinningHandPlayer
-	        sb.append(',');
-	        sb.append(i+1);//Hand number
-	        sb.append(',');
-			sb.append(this.sueca.getTrunfo().getNaipe()); //trunfo jogo
-		    sb.append('\n');
 		}
         pw.write(sb.toString());
         pw.close();

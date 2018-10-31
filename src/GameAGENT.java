@@ -12,6 +12,17 @@ public class GameAGENT extends Agent{
 	String typeOfBot;
 	static int numRonda;
 	private ArrayList<Round> rondas;
+	private static int teamPointsA=0,teamPointsB=0;
+	private static int initialteamPointsA=0,initialteamPointsB=0;
+	public static int getInitialteamPointsB() {
+		return initialteamPointsB;
+	}
+	public static void setInitialteamPointsB(int initialteamPointsB) {
+		GameAGENT.initialteamPointsB = initialteamPointsB;
+	}
+	public static void setInitialteamPointsA(int initialteamPointsA) {
+		GameAGENT.initialteamPointsA = initialteamPointsA;
+	}
 	public ArrayList<Round> getRondas() {
 		return rondas;
 	}
@@ -37,7 +48,6 @@ public class GameAGENT extends Agent{
 		 * JOGADA de SUECA
 		 */
 		Round nullRound = new Round();
-		calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,nullRound);
 		//Behaviour allRoundsInGame = new RoundBehaviour();
 		ArrayList<ArrayList<SequentialBehaviour>> allRounds = new ArrayList<ArrayList<SequentialBehaviour>>();
 		Behaviour TenRounds = new SequentialBehaviour();
@@ -51,8 +61,11 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
-		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame));
-		((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
+		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
+		((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,true));
+		//((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
+
+		
 		//CALL BEHAVIOUR COUNT POINTS
 		
 		
@@ -76,18 +89,44 @@ public class GameAGENT extends Agent{
 		
 		checkWinnerRoundBehaviour = new SequentialBehaviour();
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
-
+		CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
-		((CalcScoreRoundBehaviour) this.calculateScore).setRound(round);
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(this.calculateScore);
+		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(calculateScore);
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
 		return checkWinnerRoundBehaviour;
+	}
+	
+
+	public static int getTeamPointsA() {
+		return teamPointsA;
+	}
+	public void setTeamPointsA(int teamPointsA) {
+		this.teamPointsA = teamPointsA;
+	}
+	public static int getTeamPointsB() {
+		return teamPointsB;
+	}
+	public void setTeamPointsB(int teamPointsB) {
+		this.teamPointsB = teamPointsB;
 	}
 	public Jogo getSueca(){
 		return this.suecaGame;
 	}
 	public void insertRonda(Round ronda) {
 		this.rondas.add(ronda);	
+	}
+	public static boolean insertScore(Pair<String, Integer> calculateScore2) {
+		if(calculateScore2.getKey()=="A") {
+			teamPointsA+=calculateScore2.getValue();
+			System.out.print("Equipa A pontos: "+ Integer.toString(GameAGENT.getTeamPointsA())+ "\n");
+			return true;
+		}
+		else if(calculateScore2.getKey()=="B") {
+			teamPointsB+=calculateScore2.getValue();
+			System.out.print("Equipa B pontos: " + Integer.toString(GameAGENT.getTeamPointsB())+ "\n");
+			return true;
+		}
+		else return false;
 	}
 	
 }

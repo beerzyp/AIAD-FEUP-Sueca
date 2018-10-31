@@ -29,8 +29,8 @@ public class CardDatabaseBehaviour extends OneShotBehaviour {
 		String s1 =  new String(cardsByComma,StandardCharsets.UTF_8);
 		getCartasDaRonda(s1);
 		removeCartasJogadasDaRonda();
-		printOddOfNaipe();
-		 this.action();
+		//printOddOfNaipe();
+		 //this.action();
 	}
 	
 	private void removeCartasJogadasDaRonda() {

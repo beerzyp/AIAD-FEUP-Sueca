@@ -92,13 +92,14 @@ public class JADELauncher {
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}
-		
+		/*
 		try {
 			ac1 = mainContainer.acceptNewAgent("NeuralNetworkAGENT", NeuralNetworkAGENT);
 			ac1.start();
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 }
