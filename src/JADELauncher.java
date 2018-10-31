@@ -30,6 +30,7 @@ public class JADELauncher {
 		Agent randomBotAgent3 = new RandomBotAGENT(sueca,sueca.getPlayer3());
 		Agent randomBotAgent4 = new RandomBotAGENT(sueca,sueca.getPlayer4());
 		Agent SmartBotAGENT = new SmartBotAGENT(sueca,sueca.getPlayer1());
+		Agent NeuralNetworkAGENT = new NeuralNetworkAGENT();
 
 		Agent gameAgent = new GameAGENT(sueca,"randomBotAgent");
 		AgentController ac1;
@@ -76,13 +77,6 @@ public class JADELauncher {
 			e.printStackTrace();
 		}
 
-		try {
-			ac1 = mainContainer.acceptNewAgent("SmartBotAgent1", SmartBotAGENT);
-			ac1.start();
-		} catch (StaleProxyException e) {
-			e.printStackTrace();
-		}
-
 		AgentController ac2;
 		try {
 			ac2 = container.acceptNewAgent("gameAgent", gameAgent);
@@ -91,7 +85,20 @@ public class JADELauncher {
 			e.printStackTrace();
 		}
 		
-	
+
+		try {
+			ac1 = mainContainer.acceptNewAgent("SmartBotAgent1", SmartBotAGENT);
+			ac1.start();
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			ac1 = mainContainer.acceptNewAgent("NeuralNetworkAGENT", NeuralNetworkAGENT);
+			ac1.start();
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

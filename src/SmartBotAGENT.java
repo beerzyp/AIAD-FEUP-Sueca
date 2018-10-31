@@ -5,6 +5,7 @@ public class SmartBotAGENT extends Agent{
 	private Jogo sueca;
 	private Jogador player;
 	private Behaviour cardDatabase;
+	private Behaviour createDataSets;
 	public SmartBotAGENT(Jogo sueca, Jogador player) {
 		this.sueca=sueca;
 		this.player=player;

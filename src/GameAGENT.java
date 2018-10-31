@@ -8,7 +8,7 @@ import javafx.util.Pair;
 public class GameAGENT extends Agent{
 	Jogo suecaGame;
 	Jogador playerToMove;
-	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1,checkWinnerRoundBehaviour,checkWinnerRoundBehaviour1;
+	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1,checkWinnerRoundBehaviour,checkWinnerRoundBehaviour1,calculateScore;
 	String typeOfBot;
 	static int numRonda;
 	private ArrayList<Round> rondas;
@@ -27,6 +27,8 @@ public class GameAGENT extends Agent{
 		
 	}
 	int winner=0;
+	private CreateDataSetBehaviour createDataSets;
+	private CallNeuralBehaviour neuralbehaviour;
 	public void setWinner(int n) {
 		winner=n;
 	}
@@ -34,6 +36,8 @@ public class GameAGENT extends Agent{
 		/*
 		 * JOGADA de SUECA
 		 */
+		Round nullRound = new Round();
+		calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,nullRound);
 		//Behaviour allRoundsInGame = new RoundBehaviour();
 		ArrayList<ArrayList<SequentialBehaviour>> allRounds = new ArrayList<ArrayList<SequentialBehaviour>>();
 		Behaviour TenRounds = new SequentialBehaviour();
@@ -47,6 +51,8 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
+		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame));
+		((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
 		//CALL BEHAVIOUR COUNT POINTS
 		
 		
@@ -72,7 +78,8 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
 
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(new CalcScoreRoundBehaviour(this.suecaGame,round));
+		((CalcScoreRoundBehaviour) this.calculateScore).setRound(round);
+		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(this.calculateScore);
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
 		return checkWinnerRoundBehaviour;
 	}

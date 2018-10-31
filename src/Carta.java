@@ -52,6 +52,33 @@ public class Carta {
 		}
 		return 0;
 	}
+	// 2-6   11-Q 12-J 13-K 14-7 15-A
+	public int getDataSetCardValue() {
+		switch (nome) {
+			case DOIS: 
+				return 2;
+			case TRES: 
+				return 3;
+			case QUATRO: 
+				return 4;
+			case CINCO: 
+				return 5;
+			case SEIS: 
+				return 6;
+			case DAMA: 
+				return 11;
+			case VALETE:
+				return 12;
+			case REI:
+				return 13;
+			case SETE:
+				return 14;
+			case AS:
+				return 15;
+			default:
+				return -1;
+		}
+	}
 	public int getPonto() { return valor; }
 	public String toString() { return nome + " de " + naipe; }		
 	

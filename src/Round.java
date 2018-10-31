@@ -17,7 +17,10 @@ public class Round {
     	this.cardsPlayerByOrder=playerCardInOrder;
     	cardsPlayerByOrder=new ArrayList<Pair<Carta,Integer>>();
     }
-    public static void setJogAtual(int i) {
+    public Round() {
+		// TODO Auto-generated constructor stub
+	};
+	public static void setJogAtual(int i) {
     	jogAtual=i;
     }
     public boolean temTrunfoNaMesa() {

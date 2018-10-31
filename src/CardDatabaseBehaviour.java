@@ -1,3 +1,4 @@
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import jade.core.behaviours.Behaviour;
@@ -5,9 +6,10 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class CardDatabaseBehaviour extends CyclicBehaviour {
+public class CardDatabaseBehaviour extends OneShotBehaviour {
 	public ArrayList<Carta> cartasRestantes;
 	public ArrayList<Carta> cartasJogador;
+	ArrayList<Carta> cartasJogadasNasRondas;
 	Jogo sueca;
 	Mao playerHand;
 	public CardDatabaseBehaviour(Jogo sueca,Mao playerHand) {
@@ -16,8 +18,37 @@ public class CardDatabaseBehaviour extends CyclicBehaviour {
 		cartasJogador = new ArrayList<Carta>(playerHand.getMao());
 		cartasRestantes=new ArrayList<Carta>(this.sueca.getInitialDeck());
 		getCartasRestantes();
+		this.cartasJogadasNasRondas=new ArrayList<Carta>();
 		
 	}
+	
+	@Override
+	public void action() {
+		final ACLMessage request= this.myAgent.blockingReceive();
+		byte[] cardsByComma = request.getByteSequenceContent();
+		String s1 =  new String(cardsByComma,StandardCharsets.UTF_8);
+		getCartasDaRonda(s1);
+		removeCartasJogadasDaRonda();
+		printOddOfNaipe();
+		 this.action();
+	}
+	
+	private void removeCartasJogadasDaRonda() {
+
+			for(int j=0;j<this.cartasJogadasNasRondas.size();j++) {
+				for(int i=0;i<cartasRestantes.size();i++) {
+					if(cartasJogadasNasRondas.get(j).equals(cartasRestantes.get(i))) {
+						this.cartasRestantes.remove(i);
+						i--;
+						break;
+					}
+				}
+				this.cartasJogadasNasRondas.remove(j);
+				j--;
+			}
+		
+	}
+
 	private void getCartasRestantes() {
 		for(int i=0;i<10;i++) {
 			for(int j=0;i<cartasRestantes.size();j++) {
@@ -55,13 +86,15 @@ public class CardDatabaseBehaviour extends CyclicBehaviour {
 		odd=((float)counter)/((float)cartasRestantes.size());
 		return odd;
 	}
-	@Override
-	public void action() {
-		final ACLMessage request= this.myAgent.blockingReceive();
-		 String message = request.getContent();
-		 printOddOfNaipe();
-	}
 
+	private ArrayList<Carta> getCartasDaRonda(String s1) {
+		Carta c1=null;
+		String[] parts = s1.split(",");
+		for(int i=0;i<parts.length;i++) {
+			this.cartasJogadasNasRondas.add(new Carta(this.cartasJogador.get(0).convertStringToNome(parts[i]),this.cartasJogador.get(0).convertStringToNaipe(parts[i])));
+		}
+		return this.cartasJogadasNasRondas;
+	}
 
 
 }
