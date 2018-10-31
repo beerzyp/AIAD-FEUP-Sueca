@@ -8,6 +8,7 @@ import jade.core.Agent;
 public class NeuralNetworkAGENT extends Agent {
 	@Override
 	public void setup() {
+		readDataSet();
 		neuralNetwork.learn(trainingSet);
 		// save the trained network into file
 		neuralNetwork.save("test.nnet");
@@ -18,8 +19,7 @@ public class NeuralNetworkAGENT extends Agent {
 	// create training set
 
 	public NeuralNetworkAGENT() {
-		neuralNetwork = new Perceptron(10,2);
-		trainingSet = readDataSet();
+		neuralNetwork = new Perceptron(15,1);
 		//new DataSetRow (new double[]{0,0,0,0,0,0,0,0,0},new double[]{0});
 		// add training data to training set (logical OR function)
 //		trainingSet. addRow (new DataSetRow (new double[]{0, 0,0},new double[]{0}));
@@ -37,8 +37,7 @@ public class NeuralNetworkAGENT extends Agent {
 	//neuralNetwork.save(“or_perceptron.nnet”);
 	
 	public DataSet readDataSet() {
-		DataSet randomBotDataSet = DataSet.createFromFile("C:\\Users\\up201505092\\eclipse-workspace\\aiad-feup\\dataSet.csv", 10, 2,",");
-		return randomBotDataSet;
-		
+		trainingSet = DataSet.createFromFile("C:\\Users\\up201505092\\eclipse-workspace\\aiad-feup\\dataSet.csv", 15,1,",");
+		return trainingSet;
 	}
 }

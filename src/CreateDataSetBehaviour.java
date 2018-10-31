@@ -42,13 +42,18 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 				int player = this.rondas.get(i).returnTableHand().get(j).getValue();
 		        sb.append(player); //jogNum
 		        sb.append(',');
-		        sb.append(c1.getDataSetCardValue()); //jog.Suit
+		        sb.append(c1.getDataSetCardValue()); //jog.cardValue
 		        sb.append(',');
 		        sb.append(c1.getNaipe());//jog.Suit
 		        sb.append(',');
-				
 			}
-			sb.append(this.sueca.getTrunfo().getNaipe());
+			int lastRoundWinner=this.sueca.getGameLogic().winner(this.rondas.get(i), sueca);
+			int realWinner=this.rondas.get(i).returnTableHand().get(lastRoundWinner-1).getValue();
+	        sb.append(realWinner);//WinningHandPlayer
+	        sb.append(',');
+	        sb.append(i+1);//Hand number
+	        sb.append(',');
+			sb.append(this.sueca.getTrunfo().getNaipe()); //trunfo jogo
 		    sb.append('\n');
 		}
         pw.write(sb.toString());
