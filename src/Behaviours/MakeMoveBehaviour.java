@@ -2,6 +2,7 @@ package Behaviours;
 import java.util.Random;
 
 import Agents.RandomBotAGENT;
+import Agents.SmartBotAGENT;
 import GameLogic.Jogo;
 import jade.core.AID;
 import jade.core.behaviours.Behaviour;
@@ -13,8 +14,10 @@ public class MakeMoveBehaviour extends Behaviour{
 //	private Mao hand;
 	private Jogo sueca;
 	private int player;
-	public MakeMoveBehaviour(Jogo sueca) {
+	private String typeOfBot;
+	public MakeMoveBehaviour(Jogo sueca,String typeOfBot) {
 		this.sueca=sueca;
+		this.typeOfBot=typeOfBot;
 	}
 	@Override
 	public void action() {
@@ -28,7 +31,10 @@ public class MakeMoveBehaviour extends Behaviour{
 		inform.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
 		inform.setLanguage("Portugues");
 		inform.setOntology("Sueca-Jogada");
-		String cartaValue=((RandomBotAGENT)this.myAgent).returnPLay().toString();
+		String cartaValue="";
+		if(typeOfBot=="SmartBotAgent")
+			cartaValue=((SmartBotAGENT)this.myAgent).returnPLay().toString();
+		else cartaValue=((RandomBotAGENT)this.myAgent).returnPLay().toString();
 		inform.setContent(cartaValue);
 		this.myAgent.send(inform);
 		System.out.println("agent " + this.myAgent.getAID().getLocalName() + "\n");

@@ -26,18 +26,18 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		System.out.println("VENCEDOR RONDA: player"+ realWinner+"\n");
 		
 		
-		//SEND REQUEST TO SMART BOT WITH BOARD STATE
-		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
-		request.addReceiver(new AID("SmartBotAgent1", AID.ISLOCALNAME));
-		request.setLanguage("Portugues");
-		request.setOntology("Sueca-Ronda-Final");
-		String s1="";
-		for(int i=0;i<4;i++) {
-			s1+=ronda.returnTableHand().get(i).getKey().toString()+",";
-		}
-		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
-		request.setByteSequenceContent(cardsSequenceSplitByComma);
-		this.myAgent.send(request);
+//		//SEND REQUEST TO SMART BOT WITH BOARD STATE
+//		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
+//		request.addReceiver(new AID("SmartBotAgent1", AID.ISLOCALNAME));
+//		request.setLanguage("Portugues");
+//		request.setOntology("Sueca-Ronda-Final");
+//		String s1="";
+//		for(int i=0;i<4;i++) {
+//			s1+=ronda.returnTableHand().get(i).getKey().toString()+",";
+//		}
+//		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
+//		request.setByteSequenceContent(cardsSequenceSplitByComma);
+//		this.myAgent.send(request);
 		
 		System.out.println("\nJogador 1:" + sueca.getPlayer1().getPlayerHand().getMao().size());
 		for(int i=0;i<sueca.getPlayer1().getPlayerHand().getMao().size();i++) {

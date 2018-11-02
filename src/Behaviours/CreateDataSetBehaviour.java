@@ -63,9 +63,8 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		}
 		BufferedWriter bw= new BufferedWriter(fw);
 		pw = new PrintWriter(bw);
-		boolean perceptron=true;
         StringBuilder sb = new StringBuilder();
-        if(perceptron) {
+        if(this.percepton) {
             sb.append("teamAiPoints"); //jogNum
 	        sb.append(',');
 	        sb.append("teamAfPoints"); //jog.cardValue

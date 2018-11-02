@@ -3,6 +3,8 @@ package Agents;
 import java.util.*;
 
 import Behaviours.CardDatabaseBehaviour;
+import Behaviours.MakeMoveBehaviour;
+import GameLogic.Carta;
 import GameLogic.Jogador;
 import GameLogic.Jogo;
 import GameLogic.Round;
@@ -35,13 +37,20 @@ be removed from that deck.
 
 	@Override
 	public void setup() {
-		this.addBehaviour(cardDatabase= new CardDatabaseBehaviour(this.sueca,this.player.getPlayerHand()));
-		//this.addBehaviour(makeSmartMove= new MakeSmartMoveBehaviour(this.sueca,this.player.getJogNum()));
+		this.addBehaviour(makeSmartMove= new MakeMoveBehaviour(this.sueca,"SmartBotAgent"));
+		//this.addBehaviour(cardDatabase= new CardDatabaseBehaviour(this.sueca,this.player.getPlayerHand()));
 	}
 	
 	
 	@Override
 	protected void takeDown() {
 
+	}
+	public Carta returnPLay() {
+		Random r = new Random();
+		int Low = 0;
+		int High =this.player.getPlayerHand().getMao().size();
+		int Result = r.nextInt(High-Low) + Low;
+		return this.player.getPlayerHand().getCartaAt(Result);
 	}
 }

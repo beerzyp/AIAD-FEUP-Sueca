@@ -13,7 +13,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import javafx.util.Pair;
 
-public class CardDatabaseBehaviour extends OneShotBehaviour {
+public class CardDatabaseBehaviour extends Behaviour {
 	public ArrayList<Carta> cartasRestantes;
 	public ArrayList<Carta> cartasJogador;
 	ArrayList<Carta> cartasJogadasNasRondas;
@@ -37,7 +37,8 @@ public class CardDatabaseBehaviour extends OneShotBehaviour {
 		String s1 =  new String(cardsByComma,StandardCharsets.UTF_8);
 		getCartasDaRonda(s1);
 		removeCartasJogadasDaRonda();
-		//printOddOfNaipe();
+		
+		printOddOfNaipe();
 		 //this.action();
 	}
 	
@@ -105,6 +106,12 @@ public class CardDatabaseBehaviour extends OneShotBehaviour {
 		}
 		((SmartBotAGENT)this.myAgent).insertRonda(r1);
 		return this.cartasJogadasNasRondas;
+	}
+
+	@Override
+	public boolean done() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

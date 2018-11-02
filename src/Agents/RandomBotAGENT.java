@@ -28,7 +28,7 @@ public class RandomBotAGENT extends Agent {
 	 */
 
 	public void setup() {
-		addBehaviour(new MakeMoveBehaviour(this.sueca));
+		addBehaviour(new MakeMoveBehaviour(this.sueca,"randomBotAgent"));
 
 	}
 
