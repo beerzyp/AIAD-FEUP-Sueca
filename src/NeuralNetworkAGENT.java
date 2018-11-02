@@ -20,7 +20,6 @@ public class NeuralNetworkAGENT extends Agent {
 
 	public NeuralNetworkAGENT() {
 		neuralNetwork = new Perceptron(4,1);
-		this.readDataSet();
 		//new DataSetRow (new double[]{0,0,0,0,0,0,0,0,0},new double[]{0});
 		// add training data to training set (logical OR function)
 //		trainingSet. addRow (new DataSetRow (new double[]{0, 0,0},new double[]{0}));

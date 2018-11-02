@@ -3,6 +3,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Agents.GameAGENT;
+import Agents.RandomBotAGENT;
+import Agents.SmartBotAGENT;
+import GameLogic.Jogo;
 import jade.core.Agent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
