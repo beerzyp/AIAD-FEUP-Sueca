@@ -2,14 +2,17 @@ package Agents;
 
 import java.util.*;
 
-import Behaviours.CardDatabaseBehaviour;
+
 import Behaviours.MakeMoveBehaviour;
+import Behaviours.MakeSmartMoveBehaviour;
 import GameLogic.Carta;
 import GameLogic.Jogador;
 import GameLogic.Jogo;
 import GameLogic.Round;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.SequentialBehaviour;
+import javafx.util.Pair;
 
 public class SmartBotAGENT extends Agent{
 	private Jogo sueca;
@@ -17,36 +20,111 @@ public class SmartBotAGENT extends Agent{
 	private Behaviour cardDatabase;
 	private Behaviour makeSmartMove;
 	private ArrayList<Round> rondas;
+	public ArrayList<Carta> cartasRestantes;
+	public ArrayList<Carta> cartasJogador;
+	public ArrayList<Carta> cartasJogadasNasRondas;
+	
 	public SmartBotAGENT(Jogo sueca, Jogador player) {
 		this.sueca=sueca;
 		this.player=player;
 		rondas=new ArrayList<Round>();
+		cartasJogador = new ArrayList<Carta>(this.player.getPlayerHand().getMao());
+		cartasRestantes=new ArrayList<Carta>(this.sueca.getInitialDeck());
+		getCartasRestantes();
+		this.cartasJogadasNasRondas=new ArrayList<Carta>();
 	};
 	public void insertRonda(Round r1) {
 		this.rondas.add(r1);
 	}
-	/*
 
-	 * An information set represents all the visible information during a game, and also inferred
-information based on certain events. The player must keep an instance of the information set per
-game and update it when necessary. It stores the known hand of the player and a deck with all
-the cards whose owner is unknown. As a result, each time another player plays a card, it should
-be removed from that deck.
-	 */
-	
 
 	@Override
 	public void setup() {
-		this.addBehaviour(makeSmartMove= new MakeMoveBehaviour(this.sueca,"SmartBotAgent"));
-		//this.addBehaviour(cardDatabase= new CardDatabaseBehaviour(this.sueca,this.player.getPlayerHand()));
+		//this.addBehaviour(makeSmartMove= new MakeMoveBehaviour(this.sueca,"SmartBotAgent"));
+
+		this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
+		//((SequentialBehaviour) TenRounds).addSubBehaviour(new CardDatabaseBehaviour(this.sueca,this.player.getPlayerHand()));
+
 	}
-	
-	
+
+	public void removeCartasJogadasDaRonda() {
+
+		for(int j=0;j<this.cartasJogadasNasRondas.size();j++) {
+			for(int i=0;i<cartasRestantes.size();i++) {
+				if(cartasJogadasNasRondas.get(j).equals(cartasRestantes.get(i))) {
+					this.cartasRestantes.remove(i);
+					i--;
+					break;
+				}
+			}
+			this.cartasJogadasNasRondas.remove(j);
+			j--;
+		}
+
+	}
+
+	private void getCartasRestantes() {
+		for(int i=0;i<10;i++) {
+			for(int j=0;i<cartasRestantes.size();j++) {
+				if(cartasJogador.get(i).equals(cartasRestantes.get(j))) {
+					cartasRestantes.remove(j);
+					j--;
+					break;
+				}
+			}
+		}
+	}
+
+	public void printOddOfNaipe() {
+		System.out.println("odd de sair espadas:"  + this.calculaOdd(0) + "\n"+
+				"odd de sair copas:"  + this.calculaOdd(1) + "\n"+
+				"odd de sair paus:"  + this.calculaOdd(2) + "\n"+
+				"odd de sair ouros:"  + this.calculaOdd(3) + "\n");
+	}
+
+	private float calculaOdd(int naipe) {
+		float odd=0;
+		int counter=0;
+		for(int i=0;i<cartasRestantes.size()-1;i++) {
+			if(cartasRestantes.get(i).getNaipe()==naipe) {
+				counter++;
+			}
+		}
+		odd=((float)counter)/((float)cartasRestantes.size());
+		return odd;
+	}
+
+	public  ArrayList<Carta> getCartasDaRonda(String s1) {
+		Carta c1=null;
+		Round r1 = new Round(this.sueca);
+		 ArrayList<Carta> vect= new ArrayList<Carta>();
+		if(s1.isEmpty()) return vect;
+		///
+		 this.cartasJogadasNasRondas.add(new Carta(this.cartasJogador.get(0).convertStringToNome(s1),this.cartasJogador.get(0).convertStringToNaipe(s1)));
+		
+
+		//this.insertRonda(r1);
+		return this.cartasJogadasNasRondas;
+	}
+
+
 	@Override
 	protected void takeDown() {
 
 	}
 	public Carta returnPLay() {
+		/*
+		 * FOR (todas as cartas possiveis)
+		 *  EV($) = pontosGanhos * prob(ganhar) - pontosPerdidos*prob(perder)
+		 *  
+		 *  
+		 *  where pontosGanhos->pontos(cartaJogada)+pontos(boardAtual)+pontos(jogadasRestantes)
+		 *  where pontosPerdidos->pontos(cartaJogada)
+		 */
+		List<Double> list = new ArrayList<>();
+		for(int i=0;i<this.player.getPlayerHand().getMao().size();i++) {
+			//getExpectedValueOfPlay(this.player.getPlayerHand().getMao().get(i),)
+		}
 		Random r = new Random();
 		int Low = 0;
 		int High =this.player.getPlayerHand().getMao().size();

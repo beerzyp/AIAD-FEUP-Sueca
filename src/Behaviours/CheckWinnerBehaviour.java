@@ -17,6 +17,14 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		this.sueca=sueca;
 		this.ronda=ronda;
 	}
+	private static int playerToMove=1;
+	public  static void incrementCounter() {
+
+		if(playerToMove>=4) {
+			playerToMove=1;
+		}
+		else playerToMove++;
+	}
 	@Override
 	public void action() {
 		int lastRoundWinner=this.sueca.getGameLogic().winner(ronda, sueca);
@@ -24,11 +32,11 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		((GameAGENT)this.myAgent).setWinner(realWinner);
 		((GameAGENT)this.myAgent).insertRonda(ronda);
 		System.out.println("VENCEDOR RONDA: player"+ realWinner+"\n");
-		
+		String botToPlay="SmartBotAgent"+playerToMove;
 		
 //		//SEND REQUEST TO SMART BOT WITH BOARD STATE
 //		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
-//		request.addReceiver(new AID("SmartBotAgent1", AID.ISLOCALNAME));
+//		request.addReceiver(new AID("SmartBotAgent", AID.ISLOCALNAME));
 //		request.setLanguage("Portugues");
 //		request.setOntology("Sueca-Ronda-Final");
 //		String s1="";
@@ -38,6 +46,7 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 //		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
 //		request.setByteSequenceContent(cardsSequenceSplitByComma);
 //		this.myAgent.send(request);
+		
 		
 		System.out.println("\nJogador 1:" + sueca.getPlayer1().getPlayerHand().getMao().size());
 		for(int i=0;i<sueca.getPlayer1().getPlayerHand().getMao().size();i++) {
@@ -59,6 +68,7 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 			System.out.println(sueca.getPlayer4().getPlayerHand().getMao().get(i).toString());
 			
 		}
+		this.incrementCounter();
 	}
 
 }

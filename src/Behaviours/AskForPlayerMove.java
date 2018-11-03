@@ -3,6 +3,7 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import Agents.GameAGENT;
@@ -81,7 +82,17 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
 		request.setLanguage("Portugues");
 		request.setOntology("Sueca-Ronda");
-		request.setContent("Your turn");
+	
+		//SEND REQUEST TO SMART BOT WITH BOARD STATE
+		String s1="";
+		for(int i=0;i<currRound.getNumPlays();i++) {
+			if(i == 0)
+				s1=currRound.returnTableHand().get(i).getKey().toString();
+			else
+				s1= currRound.returnTableHand().get(i).getKey().toString();			
+		}
+		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
+		request.setByteSequenceContent(cardsSequenceSplitByComma);
 		this.myAgent.send(request);
 		
 		//RECEIVE INFORM
