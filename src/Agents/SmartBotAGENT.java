@@ -57,8 +57,6 @@ public class SmartBotAGENT extends Agent{
 					break;
 				}
 			}
-			this.cartasJogadasNasRondas.remove(j);
-			j--;
 		}
 
 	}
@@ -94,16 +92,21 @@ public class SmartBotAGENT extends Agent{
 		return odd;
 	}
 
-	public  ArrayList<Carta> getCartasDaRonda(String s1) {
+	public  ArrayList<Carta> getCartasDaRondas() {
 		Carta c1=null;
 		Round r1 = new Round(this.sueca);
 		 ArrayList<Carta> vect= new ArrayList<Carta>();
-		if(s1.isEmpty()) return vect;
-		///
-		 this.cartasJogadasNasRondas.add(new Carta(this.cartasJogador.get(0).convertStringToNome(s1),this.cartasJogador.get(0).convertStringToNaipe(s1)));
-		
-
-		//this.insertRonda(r1);
+		 for(int i=0;i<this.sueca.getMatchRounds().size();i++) {
+			 if(this.sueca.getMatchRounds().get(i).getNumPlays()==0) {
+				 break;
+			 }
+			 for(int j=0;j<this.sueca.getMatchRounds().get(i).returnTableHand().size();j++) {
+				if(this.sueca.getMatchRounds().get(i).returnTableHand().get(j).getValue()!=this.player.jogNum) {
+					this.cartasJogadasNasRondas.add(this.sueca.getMatchRounds().get(i).returnTableHand().get(j).getKey());
+				}
+			 }
+		 }
+		 
 		return this.cartasJogadasNasRondas;
 	}
 

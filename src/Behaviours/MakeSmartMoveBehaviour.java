@@ -20,9 +20,11 @@ public class MakeSmartMoveBehaviour extends Behaviour {
 	@Override
 	public void action() {
 		final ACLMessage request= this.myAgent.blockingReceive();
-		byte[] cardsByComma = request.getByteSequenceContent();
-		String s1 =  new String(cardsByComma,StandardCharsets.UTF_8);
-
+		((SmartBotAGENT) this.myAgent).removeCartasJogadasDaRonda();
+		((SmartBotAGENT) this.myAgent).getCartasDaRondas();
+		System.out.println("\nagent " + this.myAgent.getAID().getLocalName() + "\n");
+		((SmartBotAGENT) this.myAgent).printOddOfNaipe();
+		System.out.println("\nagent " + this.myAgent.getAID().getLocalName() + "\n");
 		//SEND PLAY TO LOGIC
 		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
 		inform.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
@@ -32,11 +34,6 @@ public class MakeSmartMoveBehaviour extends Behaviour {
 		cartaValue=((SmartBotAGENT)this.myAgent).returnPLay().toString();
 		inform.setContent(cartaValue);
 		this.myAgent.send(inform);
-		((SmartBotAGENT) this.myAgent).getCartasDaRonda(s1);
-		((SmartBotAGENT) this.myAgent).removeCartasJogadasDaRonda();
-		
-		((SmartBotAGENT) this.myAgent).printOddOfNaipe();
-		System.out.println("agent " + this.myAgent.getAID().getLocalName() + "\n");
 
 	}
 
