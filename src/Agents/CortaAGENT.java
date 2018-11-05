@@ -9,6 +9,7 @@ import jade.core.Agent;
 public class CortaAGENT extends Agent{
 
 	private Jogo sueca;
+	private Jogador player;
 
 	public CortaAGENT(Jogo sueca) {
 		this.sueca = sueca;	

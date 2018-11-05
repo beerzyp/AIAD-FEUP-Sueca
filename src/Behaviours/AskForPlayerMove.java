@@ -29,10 +29,10 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	public AskForPlayerMove(Jogo Sueca,String botType) {
 		sueca=Sueca;
 		BotType=botType;
-		
+
 	}
 	private static int numOfTimesEntered=0;
-	
+
 	public AskForPlayerMove(Jogo suecaGame, Jogador playerToMove,Round round) {
 		sueca=suecaGame;
 		c1=new Carta();
@@ -46,28 +46,28 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		c1=new Carta();
 	}
 
-//	private static int counter=1;
-	
+	//  private static int counter=1;
+
 	public  static void incrementCounter() {
 		if(playerToMove>=4) {
 			playerToMove=1;
 		}
 		else playerToMove++;
 	}
-	public static void setCounter(int i) 
+	public static void setCounter(int i)
 	{
 		playerToMove=i;
 	}
-	
-	
+
+
 	public int nextPlayerToMove() {
 		if(((GameAGENT)this.myAgent).winner==0)
 			return 1;
 		else return ((GameAGENT)this.myAgent).winner;
 	}
-	@Override 
+	@Override
 	public void action() {
-		
+
 		if (numOfTimesEntered>=4) {
 			playerToMove=nextPlayerToMove();
 			numOfTimesEntered=0;
@@ -75,46 +75,63 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		numOfTimesEntered++;
 		boolean validPlay=false;
 		while(!validPlay) {
-
-		String botToPlay = this.BotType+playerToMove;
-		//SEND REQUEST
-		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
-		request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
-		request.setLanguage("Portugues");
-		request.setOntology("Sueca-Ronda");	
-//		//SEND REQUEST TO SMART BOT WITH BOARD STATE
-//		String s1="";
-//		for(int i=0;i<currRound.getNumPlays();i++) {
-//			if(i == 0)
-//				s1=currRound.returnTableHand().get(i).getKey().toString();
-//			else
-//				s1= currRound.returnTableHand().get(i).getKey().toString();			
-//		}
-//		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
-//		request.setByteSequenceContent(cardsSequenceSplitByComma);
-		this.myAgent.send(request);
-		
-		//RECEIVE INFORM
-		final ACLMessage inform = this.myAgent.blockingReceive();
-		String carta= inform.getContent();
-		String [] aux = carta.split(",");
-		System.out.println(aux[1] + "\n");
-		Carta attempt= new Carta();
-		attempt= new Carta(attempt.convertStringToNome(aux[1]), attempt.convertStringToNaipe(aux[1]));
-		
-		if(aux[0].equals("valid")) {
-			if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
-				validPlay=true;
-				break;
+			String botToPlay = this.BotType+playerToMove;
+			//SEND REQUEST
+			ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
+			request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
+			request.setLanguage("Portugues");
+			request.setOntology("Sueca-Ronda");
+			if(botToPlay.contains("SmartBot")) {
+				request.setContent("SmartBot");
 			}
-		}
-		//Tests play for current Round
+			//SEND REQUEST TO SMART BOT WITH BOARD STATE
+
+			this.myAgent.send(request);
+
+			//RECEIVE INFORM
+			final ACLMessage inform = this.myAgent.blockingReceive();
+			String carta= inform.getContent();
+			String smartBot=inform.getSender().getName();
+			Carta attempt= new Carta();
+
+			if(smartBot.contains("SmartBot")) {
+				//SE FOR UM SMART BOT NAO QUEREMOS JOGAR INSTANTANEAMENTE; QUEREMOS VALIDAR TODAS AS ESTRATEGIAS POSSIVEIS E DEPOIS JOGAR
+				String[] aux=carta.split(",");
+				System.out.println(aux[1] + "\n");
+				attempt= new Carta(attempt.convertStringToNome(aux[1]), attempt.convertStringToNaipe(aux[1]));
+				if(aux[0].equals("valid")){
+					if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
+						validPlay=true;
+						break;
+					}
+				}
+				else if(aux[0].equals("attempt")) {
+					if(this.sueca.getGameLogic().validPlay(attempt, player, currRound)) {
+						//VALIDATE STRATEGY PLAY
+						ACLMessage validPlayInform= new ACLMessage(ACLMessage.INFORM);
+						validPlayInform.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
+						validPlayInform.setLanguage("Portugues");
+						validPlayInform.setOntology("Sueca-Ronda");
+						if(botToPlay.contains("SmartBot")) {
+							validPlayInform.setContent("VALID-PLAY");
+						}
+						//SEND REQUEST TO SMART BOT WITH BOARD STATE
+
+						this.myAgent.send(request);
+					}
+				}
+
+			}
+			else {
+				attempt= new Carta(attempt.convertStringToNome(carta), attempt.convertStringToNaipe(carta));
+				if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
+					validPlay=true;
+					break;
+				}
+			}
 		}
 		currRound.printRonda();
 		incrementCounter();
-	}	
-	
-
-
+	}   
 
 }
