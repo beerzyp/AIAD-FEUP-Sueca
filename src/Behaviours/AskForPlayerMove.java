@@ -81,11 +81,8 @@ public class AskForPlayerMove extends OneShotBehaviour {
 			request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
 			request.setLanguage("Portugues");
 			request.setOntology("Sueca-Ronda");
-			if(botToPlay.contains("SmartBot")) {
-				request.setContent("SmartBot");
-			}
+			
 			//SEND REQUEST TO SMART BOT WITH BOARD STATE
-
 			this.myAgent.send(request);
 
 			//RECEIVE INFORM
@@ -106,18 +103,18 @@ public class AskForPlayerMove extends OneShotBehaviour {
 					}
 				}
 				else if(aux[0].equals("attempt")) {
+					//VALIDATE STRATEGY PLAY
+					ACLMessage validPlayInform= new ACLMessage(ACLMessage.INFORM);
+					validPlayInform.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
+					validPlayInform.setLanguage("Portugues");
+					validPlayInform.setOntology("Sueca-Ronda");
 					if(this.sueca.getGameLogic().validPlay(attempt, player, currRound)) {
-						//VALIDATE STRATEGY PLAY
-						ACLMessage validPlayInform= new ACLMessage(ACLMessage.INFORM);
-						validPlayInform.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
-						validPlayInform.setLanguage("Portugues");
-						validPlayInform.setOntology("Sueca-Ronda");
-						if(botToPlay.contains("SmartBot")) {
-							validPlayInform.setContent("VALID-PLAY");
-						}
-						//SEND REQUEST TO SMART BOT WITH BOARD STATE
-
-						this.myAgent.send(request);
+						validPlayInform.setContent("VALID-PLAY");
+						this.myAgent.send(validPlayInform);
+					}
+					else {
+						validPlayInform.setContent("NOT_VALID");
+						this.myAgent.send(validPlayInform);
 					}
 				}
 

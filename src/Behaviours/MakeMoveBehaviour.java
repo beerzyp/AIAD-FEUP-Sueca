@@ -23,9 +23,6 @@ public class MakeMoveBehaviour extends Behaviour{
 	public void action() {
 		final ACLMessage request= this.myAgent.blockingReceive();
 		
-		String message = request.getContent();
-		
-		System.out.println(message);
 		//SEND PLAY TO LOGIC
 		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
 		inform.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
