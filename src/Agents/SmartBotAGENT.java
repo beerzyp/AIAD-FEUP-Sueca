@@ -41,7 +41,15 @@ public class SmartBotAGENT extends Agent{
 	@Override
 	public void setup() {
 		//this.addBehaviour(makeSmartMove= new MakeMoveBehaviour(this.sueca,"SmartBotAgent"));
-
+		/*
+			SequentialBehaviour getPlaysAndMakeMove = new SequentialBehaviour();
+		
+		getStrats =new GetDifferentStrategiesBehaviour(stratsBotHas);
+		makeSmartMove=new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent");
+		((SequentialBehaviour) getPlaysAndMakeMove).addSubBehaviour(getStrats);
+		((SequentialBehaviour) getPlaysAndMakeMove).addSubBehaviour(makeSmartMove);
+		this.addBehaviour(getPlaysAndMakeMove);
+		*/
 		this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(new CardDatabaseBehaviour(this.sueca,this.player.getPlayerHand()));
 
