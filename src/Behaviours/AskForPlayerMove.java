@@ -81,29 +81,32 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		ACLMessage request= new ACLMessage(ACLMessage.REQUEST);
 		request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
 		request.setLanguage("Portugues");
-		request.setOntology("Sueca-Ronda");
-	
-		//SEND REQUEST TO SMART BOT WITH BOARD STATE
-		String s1="";
-		for(int i=0;i<currRound.getNumPlays();i++) {
-			if(i == 0)
-				s1=currRound.returnTableHand().get(i).getKey().toString();
-			else
-				s1= currRound.returnTableHand().get(i).getKey().toString();			
-		}
-		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
-		request.setByteSequenceContent(cardsSequenceSplitByComma);
+		request.setOntology("Sueca-Ronda");	
+//		//SEND REQUEST TO SMART BOT WITH BOARD STATE
+//		String s1="";
+//		for(int i=0;i<currRound.getNumPlays();i++) {
+//			if(i == 0)
+//				s1=currRound.returnTableHand().get(i).getKey().toString();
+//			else
+//				s1= currRound.returnTableHand().get(i).getKey().toString();			
+//		}
+//		byte[] cardsSequenceSplitByComma=s1.getBytes(StandardCharsets.UTF_8);
+//		request.setByteSequenceContent(cardsSequenceSplitByComma);
 		this.myAgent.send(request);
 		
 		//RECEIVE INFORM
 		final ACLMessage inform = this.myAgent.blockingReceive();
 		String carta= inform.getContent();
-		System.out.println(carta + "\n");
+		String [] aux = carta.split(",");
+		System.out.println(aux[1] + "\n");
 		Carta attempt= new Carta();
-		attempt= new Carta(attempt.convertStringToNome(carta), attempt.convertStringToNaipe(carta));
-		if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
-			validPlay=true;
-			break;
+		attempt= new Carta(attempt.convertStringToNome(aux[1]), attempt.convertStringToNaipe(aux[1]));
+		
+		if(aux[0].equals("valid")) {
+			if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
+				validPlay=true;
+				break;
+			}
 		}
 		//Tests play for current Round
 		}

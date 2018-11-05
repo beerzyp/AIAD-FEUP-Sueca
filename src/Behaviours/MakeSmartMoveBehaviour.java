@@ -32,7 +32,8 @@ public class MakeSmartMoveBehaviour extends Behaviour {
 		inform.setOntology("Sueca-Jogada");
 		String cartaValue="";
 		cartaValue=((SmartBotAGENT)this.myAgent).returnPLay().toString();
-		inform.setContent(cartaValue);
+		String value = "valid,";
+		inform.setContent(value + cartaValue);
 		this.myAgent.send(inform);
 
 	}

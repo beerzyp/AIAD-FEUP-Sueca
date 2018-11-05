@@ -134,4 +134,15 @@ public class SmartBotAGENT extends Agent{
 		int Result = r.nextInt(High-Low) + Low;
 		return this.player.getPlayerHand().getCartaAt(Result);
 	}
+	
+	public int returnJogadaNaRonda() {
+		
+		for(int i = 0; i < sueca.getMatchRounds().size(); i++) {
+			if(sueca.getMatchRounds().get(i).getNumPlays()!=0 && sueca.getMatchRounds().get(i).getNumPlays() != 4)
+				return sueca.getMatchRounds().get(i).getNumPlays();
+		}
+		
+		return 0;
+		
+	}
 }

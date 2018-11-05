@@ -32,9 +32,7 @@ public class MakeMoveBehaviour extends Behaviour{
 		inform.setLanguage("Portugues");
 		inform.setOntology("Sueca-Jogada");
 		String cartaValue="";
-		if(typeOfBot=="SmartBotAgent")
-			cartaValue=((SmartBotAGENT)this.myAgent).returnPLay().toString();
-		else cartaValue=((RandomBotAGENT)this.myAgent).returnPLay().toString();
+		cartaValue=((RandomBotAGENT)this.myAgent).returnPLay().toString();
 		inform.setContent(cartaValue);
 		this.myAgent.send(inform);
 		System.out.println("agent " + this.myAgent.getAID().getLocalName() + "\n");
