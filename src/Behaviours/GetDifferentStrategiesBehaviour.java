@@ -10,12 +10,16 @@ import javafx.util.Pair;
 
 public class GetDifferentStrategiesBehaviour extends Behaviour {
 	ArrayList<String> botsToBroadcast;
+	ArrayList<Pair<String,Carta>> validLogicPlays;
+	ArrayList<Pair<String,Carta>> strategyPlays;
 	public GetDifferentStrategiesBehaviour(ArrayList<String> strats) {
 		botsToBroadcast=new ArrayList<String>(strats);
+		strategyPlays = new ArrayList<Pair<String,Carta>>();
+		validLogicPlays = new ArrayList<Pair<String,Carta>>();
 	}
 	@Override
 	public void action() {
-		Carta c1 = helpBot(botsToBroadcast);
+		helpBot(botsToBroadcast);
 
 	}
 
@@ -25,12 +29,10 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		return false;
 	}
 	
-	public Carta helpBot(ArrayList<String> botStrategies) {
+	public void helpBot(ArrayList<String> botStrategies) {
 		//Broadcasts message to get different strategies from strat agents
-		ArrayList<Pair<String,Carta>> validLogicPlays;
-		ArrayList<Pair<String,Carta>> strategyPlays;
 		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
-		for(int i=0;i<botStrategies.size();i++) {
+		for(int i=0;i<botStrategies.size();i++) { //sends BroadCast Message to N agents
 			AID botStrategy=new AID(botStrategies.get(i), AID.ISLOCALNAME);
 			inform.addReceiver(botStrategy);
 		}
@@ -38,11 +40,14 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		inform.setOntology("Strat");
 		this.myAgent.send(inform);
 		
-		for(int j=0;j<botStrategies.size();j++) { //n tries for every Strategy (bot to broadcast) maybe-> timeouts 
+		while(true) { //n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 			//RECEIVES MESSAGE FROM STACK IF AGENT strategy X SEND REQUEST
+			if(this.strategyPlays.size()==botStrategies.size())
+				break;
 			ACLMessage msg = this.myAgent.receive();
 			String carta =null;
 			if (msg != null) {
+				String agentStrategy = msg.getSender().getName();
 				carta = msg.getContent();
 				System.out.println(carta + "\n");
 				Carta attempt= new Carta();
@@ -59,15 +64,24 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 				this.myAgent.send(informLogic);
 				
 				//Wait For Logic confirmation
-				this.myAgent.blockingReceive();
-				
+				final ACLMessage getLogicConfirmation = this.myAgent.blockingReceive();
+				String validOrNotPlay= getLogicConfirmation.getContent();
+				String[] aux = validOrNotPlay.split(",");
+				String validOrNot = aux[0];
+				String play = aux[1];
+				Carta cardConfirmed=null;
+				cardConfirmed= new Carta(attempt.convertStringToNome(play), attempt.convertStringToNaipe(play));
+				if(validOrNot=="VALID-PLAY") {
+					cardConfirmed= new Carta(cardConfirmed.convertStringToNome(play), cardConfirmed.convertStringToNaipe(play));
+					this.validLogicPlays.add(new Pair<String,Carta>(agentStrategy,cardConfirmed));
+				}
 			}
 			else {
 				System.out.println("No Strategy Bots Available");
 				this.block(); 		//<... do something else like block() ...>
 			}
+	
 		}
-		return null;
 	}
 
 }

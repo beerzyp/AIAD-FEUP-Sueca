@@ -1,7 +1,7 @@
 package Agents;
 
 import Behaviours.MakeMoveBehaviour;
-import Behaviours.getCortaPlay;
+import Behaviours.GetCortaPlay;
 import GameLogic.Jogador;
 import GameLogic.Jogo;
 import jade.core.Agent;
@@ -16,7 +16,7 @@ public class CortaAGENT extends Agent{
 	}
 	
 	public void setup() {
-		addBehaviour(new getCortaPlay(this.sueca));
+		addBehaviour(new GetCortaPlay(this.sueca));
 	}
 	
 	protected void takeDown() {

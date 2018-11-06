@@ -8,11 +8,11 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class getCortaPlay extends CyclicBehaviour {
+public class GetCortaPlay extends CyclicBehaviour {
 
 	private Jogo sueca;
 
-	public getCortaPlay(Jogo sueca) {
+	public GetCortaPlay(Jogo sueca) {
 		// TODO Auto-generated constructor stub
 		this.sueca = sueca;
 	}

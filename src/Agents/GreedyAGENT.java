@@ -2,17 +2,20 @@ package Agents;
 
 import Behaviours.GetGreedyPlayBehaviour;
 import Behaviours.MakeMoveBehaviour;
+import GameLogic.Jogador;
 import GameLogic.Jogo;
 import jade.core.Agent;
 
 public class GreedyAGENT extends Agent{
 	private Jogo sueca;
-	public GreedyAGENT(Jogo sueca) {
+	private Jogador player;
+	public GreedyAGENT(Jogo sueca,Jogador player) {
 		this.sueca=sueca;
+		this.player=player;
 		
 	}
 	public void setup() {
-		addBehaviour(new GetGreedyPlayBehaviour(this.sueca));
+		addBehaviour(new GetGreedyPlayBehaviour(this.sueca,this.player));
 
 	}
 
