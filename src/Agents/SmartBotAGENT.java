@@ -28,6 +28,7 @@ public class SmartBotAGENT extends Agent{
 	public ArrayList<String> stratsBotHas;
 	public boolean flag;
 	public SmartBotAGENT(Jogo sueca, Jogador player,ArrayList<String> stratsBot) {
+		this.flag=true;
 		this.sueca=sueca;
 		this.player=player;
 		rondas=new ArrayList<Round>();
@@ -62,13 +63,13 @@ public class SmartBotAGENT extends Agent{
 		}
 		else{
 			SequentialBehaviour getPlaysAndMakeMove = new SequentialBehaviour();
-			getStrats =new GetDifferentStrategiesBehaviour(stratsBotHas);
+			getStrats =new GetDifferentStrategiesBehaviour(stratsBotHas,this.sueca);
 			makeSmartMove=new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent");
 			((SequentialBehaviour) getPlaysAndMakeMove).addSubBehaviour(getStrats);
 			((SequentialBehaviour) getPlaysAndMakeMove).addSubBehaviour(makeSmartMove);
 			this.addBehaviour(getPlaysAndMakeMove);
 			
-			this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
+			//this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
 		}
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(new CardDatabaseBehaviour(this.sueca,this.player.getPlayerHand()));
 
@@ -160,18 +161,6 @@ public class SmartBotAGENT extends Agent{
 		int High =this.player.getPlayerHand().getMao().size();
 		int Result = r.nextInt(High-Low) + Low;
 		return this.player.getPlayerHand().getCartaAt(Result);
-	}
-	
-	public int returnNaipeOfCurrRound() {
-		Random r = new Random();
-		if(this.sueca.getMatchRounds().get(0).getNumPlays()==0)
-			return (r.nextInt(5-0) + 0);
-		for(int i=0;i<this.sueca.getMatchRounds().size();i++) {
-			if(this.sueca.getMatchRounds().get(i).getNumPlays()<4) {
-				return this.sueca.getMatchRounds().get(i).returnTableHand().get(0).getKey().getNaipe();
-			}
-		}
-		return (r.nextInt(5-0) + 0);
 	}
 	
 	public int returnJogadaNaRonda() {

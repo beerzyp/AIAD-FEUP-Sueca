@@ -26,6 +26,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	private Round currRound;
 	private static int playerToMove=1;
 	private String BotType;
+	private int counter=0;
 	public AskForPlayerMove(Jogo Sueca,String botType) {
 		sueca=Sueca;
 		BotType=botType;
@@ -82,8 +83,8 @@ public class AskForPlayerMove extends OneShotBehaviour {
 			request.setLanguage("Portugues");
 			request.setOntology("Sueca-Ronda");
 			
-			//SEND REQUEST TO SMART BOT WITH BOARD STATE
-			this.myAgent.send(request);
+			if(counter<1)
+				this.myAgent.send(request);
 
 			//RECEIVE INFORM
 			final ACLMessage inform = this.myAgent.blockingReceive();
@@ -126,6 +127,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 					break;
 				}
 			}
+			counter++;
 		}
 		currRound.printRonda();
 		incrementCounter();

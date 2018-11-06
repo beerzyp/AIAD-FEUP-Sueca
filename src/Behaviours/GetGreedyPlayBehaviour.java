@@ -3,15 +3,18 @@ package Behaviours;
 import GameLogic.Carta;
 import GameLogic.Jogador;
 import GameLogic.Jogo;
+import jade.core.AID;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 import java.util.ArrayList;
 
+import Agents.GreedyAGENT;
 import Agents.SmartBotAGENT;
 
-public class GetGreedyPlayBehaviour extends CyclicBehaviour {
+public class GetGreedyPlayBehaviour extends OneShotBehaviour {
 	private Jogo sueca;
 	private Jogador player;
 	public GetGreedyPlayBehaviour(Jogo sueca,Jogador player) {
@@ -21,13 +24,14 @@ public class GetGreedyPlayBehaviour extends CyclicBehaviour {
 
 	@Override
 	public void action() {
-		ACLMessage msg = this.myAgent.blockingReceive();
+		ACLMessage msg = this.myAgent.receive();
 		
 		Carta carta = retornaGreedyPlay();
 
 		//SEND REQUEST
 		ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
-		inform.addReceiver(msg.getSender());
+//		inform.addReceiver(msg.getSender());
+		inform.addReceiver(new AID("SmartBotAgent1",AID.ISLOCALNAME));
 		inform.setLanguage("Portugues");
 		inform.setOntology("Sueca-Ronda");
 		inform.setContent(carta.toString());
@@ -36,7 +40,7 @@ public class GetGreedyPlayBehaviour extends CyclicBehaviour {
 	}
 
 	private Carta retornaGreedyPlay() {
-		int naipeOfCurrRound = ((SmartBotAGENT)this.myAgent).returnNaipeOfCurrRound();
+		int naipeOfCurrRound = ((GreedyAGENT)this.myAgent).returnNaipeOfCurrRound();
 		ArrayList<Carta> allCardsOfNaipe = new 	ArrayList<Carta>();
 		for(int i=0;i<this.player.getPlayerHand().getMao().size();i++) {
 			if(naipeOfCurrRound==this.player.getPlayerHand().getMao().get(i).getNaipe()) {
@@ -53,6 +57,8 @@ public class GetGreedyPlayBehaviour extends CyclicBehaviour {
 		}
 		return biggest;
 	}
+	
+	
 
 
 

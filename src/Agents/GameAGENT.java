@@ -96,12 +96,12 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
 		
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
-		CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);//Score
+		//CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);//Score
 		
 		checkWinnerRoundBehaviour = new SequentialBehaviour();
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
-		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(calculateScore);
+		//((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(calculateScore);
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
 		return checkWinnerRoundBehaviour;
 	}
