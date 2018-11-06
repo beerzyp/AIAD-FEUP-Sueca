@@ -26,6 +26,18 @@ public class SmartBotAGENT extends Agent{
 	public ArrayList<Carta> cartasJogador;
 	public ArrayList<Carta> cartasJogadasNasRondas;
 	public ArrayList<String> stratsBotHas;
+	private ArrayList<Pair<String,Carta>> validLogicPlays;
+	public ArrayList<Pair<String, Carta>> getValidLogicPlays() {
+		return validLogicPlays;
+	}
+
+	public void setValidLogicPlays(ArrayList<Pair<String, Carta>> validLogicPlays) {
+		this.validLogicPlays = validLogicPlays;
+	}
+	public void insertLogicPlays(Pair<String, Carta> validLogicPlays) {
+		this.validLogicPlays.add(validLogicPlays);
+	}
+
 	public boolean flag;
 	public SmartBotAGENT(Jogo sueca, Jogador player,ArrayList<String> stratsBot) {
 		this.flag=true;
@@ -35,6 +47,7 @@ public class SmartBotAGENT extends Agent{
 		cartasJogador = new ArrayList<Carta>(this.player.getPlayerHand().getMao());
 		cartasRestantes=new ArrayList<Carta>(this.sueca.getInitialDeck());
 		stratsBotHas = new ArrayList<String>(stratsBot);
+		validLogicPlays = new ArrayList<Pair<String,Carta>>();
 		getCartasRestantes();
 		this.cartasJogadasNasRondas=new ArrayList<Carta>();
 	};

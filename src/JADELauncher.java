@@ -35,6 +35,14 @@ public class JADELauncher {
 			SmartBotAgent1, SmartBotAgent2, SmartBotAgent3, SmartBotAgent4, gameAgent,GreedyAGENT;
 
 		Jogo sueca = new Jogo();
+		
+		
+		if(FLAG) {
+			gameAgent = new GameAGENT(sueca,"randomBotAgent");
+		}
+		else {
+			gameAgent = new GameAGENT(sueca,"SmartBotAgent");
+		}
 	
 		if(FLAG) {
 			randomBotAgent1 = new RandomBotAGENT(sueca,sueca.getPlayer1());
@@ -51,14 +59,7 @@ public class JADELauncher {
 			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),false);
 			SmartBotAgent4 = new SmartBotAGENT(sueca,sueca.getPlayer4(),false);
 		}
-		
-		
-		if(FLAG) {
-			gameAgent = new GameAGENT(sueca,"randomBotAgent");
-		}
-		else {
-			gameAgent = new GameAGENT(sueca,"SmartBotAgent");
-		}
+	
 		//Agent NeuralNetworkAGENT = new NeuralNetworkAGENT();
 		
 		AgentController ac1;

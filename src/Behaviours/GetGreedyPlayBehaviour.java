@@ -24,7 +24,9 @@ public class GetGreedyPlayBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		ACLMessage msg = this.myAgent.receive();
+		
+		
+		ACLMessage msg = this.myAgent.blockingReceive(); //RECEIVES SmartBOT REQUEST
 		
 		Carta carta = retornaGreedyPlay();
 

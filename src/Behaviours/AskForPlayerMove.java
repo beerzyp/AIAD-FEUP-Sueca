@@ -87,6 +87,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 				this.myAgent.send(request);
 
 			//RECEIVE INFORM
+			
 			final ACLMessage inform = this.myAgent.blockingReceive();
 			String carta= inform.getContent();
 			String smartBot=inform.getSender().getName();

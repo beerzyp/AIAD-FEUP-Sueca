@@ -19,14 +19,14 @@ public class MakeSmartMoveBehaviour extends Behaviour {
 
 	@Override
 	public void action() {
-		final ACLMessage request= this.myAgent.blockingReceive();
+		this.myAgent.blockingReceive();
 		((SmartBotAGENT) this.myAgent).removeCartasJogadasDaRonda();
 		((SmartBotAGENT) this.myAgent).getCartasDaRondas();
 		System.out.println("\nagent " + this.myAgent.getAID().getLocalName() + "\n");
 		((SmartBotAGENT) this.myAgent).printOddOfNaipe();
 		System.out.println("\nagent " + this.myAgent.getAID().getLocalName() + "\n");
 		//SEND PLAY TO LOGIC
-		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
+		ACLMessage inform= new ACLMessage(ACLMessage.INFORM);
 		inform.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
 		inform.setLanguage("Portugues");
 		inform.setOntology("Sueca-Jogada");
