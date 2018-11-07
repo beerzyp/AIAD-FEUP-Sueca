@@ -40,11 +40,14 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		while(true) { //n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 			//RECEIVES MESSAGE FROM STACK IF AGENT strategy X SEND REQUEST
 			if(((SmartBotAGENT)this.myAgent).getValidLogicPlays().size()==botStrategies.size()){
-//				ACLMessage returnToAskForPlayMove= new ACLMessage(ACLMessage.INFORM);
-//				returnToAskForPlayMove.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
-//				returnToAskForPlayMove.setLanguage("Portugues");
-//				returnToAskForPlayMove.setOntology("Sueca-Jogada");
-//				this.myAgent.send(returnToAskForPlayMove);
+				ACLMessage informLogic= new ACLMessage(ACLMessage.INFORM);
+				informLogic.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
+				informLogic.setLanguage("Portugues");
+				informLogic.setOntology("Logic-Validation");
+				String cartaValue="";
+				cartaValue=((SmartBotAGENT)this.myAgent).getValidLogicPlays().get(0).getValue().toString();
+				informLogic.setContent("valid,"+cartaValue);
+				this.myAgent.send(informLogic);
 				this.done();
 			}
 			ACLMessage msg = this.myAgent.blockingReceive();

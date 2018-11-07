@@ -47,8 +47,6 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		c1=new Carta();
 	}
 
-	//  private static int counter=1;
-
 	public  static void incrementCounter() {
 		if(playerToMove>=4) {
 			playerToMove=1;
@@ -83,8 +81,13 @@ public class AskForPlayerMove extends OneShotBehaviour {
 			request.setLanguage("Portugues");
 			request.setOntology("Sueca-Ronda");
 			
-			if(counter<1)
+			if(botToPlay.equals("SmartBotAgent1")) {
+				if(counter<1)
+					this.myAgent.send(request);
+			}
+			else {
 				this.myAgent.send(request);
+			}
 
 			//RECEIVE INFORM
 			
