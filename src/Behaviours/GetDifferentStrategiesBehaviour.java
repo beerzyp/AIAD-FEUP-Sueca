@@ -10,7 +10,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import javafx.util.Pair;
 
-public class GetDifferentStrategiesBehaviour extends Behaviour {
+public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 	private ArrayList<String> botsToBroadcast;
 	private ArrayList<Pair<String,Carta>> validLogicPlays;
 	private ArrayList<Pair<String,Carta>> strategyPlays;
@@ -29,13 +29,7 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 	public void helpBot(ArrayList<String> botStrategies) {
 		ACLMessage startMsg = this.myAgent.blockingReceive(); //RECEIVES ASK FOR PLAYER MOVE INITIATION MESSAGE
 		//Broadcasts message to get different strategies from strat agents
-		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
 
-		AID botStrategy=new AID(botStrategies.get(0), AID.ISLOCALNAME);
-		inform.addReceiver(botStrategy);
-		inform.setLanguage("Portugues");
-		inform.setOntology("Strat");
-		this.myAgent.send(inform);
 	
 		while(true) { //n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 			//RECEIVES MESSAGE FROM STACK IF AGENT strategy X SEND REQUEST
@@ -48,8 +42,16 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 				cartaValue=((SmartBotAGENT)this.myAgent).getValidLogicPlays().get(0).getValue().toString();
 				informLogic.setContent("valid,"+cartaValue);
 				this.myAgent.send(informLogic);
-				this.done();
+				break;
 			}
+			
+			ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
+
+			AID botStrategy=new AID(botStrategies.get(0), AID.ISLOCALNAME);
+			inform.addReceiver(botStrategy);
+			inform.setLanguage("Portugues");
+			inform.setOntology("Strat");
+			this.myAgent.send(inform);
 			ACLMessage msg = this.myAgent.blockingReceive();
 			String carta =null;
 			if (msg != null) {
@@ -68,12 +70,12 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 				cartaValue=carta;
 				informLogic.setContent("attempt,"+cartaValue);
 				this.myAgent.send(informLogic);
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				try {
+//					Thread.sleep(3000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+			//	}
 				//Wait For Logic confirmation
 				final ACLMessage getLogicConfirmation = this.myAgent.blockingReceive();
 				String validOrNotPlay= getLogicConfirmation.getContent();
@@ -94,10 +96,6 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 	
 		}
 	}
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+
 
 }

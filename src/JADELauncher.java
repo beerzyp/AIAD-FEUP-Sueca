@@ -55,9 +55,9 @@ public class JADELauncher {
 			strats.add("GreedyAGENT");
 			GreedyAGENT = new GreedyAGENT(sueca,sueca.getPlayer1());
 			SmartBotAgent1 = new SmartBotAGENT(sueca,sueca.getPlayer1(),strats);
-			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),false);
-			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),false);
-			SmartBotAgent4 = new SmartBotAGENT(sueca,sueca.getPlayer4(),false);
+			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),strats);
+			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),strats);
+			SmartBotAgent4 = new SmartBotAGENT(sueca,sueca.getPlayer4(),strats);
 		}
 	
 		//Agent NeuralNetworkAGENT = new NeuralNetworkAGENT();

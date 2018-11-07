@@ -80,14 +80,10 @@ public class AskForPlayerMove extends OneShotBehaviour {
 			request.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
 			request.setLanguage("Portugues");
 			request.setOntology("Sueca-Ronda");
-			
-			if(botToPlay.equals("SmartBotAgent1")) {
-				if(counter<1)
-					this.myAgent.send(request);
-			}
-			else {
-				this.myAgent.send(request);
-			}
+	
+			this.myAgent.send(request);
+
+	
 
 			//RECEIVE INFORM
 			
