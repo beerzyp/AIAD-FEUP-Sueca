@@ -112,7 +112,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 					validPlayInform.addReceiver(new AID(botToPlay, AID.ISLOCALNAME));
 					validPlayInform.setLanguage("Portugues");
 					validPlayInform.setOntology("Sueca-Ronda");
-					if(this.sueca.getGameLogic().validPlay(attempt, player, currRound)) {
+					if(this.sueca.getGameLogic().validPlay(attempt, this.sueca.getPlayer(playerToMove), currRound)) {
 						validPlayInform.setContent("VALID-PLAY,"+attempt);
 						this.myAgent.send(validPlayInform);
 					}

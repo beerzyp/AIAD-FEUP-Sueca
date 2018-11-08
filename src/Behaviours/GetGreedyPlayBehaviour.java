@@ -10,6 +10,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import Agents.GreedyAGENT;
 import Agents.SmartBotAGENT;
@@ -73,6 +74,12 @@ public class GetGreedyPlayBehaviour extends CyclicBehaviour {
 				biggestValue=allCardsOfNaipe.get(j).getPonto();
 			}
 		}
+		Random r = new Random();
+		int Low = 0;
+		int High =this.player.getPlayerHand().getMao().size();
+		int Result = r.nextInt(High-Low) + Low;
+		if(biggest==null)
+			return this.player.getPlayerHand().getCartaAt(Result);
 		return biggest;
 	}
 	
