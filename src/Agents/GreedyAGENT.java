@@ -11,13 +11,13 @@ import jade.core.Agent;
 public class GreedyAGENT extends Agent{
 	private Jogo sueca;
 	private Jogador player;
-	public GreedyAGENT(Jogo sueca,Jogador player) {
+	public GreedyAGENT(Jogo sueca) {
 		this.sueca=sueca;
-		this.player=player;
+
 		
 	}
 	public void setup() {
-		addBehaviour(new GetGreedyPlayBehaviour(this.sueca,this.player));
+		addBehaviour(new GetGreedyPlayBehaviour(this.sueca));
 
 	}
 

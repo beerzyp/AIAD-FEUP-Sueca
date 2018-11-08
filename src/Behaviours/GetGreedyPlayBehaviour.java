@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import Agents.GreedyAGENT;
 import Agents.SmartBotAGENT;
 
-public class GetGreedyPlayBehaviour extends OneShotBehaviour {
+public class GetGreedyPlayBehaviour extends CyclicBehaviour {
 	private Jogo sueca;
 	private Jogador player;
-	public GetGreedyPlayBehaviour(Jogo sueca,Jogador player) {
+	public GetGreedyPlayBehaviour(Jogo sueca) {
 		this.sueca=sueca;
-		this.player=player;
+
 	}
 
 	@Override
@@ -27,18 +27,34 @@ public class GetGreedyPlayBehaviour extends OneShotBehaviour {
 		
 		
 		ACLMessage msg = this.myAgent.blockingReceive(); //RECEIVES SmartBOT REQUEST
-		
+		this.player=this.sueca.getPlayer(getPlayer(msg.getSender().getName()));
 		Carta carta = retornaGreedyPlay();
 
 		//SEND REQUEST
 		ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
-//		inform.addReceiver(msg.getSender());
-		inform.addReceiver(new AID("SmartBotAgent1",AID.ISLOCALNAME));
+		inform.addReceiver(msg.getSender());
+		//inform.addReceiver(new AID("SmartBotAgent",AID.ISLOCALNAME));
 		inform.setLanguage("Portugues");
 		inform.setOntology("Sueca-Ronda");
 		inform.setContent(carta.toString());
 		this.myAgent.send(inform);
 
+	}
+
+	private int getPlayer(String name) {
+		if(name.contains("SmartBotAgent1")) {
+			return 1;
+		}
+		else if(name.contains("SmartBotAgent2")) {
+			return 2;
+		}
+		else if(name.contains("SmartBotAgent3")) {
+			return 3;
+		}
+		else if(name.contains("SmartBotAgent4")) {
+			return 4;
+		}
+		return 0;
 	}
 
 	private Carta retornaGreedyPlay() {

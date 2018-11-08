@@ -27,6 +27,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	private static int playerToMove=1;
 	private String BotType;
 	private int counter=0;
+	private static int numOfTimes=0;
 	public AskForPlayerMove(Jogo Sueca,String botType) {
 		sueca=Sueca;
 		BotType=botType;
@@ -66,7 +67,8 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	}
 	@Override
 	public void action() {
-
+		this.numOfTimes++;
+		System.out.println("entered: " + this.numOfTimes+"\n");
 		if (numOfTimesEntered>=4) {
 			playerToMove=nextPlayerToMove();
 			numOfTimesEntered=0;
@@ -74,6 +76,7 @@ public class AskForPlayerMove extends OneShotBehaviour {
 		numOfTimesEntered++;
 		boolean validPlay=false;
 		while(!validPlay) {
+			
 			String botToPlay = this.BotType+playerToMove;
 			//SEND REQUEST
 			ACLMessage request= new ACLMessage(ACLMessage.REQUEST);

@@ -75,12 +75,8 @@ public class SmartBotAGENT extends Agent{
 			this.addBehaviour(makeSmartMove);
 		}
 		else{
-			SequentialBehaviour getPlaysAndMakeMove = new SequentialBehaviour();
 			getStrats =new GetDifferentStrategiesBehaviour(stratsBotHas,this.sueca);
-			makeSmartMove=new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent");
-			((SequentialBehaviour) getPlaysAndMakeMove).addSubBehaviour(getStrats);
-			((SequentialBehaviour) getPlaysAndMakeMove).addSubBehaviour(makeSmartMove);
-			this.addBehaviour(getPlaysAndMakeMove);
+			this.addBehaviour(getStrats);
 			
 			//this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
 		}

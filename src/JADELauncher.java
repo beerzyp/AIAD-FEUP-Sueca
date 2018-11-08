@@ -53,7 +53,7 @@ public class JADELauncher {
 		else {
 			ArrayList<String> strats = new ArrayList<String>();
 			strats.add("GreedyAGENT");
-			GreedyAGENT = new GreedyAGENT(sueca,sueca.getPlayer1());
+			GreedyAGENT = new GreedyAGENT(sueca);
 			SmartBotAgent1 = new SmartBotAGENT(sueca,sueca.getPlayer1(),strats);
 			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),strats);
 			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),strats);

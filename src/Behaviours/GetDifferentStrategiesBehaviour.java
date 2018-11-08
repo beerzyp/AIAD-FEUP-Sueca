@@ -34,6 +34,7 @@ public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 		while(true) { //n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 			//RECEIVES MESSAGE FROM STACK IF AGENT strategy X SEND REQUEST
 			if(((SmartBotAGENT)this.myAgent).getValidLogicPlays().size()==botStrategies.size()){
+			
 				ACLMessage informLogic= new ACLMessage(ACLMessage.INFORM);
 				informLogic.addReceiver(new AID("gameAgent", AID.ISLOCALNAME));
 				informLogic.setLanguage("Portugues");
@@ -52,14 +53,14 @@ public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 			inform.setLanguage("Portugues");
 			inform.setOntology("Strat");
 			this.myAgent.send(inform);
-			ACLMessage msg = this.myAgent.blockingReceive();
+			ACLMessage msg = this.myAgent.blockingReceive(); // mesagem do greedy bot
 			String carta =null;
 			if (msg != null) {
 				String agentStrategy = msg.getSender().getName();
 				carta = msg.getContent();
 				System.out.println(carta + "\n");
 				Carta attempt= new Carta();
-				attempt= new Carta(this.sueca.getPlayer1().getPlayerHand().getMao().get(0).convertStringToNome(carta), this.sueca.getPlayer1().getPlayerHand().getMao().get(0).convertStringToNaipe(carta));
+				attempt= new Carta(attempt.convertStringToNome(carta), attempt.convertStringToNaipe(carta));
 				
 				//SEND PLAY TO VALIDATE PLAY TO LOGIC
 				ACLMessage informLogic= new ACLMessage(ACLMessage.REQUEST);
