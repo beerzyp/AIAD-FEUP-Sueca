@@ -76,6 +76,8 @@ public class SmartBotAGENT extends Agent{
 		}
 		else{
 			getStrats =new GetDifferentStrategiesBehaviour(stratsBotHas,this.sueca);
+	
+			
 			this.addBehaviour(getStrats);
 			
 			//this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
@@ -181,5 +183,9 @@ public class SmartBotAGENT extends Agent{
 		
 		return 0;
 		
+	}
+
+	public Behaviour getMyStrats() {
+		return this.getStrats;
 	}
 }

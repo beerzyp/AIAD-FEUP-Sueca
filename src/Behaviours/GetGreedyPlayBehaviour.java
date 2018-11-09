@@ -69,7 +69,7 @@ public class GetGreedyPlayBehaviour extends CyclicBehaviour {
 		int biggestValue=0;
 		Carta biggest=null;
 		for(int j=0;j<allCardsOfNaipe.size();j++) {
-			if(allCardsOfNaipe.get(j).getPonto()>biggestValue) {
+			if(allCardsOfNaipe.get(j).getPonto()>=biggestValue) {
 				biggest=allCardsOfNaipe.get(j);
 				biggestValue=allCardsOfNaipe.get(j).getPonto();
 			}

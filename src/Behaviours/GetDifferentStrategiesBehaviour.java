@@ -15,6 +15,7 @@ public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 	private ArrayList<Pair<String,Carta>> validLogicPlays;
 	private ArrayList<Pair<String,Carta>> strategyPlays;
 	private Jogo sueca;
+	private static int numOfTimes=0;
 	public GetDifferentStrategiesBehaviour(ArrayList<String> strats,Jogo sueca) {
 		botsToBroadcast=new ArrayList<String>(strats);
 		strategyPlays = new ArrayList<Pair<String,Carta>>();
@@ -24,7 +25,7 @@ public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		helpBot(botsToBroadcast);
-
+		//helpBot(botsToBroadcast);
 	}
 	public void helpBot(ArrayList<String> botStrategies) {
 		ACLMessage startMsg = this.myAgent.blockingReceive(); //RECEIVES ASK FOR PLAYER MOVE INITIATION MESSAGE
@@ -43,6 +44,8 @@ public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 				cartaValue=((SmartBotAGENT)this.myAgent).getValidLogicPlays().get(0).getValue().toString();
 				informLogic.setContent("valid,"+cartaValue);
 				this.myAgent.send(informLogic);
+				numOfTimes++;
+				System.out.println("entered: " + numOfTimes+"\n");
 				break;
 			}
 			
@@ -87,6 +90,7 @@ public class GetDifferentStrategiesBehaviour extends OneShotBehaviour {
 				cardConfirmed= new Carta(this.sueca.getPlayer1().getPlayerHand().getMao().get(0).convertStringToNome(play), this.sueca.getPlayer1().getPlayerHand().getMao().get(0).convertStringToNaipe(play));
 				if(validOrNot.equals("VALID-PLAY")) {
 					cardConfirmed= new Carta(cardConfirmed.convertStringToNome(play), cardConfirmed.convertStringToNaipe(play));
+					//System.out.println(((SmartBotAGENT)this.myAgent).getName() + "\n");
 					((SmartBotAGENT)this.myAgent).insertLogicPlays(new Pair<String,Carta>(agentStrategy,cardConfirmed));
 				}
 			}

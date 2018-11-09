@@ -18,7 +18,7 @@ import jade.wrapper.StaleProxyException;
 
 public class JADELauncher {
 
-	private static final boolean FLAG = false;
+	private static final boolean FLAG = true;
 
 	public static void main(String[] args) {
 		Runtime rt = Runtime.instance();

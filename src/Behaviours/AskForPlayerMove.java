@@ -67,8 +67,6 @@ public class AskForPlayerMove extends OneShotBehaviour {
 	}
 	@Override
 	public void action() {
-		this.numOfTimes++;
-		System.out.println("entered: " + this.numOfTimes+"\n");
 		if (numOfTimesEntered>=4) {
 			playerToMove=nextPlayerToMove();
 			numOfTimesEntered=0;
