@@ -97,12 +97,12 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
 		
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
-		//CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);//Score
+		CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);//Score
 		
 		checkWinnerRoundBehaviour = new SequentialBehaviour();
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(seqRoundBehaviour);
+		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(calculateScore);
 		((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(checkWinnerRound);
-		//((SequentialBehaviour) checkWinnerRoundBehaviour).addSubBehaviour(calculateScore);
 		//this.addBehaviour(checkWinnerRoundBehaviour); // addbehaviour
 		return checkWinnerRoundBehaviour;
 	}
@@ -130,12 +130,10 @@ public class GameAGENT extends Agent{
 	public static boolean insertScore(Pair<String, Integer> calculateScore2) {
 		if(calculateScore2.getKey()=="A") {
 			teamPointsA+=calculateScore2.getValue();
-			System.out.print("Equipa A pontos: "+ Integer.toString(GameAGENT.getTeamPointsA())+ "\n");
 			return true;
 		}
 		else if(calculateScore2.getKey()=="B") {
 			teamPointsB+=calculateScore2.getValue();
-			System.out.print("Equipa B pontos: " + Integer.toString(GameAGENT.getTeamPointsB())+ "\n");
 			return true;
 		}
 		else return false;

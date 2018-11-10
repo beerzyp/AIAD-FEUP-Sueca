@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Agents.CortaAGENT;
 import Agents.GameAGENT;
 import Agents.GreedyAGENT;
 import Agents.RandomBotAGENT;
@@ -32,7 +33,7 @@ public class JADELauncher {
 		ContainerController container = rt.createAgentContainer(p2);
 		
 		Agent randomBotAgent1, randomBotAgent2, randomBotAgent3, randomBotAgent4, 
-			SmartBotAgent1, SmartBotAgent2, SmartBotAgent3, SmartBotAgent4, gameAgent,GreedyAGENT;
+			SmartBotAgent1, SmartBotAgent2, SmartBotAgent3, SmartBotAgent4, gameAgent,GreedyAGENT,CortaAgent;
 
 		Jogo sueca = new Jogo();
 		
@@ -53,6 +54,7 @@ public class JADELauncher {
 		else {
 			ArrayList<String> strats = new ArrayList<String>();
 			strats.add("GreedyAGENT");
+			strats.add("CortaAGENT");
 			SmartBotAgent1 = new SmartBotAGENT(sueca,sueca.getPlayer1(),strats);
 			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),strats);
 			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),strats);
@@ -127,6 +129,7 @@ public class JADELauncher {
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
 			}
+	
 			try {
 				ac1 = mainContainer.acceptNewAgent("SmartBotAgent1", SmartBotAgent1);
 				ac1.start();

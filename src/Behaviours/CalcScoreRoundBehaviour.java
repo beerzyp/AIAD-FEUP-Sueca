@@ -23,7 +23,7 @@ public class CalcScoreRoundBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		//this.calculaPontosRonda(this.round);
-		System.out.println("entrou" + ((GameAGENT)this.myAgent).getRondas().size()+ "\n");
+		//System.out.println("entrou" + ((GameAGENT)this.myAgent).getRondas().size()+ "\n");
 		GameAGENT.insertScore(this.calculateScore(this.round));
 		
 	}
@@ -32,7 +32,6 @@ public class CalcScoreRoundBehaviour extends OneShotBehaviour {
 public Pair<String,Integer> calculateScore (Round rondas) {
 		int lastRoundWinner=this.sueca.getGameLogic().winner(rondas, sueca);
 		int realWinner=rondas.returnTableHand().get(lastRoundWinner-1).getValue();
-		System.out.print("Calculate Score");
 		int points=0;
 		if( realWinner== 1 || realWinner== 3) {
 			for(int j = 0; j < 4; j++ ) {

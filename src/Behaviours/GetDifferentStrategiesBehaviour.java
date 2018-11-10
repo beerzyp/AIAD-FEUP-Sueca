@@ -29,12 +29,15 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		//Broadcasts message to get different strategies from strat agents
 		//n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 		//SENDS MESSAGE TO STRATS
+
 		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
 		AID botStrategy=new AID(this.botsToBroadcast.get(0), AID.ISLOCALNAME);
 		inform.addReceiver(botStrategy);
 		inform.setLanguage("Portugues");
 		inform.setOntology("Strat");
 		this.myAgent.send(inform);
+
+
 
 		ACLMessage msg = this.myAgent.blockingReceive(); // mesagem do greedy bot
 		String carta =null;
@@ -83,7 +86,6 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 			}
 		}
 		else {
-			System.out.println("No Strategy Bots Available");
 			this.block(); 		//<... do something else like block() ...>
 		}
 
