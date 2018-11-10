@@ -33,7 +33,9 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		((GameAGENT)this.myAgent).insertRonda(ronda);
 		System.out.println("VENCEDOR RONDA: player"+ realWinner+"\n");
 		String botToPlay="SmartBotAgent"+playerToMove;
-		
+		System.out.print("Score:\n");
+		System.out.print("Equipa A total pontos: "+ Integer.toString(GameAGENT.getTeamPointsA())+ "\n");
+		System.out.print("Equipa B pontos: " + Integer.toString(GameAGENT.getTeamPointsB())+ "\n");
 
 		
 		
@@ -57,10 +59,6 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 			System.out.println(sueca.getPlayer4().getPlayerHand().getMao().get(i).toString());
 			
 		}
-		
-		System.out.print("Score:\n");
-		System.out.print("Equipa A total pontos: "+ Integer.toString(GameAGENT.getTeamPointsA())+ "\n");
-		System.out.print("Equipa B pontos: " + Integer.toString(GameAGENT.getTeamPointsB())+ "\n");
 	
 	}
 
