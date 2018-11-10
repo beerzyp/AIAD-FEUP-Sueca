@@ -31,8 +31,11 @@ public class GreedyAGENT extends Agent{
 			return (r.nextInt(4-0) + 0);
 		for(int i=0;i<this.sueca.getMatchRounds().size();i++) {
 			if(this.sueca.getMatchRounds().get(i).getNumPlays()<4) {
-				return this.sueca.getMatchRounds().get(i).returnTableHand().get(0).getKey().getNaipe();
+				if(this.sueca.getMatchRounds().get(i).getNumPlays()==0)
+					return (r.nextInt(4-0) + 0);
+				else return this.sueca.getMatchRounds().get(i).returnTableHand().get(0).getKey().getNaipe();
 			}
+			
 		}
 		return (r.nextInt(4-0) + 0);
 	}

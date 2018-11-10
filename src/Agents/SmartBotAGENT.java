@@ -39,6 +39,7 @@ public class SmartBotAGENT extends Agent{
 	}
 
 	public boolean flag;
+	private SequentialBehaviour seqBehaviour;
 	public SmartBotAGENT(Jogo sueca, Jogador player,ArrayList<String> stratsBot) {
 		this.flag=true;
 		this.sueca=sueca;
@@ -75,10 +76,7 @@ public class SmartBotAGENT extends Agent{
 			this.addBehaviour(makeSmartMove);
 		}
 		else{
-			getStrats =new GetDifferentStrategiesBehaviour(stratsBotHas,this.sueca);
-	
-			
-			this.addBehaviour(getStrats);
+			this.addBehaviour(new GetDifferentStrategiesBehaviour(stratsBotHas,this.sueca));
 			
 			//this.addBehaviour(new MakeSmartMoveBehaviour(this.sueca,"SmartBotAgent"));
 		}

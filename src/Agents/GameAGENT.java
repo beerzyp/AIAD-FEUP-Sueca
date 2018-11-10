@@ -2,6 +2,7 @@ package Agents;
 import java.util.ArrayList;
 
 import Behaviours.AskForPlayerMove;
+import Behaviours.AskForSmartPlayerMove;
 import Behaviours.CalcScoreRoundBehaviour;
 import Behaviours.CallNeuralBehaviour;
 import Behaviours.CheckWinnerBehaviour;
@@ -90,10 +91,10 @@ public class GameAGENT extends Agent{
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
 		Round round=new Round(suecaGame, jogadas);
 		suecaGame.insertRound(round);
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
 		
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
 		//CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);//Score
