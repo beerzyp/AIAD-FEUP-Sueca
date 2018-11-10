@@ -35,7 +35,7 @@ public class CheckWinnerBehaviour extends OneShotBehaviour {
 		String botToPlay="SmartBotAgent"+playerToMove;
 		System.out.print("Score:\n");
 		System.out.print("Equipa A total pontos: "+ Integer.toString(GameAGENT.getTeamPointsA())+ "\n");
-		System.out.print("Equipa B pontos: " + Integer.toString(GameAGENT.getTeamPointsB())+ "\n");
+		System.out.print("Equipa B total pontos: " + Integer.toString(GameAGENT.getTeamPointsB())+ "\n");
 
 		
 		
