@@ -23,19 +23,29 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		validLogicPlays = new ArrayList<Pair<String,Carta>>();
 		this.sueca=sueca;
 	}
+	
+	/*
+	 * FOR (todas as cartas possiveis)
+	 *  EV($) = pontosGanhos * prob(ganhar) - pontosPerdidos*prob(perder)
+	 *  
+	 *  
+	 *  where pontosGanhos->pontos(cartaJogada)+pontos(boardAtual)+pontos(jogadasRestantes)
+	 *  where pontosPerdidos->pontos(cartaJogada)
+	 */
 	@Override
 	public void action() {
 		ACLMessage startMsg = this.myAgent.blockingReceive(); //RECEIVES ASK FOR PLAYER MOVE INITIATION MESSAGE
 		//Broadcasts message to get different strategies from strat agents
 		//n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 		//SENDS MESSAGE TO STRATS
-
-		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
-		AID botStrategy=new AID(this.botsToBroadcast.get(0), AID.ISLOCALNAME);
-		inform.addReceiver(botStrategy);
-		inform.setLanguage("Portugues");
-		inform.setOntology("Strat");
-		this.myAgent.send(inform);
+		for(int i=0;i<this.botsToBroadcast.size();i++) {
+			ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
+			AID botStrategy=new AID(this.botsToBroadcast.get(0), AID.ISLOCALNAME);
+			inform.addReceiver(botStrategy);
+			inform.setLanguage("Portugues");
+			inform.setOntology("Strat");
+			this.myAgent.send(inform);
+		}
 
 
 
