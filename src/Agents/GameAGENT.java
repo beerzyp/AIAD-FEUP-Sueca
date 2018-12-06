@@ -71,7 +71,7 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
-		((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
+		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
 
@@ -91,10 +91,10 @@ public class GameAGENT extends Agent{
 		ArrayList<Pair<Carta,Integer>> jogadas= new ArrayList<Pair<Carta,Integer>>();
 		Round round=new Round(suecaGame, jogadas);
 		suecaGame.insertRound(round);
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
-		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove1=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove2=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove3=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
+		((SequentialBehaviour) seqRoundBehaviour).addSubBehaviour(playerMove4=new AskForSmartPlayerMove(this.suecaGame,round,this.typeOfBot));
 		
 		checkWinnerRound=new CheckWinnerBehaviour(suecaGame,round); //CHECKWINNER
 		CalcScoreRoundBehaviour calculateScore = new CalcScoreRoundBehaviour(this.suecaGame,round);//Score
