@@ -1,6 +1,9 @@
 package GameLogic;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+
+import javafx.util.Pair;
 
 
 public class Carta {
@@ -52,6 +55,14 @@ public class Carta {
 		default: break;
 		}
 		return 0;
+	}
+	public ArrayList<Pair<Integer,Integer>> convertToDataSetArray(ArrayList<Carta> cartas){
+		ArrayList<Pair<Integer,Integer>> DataSet= new ArrayList<Pair<Integer,Integer>>();
+		for(int i=0;i<cartas.size();i++) {
+			DataSet.add(new Pair(cartas.get(i).getDataSetCardValue(),cartas.get(i).getNaipe()));
+		}
+		return DataSet;
+		
 	}
 	// 2-6   11-Q 12-J 13-K 14-7 15-A
 	public int getDataSetCardValue() {

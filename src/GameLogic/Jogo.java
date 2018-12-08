@@ -8,7 +8,7 @@ public class Jogo {
 	private Mao player1Mao,player2Mao,player3Mao,player4Mao;
 	private Jogador player1,player2,player3,player4;
 	private ArrayList<Carta> initialDeck;
-
+	private ArrayList<Carta> player3InitialDeck;
 	public ArrayList<Carta> getInitialDeck() {
 		return initialDeck;
 	}
@@ -24,6 +24,27 @@ method) or from within other behaviours.
 		 */
 	private ArrayList<Round> matchRounds;
 	private logic gameLogic;
+	private ArrayList<Carta> player1InitialDeck;
+	public ArrayList<Carta> getPlayer1InitialDeck() {
+		return player1InitialDeck;
+	}
+	public void setPlayer1InitialDeck(ArrayList<Carta> player1InitialDeck) {
+		this.player1InitialDeck = player1InitialDeck;
+	}
+	public ArrayList<Carta> getPlayer2InitialDeck() {
+		return player2InitialDeck;
+	}
+	public void setPlayer2InitialDeck(ArrayList<Carta> player2InitialDeck) {
+		this.player2InitialDeck = player2InitialDeck;
+	}
+	public ArrayList<Carta> getPlayer4InitialDeck() {
+		return player4InitialDeck;
+	}
+	public void setPlayer4InitialDeck(ArrayList<Carta> player4InitialDeck) {
+		this.player4InitialDeck = player4InitialDeck;
+	}
+	private ArrayList<Carta> player2InitialDeck;
+	private ArrayList<Carta> player4InitialDeck;
 	public logic getGameLogic() {
 		return gameLogic;
 	}
@@ -68,41 +89,27 @@ method) or from within other behaviours.
 		setTrunfo(baralho.getBaralho().get(0));
 		List<Carta> cartas1 = baralho.dar(4);
 		List<Carta> cartas2 = baralho.dar(3);
-		List<Carta> cartas3 = baralho.dar(2);
+		List<Carta> cartas3  = baralho.dar(2);
 		List<Carta> cartas4 = baralho.dar(1);
 		player1 = new Jogador(cartas1);
 		player2 = new Jogador(cartas2);
 		player3 = new Jogador(cartas3);
 		player4 = new Jogador(cartas4);
-	
-		System.out.println("\nJogador 1:" + player1.getPlayerHand().getMao().size());
-		for(int i=0;i<cartas1.size();i++) {
-			System.out.println(cartas1.get(i).toString());
-			
-		}
-		System.out.println("\nJogador 2:" +  player2.getPlayerHand().getMao().size());
-		for(int i=0;i<cartas2.size();i++) {
-			System.out.println(cartas2.get(i).toString());
-			
-		}
-		
-		System.out.println("\nJogador 3:" +  player3.getPlayerHand().getMao().size());
-		for(int i=0;i<cartas3.size();i++) {
-			System.out.println(cartas3.get(i).toString());
-			
-		}
-		System.out.println("\nJogador 4:" +  player4.getPlayerHand().getMao().size());
-		for(int i=0;i<cartas4.size();i++) {
-			System.out.println(cartas4.get(i).toString());
-			
-		}
-	
-		
+		player1InitialDeck = new ArrayList<Carta>(cartas1);
+		player2InitialDeck = new ArrayList<Carta>(cartas2);
+		player3InitialDeck=  new ArrayList<Carta>(cartas3);
+		player4InitialDeck= new ArrayList<Carta>(cartas4);
 		matchRounds= new ArrayList<Round>();
 
 		
 	}
-//	 if(	this.sueca.getGameLogic().validPlay(attempt, this.sueca.getPlayer1(), round)){
+public ArrayList<Carta> getPlayer3InitialDeck() {
+		return player3InitialDeck;
+	}
+	public void setPlayer3InitialDeck(ArrayList<Carta> player3InitialDeck) {
+		this.player3InitialDeck = player3InitialDeck;
+	}
+	//	 if(	this.sueca.getGameLogic().validPlay(attempt, this.sueca.getPlayer1(), round)){
 //			this.sueca.getMao1().jogaCarta(attempt);
 //			//System.out.println(this.sueca.getPlayer1().getJogNum());
 //			round.insertPlay(new Pair<Carta, Integer>(attempt,this.sueca.getPlayer1().getJogNum()));

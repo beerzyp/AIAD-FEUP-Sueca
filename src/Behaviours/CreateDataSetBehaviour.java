@@ -23,11 +23,16 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 	private ArrayList<Round> rondas;
 	public boolean percepton;
 	int teamAPoints=0;
+	ArrayList<Carta> player1Hand,player2Hand,player3Hand,player4Hand;
 	int teamBPoints=0;
 	public CreateDataSetBehaviour(Jogo suecaGame,boolean flag) {
 		this.sueca=suecaGame;
 		percepton=flag;
 		calculateInitialScore ();
+		player1Hand= new ArrayList<Carta>(this.sueca.getPlayer1InitialDeck());
+    	player2Hand= new ArrayList<Carta>(this.sueca.getPlayer2InitialDeck());
+    	player3Hand= new ArrayList<Carta>(this.sueca.getPlayer3InitialDeck());
+    	player4Hand= new ArrayList<Carta>(this.sueca.getPlayer4InitialDeck());
 	}
 	
 	public  void calculateInitialScore (){
@@ -49,7 +54,21 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		GameAGENT.setInitialteamPointsB(teamBPoints);
 		System.out.println("Team A initial Points:"+teamAPoints + "\nTeam B initial Points:"+teamBPoints+"\n");
 	}
-	
+	public ArrayList<Carta> getPlayerN(int n){
+		switch(n) {
+		case 1:
+			return player1Hand;
+		case 2:
+			return player2Hand;
+		case 3:
+			return player3Hand;
+		case 4:
+			return player4Hand;
+		default:
+			return null;
+		
+		}
+	}
 	@Override
 	public void action() {
 		rondas = new ArrayList<Round>(((GameAGENT)this.myAgent).getRondas());
@@ -85,12 +104,19 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
         	
         }
         else {
+	        sb.append("numOfSpadesinHand");
+	        sb.append(',');
+	        sb.append("numOfCopasInHand");
+	        sb.append(',');
+	        sb.append("numOfPausInHand");
+	        sb.append(',');
+	        sb.append("numOfOurosInHand");
 	        for(int i=0;i<4;i++) {
-		        sb.append("playerNum"); //jogNum
+		        sb.append("playerNum" + (i+1)); //jogNum
 		        sb.append(',');
-		        sb.append("card"); //jog.cardValue
+		        sb.append("card" + (i+1)); //jog.cardValue
 		        sb.append(',');
-		        sb.append("suit");//jog.Suit
+		        sb.append("suit" + (i+1));//jog.Suit
 		        sb.append(',');
 	        }
 	        sb.append("roundWinningPlayer");//jog.Suit
@@ -99,12 +125,31 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 	        sb.append(',');
 	        sb.append("trunfo");//jog.Suit
 	        sb.append("\n");//jog.Suit
+	        int playerId3rdPosition=3;
 			for(int i=0;i<this.rondas.size();i++) {
-				
+		      	StringBuilder sp=writeVectorToCsv(this.sueca.getTrunfo().convertToDataSetArray(this.getPlayerN(playerId3rdPosition)));
+			    
+		      	sb.append(sp);
 				for(int j=0;j<this.rondas.get(i).returnTableHand().size();j++) {
 					
 					Carta c1 =this.rondas.get(i).returnTableHand().get(j).getKey();
 					int player = this.rondas.get(i).returnTableHand().get(j).getValue();
+					if(j==2) {//PLAYER 3 DATA SET EVALs
+						playerId3rdPosition=player;
+					}
+					if(player==1) {
+						player1Hand.remove(c1);
+					}
+					else if (player==2) {
+						player2Hand.remove(c1);
+					}
+					else if (player==3) {
+						player3Hand.remove(c1);		
+					}
+					else if (player==4) {
+						player4Hand.remove(c1);
+					}
+					
 			        sb.append(player); //jogNum
 			        sb.append(',');
 			        sb.append(c1.getDataSetCardValue()); //jog.cardValue
@@ -113,18 +158,55 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 			        sb.append(',');
 				}
 				int lastRoundWinner=this.sueca.getGameLogic().winner(this.rondas.get(i), sueca);
-				int realWinner=this.rondas.get(i).returnTableHand().get(lastRoundWinner-1).getValue();
-		        sb.append(realWinner);//WinningHandPlayer
+		        sb.append(lastRoundWinner);//WinningHandPlayer
 		        sb.append(',');
 		        sb.append(i+1);//Hand number
 		        sb.append(',');
 				sb.append(this.sueca.getTrunfo().getNaipe()); //trunfo jogo
-			    sb.append('\n');
+		      	sb.append('\n');
 			}
 		}
         pw.write(sb.toString());
         pw.close();
 	
+	}
+
+	
+
+	private StringBuilder writeVectorToCsv(ArrayList<Pair<Integer, Integer>> convertToDataSetArray) {
+		  StringBuilder sp = new StringBuilder();
+		  /*
+		   * 		case ESPADAS: return 0; 
+		case COPAS: return 1; 
+		case PAUS: return 2; 
+		case OUROS: return 3; 
+		   */
+		  int numOfSpades = 0,Copas = 0,Paus = 0,Ouros = 0;
+		  for(int i=0;i<convertToDataSetArray.size();i++) {
+			 if(convertToDataSetArray.get(i).getValue()==0) {
+				 numOfSpades++;
+			 }
+			 if(convertToDataSetArray.get(i).getValue()==1) {
+				 Copas++;
+			 }
+			 if(convertToDataSetArray.get(i).getValue()==2) {
+				 Paus++;
+			 }
+			 if(convertToDataSetArray.get(i).getValue()==3) {
+				 Ouros++;
+			 }
+			 
+			 }
+		  sp.append(numOfSpades);
+		  sp.append(',');
+		  sp.append(Copas);
+		  sp.append(',');
+		  sp.append(Paus);
+		  sp.append(',');
+		  sp.append(Ouros);
+		  sp.append(',');
+		  return sp;
+		
 	}
 	
 	/*

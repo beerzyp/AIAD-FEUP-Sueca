@@ -72,7 +72,7 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
-		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
+		((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
 
 		

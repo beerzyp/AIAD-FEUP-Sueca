@@ -164,6 +164,7 @@ public class JADELauncher {
 			e.printStackTrace();
 		}
 		 */
+		rt.shutDown();
 	}
 
 }
