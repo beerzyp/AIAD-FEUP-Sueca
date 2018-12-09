@@ -104,13 +104,6 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
         	
         }
         else {
-	        sb.append("numOfSpadesinHand");
-	        sb.append(',');
-	        sb.append("numOfCopasInHand");
-	        sb.append(',');
-	        sb.append("numOfPausInHand");
-	        sb.append(',');
-	        sb.append("numOfOurosInHand");
 	        for(int i=0;i<4;i++) {
 		        sb.append("playerNum" + (i+1)); //jogNum
 		        sb.append(',');
@@ -124,13 +117,18 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 	        sb.append("handNumber");//jog.Suit
 	        sb.append(',');
 	        sb.append("trunfo");//jog.Suit
+	        sb.append(',');
+	        sb.append("numOfSpadesinHand");
+	        sb.append(',');
+	        sb.append("numOfCopasInHand");
+	        sb.append(',');
+	        sb.append("numOfPausInHand");
+	        sb.append(',');
+	        sb.append("numOfOurosInHand");
 	        sb.append("\n");//jog.Suit
 	        int playerId3rdPosition=3;
 			for(int i=0;i<this.rondas.size();i++) {
-		      	StringBuilder sp=writeVectorToCsv(this.sueca.getTrunfo().convertToDataSetArray(this.getPlayerN(playerId3rdPosition)));
-			    
-		      	sb.append(sp);
-				for(int j=0;j<this.rondas.get(i).returnTableHand().size();j++) {
+				for(int j=0;j<this.rondas.get(i).returnTableHand().size();j++) {//maos da ronda
 					
 					Carta c1 =this.rondas.get(i).returnTableHand().get(j).getKey();
 					int player = this.rondas.get(i).returnTableHand().get(j).getValue();
@@ -163,6 +161,9 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		        sb.append(i+1);//Hand number
 		        sb.append(',');
 				sb.append(this.sueca.getTrunfo().getNaipe()); //trunfo jogo
+			    sb.append(',');
+		      	StringBuilder sp=writeVectorToCsv(this.sueca.getTrunfo().convertToDataSetArray(this.getPlayerN(playerId3rdPosition)));	    
+		      	sb.append(sp);
 		      	sb.append('\n');
 			}
 		}

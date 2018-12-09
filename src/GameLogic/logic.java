@@ -13,7 +13,7 @@ public class logic {
 		if (ronda.temTrunfoNaMesa()){		
 			if (ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getNaipe() == game.getTrunfo().getNaipe()){//JOGADOR 2 JOGA TRUNFO
 				if (biggest.getNaipe() == game.getTrunfo().getNaipe()){//JOGADOR 1 JOGOU TRUNFO
-					if( ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getPonto() > biggest.getPonto() ){
+					if( ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getDataSetCardValue() > biggest.getDataSetCardValue() ){
 						biggest = ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1);
 						winnerPlayer = 2;
 					}
@@ -26,7 +26,7 @@ public class logic {
 			}
 			if (ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getNaipe() == game.getTrunfo().getNaipe()){
 				if (biggest.getNaipe() == game.getTrunfo().getNaipe()){
-					if( ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getPonto() > biggest.getPonto()){
+					if( ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getDataSetCardValue() > biggest.getDataSetCardValue()){
 						biggest = ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1);
 						winnerPlayer = 3;
 					}
@@ -39,7 +39,7 @@ public class logic {
 			}
 			if (ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getNaipe() == game.getTrunfo().getNaipe()){
 				if (biggest.getNaipe() == game.getTrunfo().getNaipe()){
-					if( ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getPonto() > biggest.getPonto()){
+					if( ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getDataSetCardValue() > biggest.getDataSetCardValue()){
 						biggest = ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1);
 						winnerPlayer = 4;
 					}
@@ -53,15 +53,15 @@ public class logic {
 			return winnerPlayer;
 		}
 		else {
-			if ((ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getNaipe()==biggest.getNaipe())){
+			if ((ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getDataSetCardValue() > biggest.getDataSetCardValue()) && (ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1).getNaipe()==biggest.getNaipe())){
 				biggest = ronda.RetornaCartasNaMesa(game.getPlayer2().getJogNum()+1);
 				winnerPlayer = 2;
 		    	}
-			if ((ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getNaipe()==biggest.getNaipe())){
+			if ((ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getDataSetCardValue() > biggest.getDataSetCardValue()) && (ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1).getNaipe()==biggest.getNaipe())){
 				biggest = ronda.RetornaCartasNaMesa(game.getPlayer3().getJogNum()+1);
 				winnerPlayer = 3;
 		    	}
-			if ((ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getPonto() > biggest.getPonto()) && (ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getNaipe()==biggest.getNaipe())){
+			if ((ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getDataSetCardValue() > biggest.getDataSetCardValue()) && (ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1).getNaipe()==biggest.getNaipe())){
 				biggest = ronda.RetornaCartasNaMesa(game.getPlayer4().getJogNum()+1);
 				winnerPlayer = 4;
 		    	}
