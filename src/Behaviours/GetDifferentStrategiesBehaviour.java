@@ -13,13 +13,13 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import javafx.util.Pair;
 
-public class GetDifferentStrategiesBehaviour extends Behaviour {
+public class GetDifferentStrategiesBehaviour extends CyclicBehaviour {
 	private ArrayList<String> botsToBroadcast;
 	private ArrayList<Pair<String,Carta>> validLogicPlays;
 	private ArrayList<Pair<String,Carta>> strategyPlays;
 	private Stack<String> stackOfAvailableStrategies;
 	private Jogo sueca;
-	public boolean validPlay=false;
+
 	private static int numOfTimes=0;
 	public GetDifferentStrategiesBehaviour(ArrayList<String> strats,Jogo sueca) {
 		botsToBroadcast=new ArrayList<String>(strats);
@@ -38,21 +38,23 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		ACLMessage startMsg = this.myAgent.blockingReceive(); //RECEIVES ASK FOR PLAYER MOVE INITIATION MESSAGE
 		//Broadcasts message to get different strategies from strat agents
 		//n tries for every Strategy (bot to broadcast) maybe-> timeouts 
+		boolean validPlay=false;
 		//SENDS MESSAGE TO STRATS
 		askForNextBroadCastPlay();
-
-		while(!validPlay) {
-	
+		while(validPlay==false) {
 			ACLMessage msg = this.myAgent.blockingReceive(); // mesagem do greedy bot
 			if (msg != null) {
-				validatePlay(msg);
+				if(validatePlay(msg)) {
+					validPlay=true;
+				}
 			}
 			else {
 				this.block(); 		//<... do something else like block() ...>
 			}
 		}
+		this.done();
 
-
+		
 		//helpBot(botsToBroadcast);
 
 	}
@@ -129,11 +131,6 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 			return false;
 		}
 		else return false;
-	}
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

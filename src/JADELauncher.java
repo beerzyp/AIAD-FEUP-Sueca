@@ -53,8 +53,8 @@ public class JADELauncher {
 		}
 		else {
 			ArrayList<String> strats = new ArrayList<String>();
-			strats.add("GreedyAGENT");
 			strats.add("CortaAGENT");
+			strats.add("GreedyAGENT");
 			SmartBotAgent1 = new SmartBotAGENT(sueca,sueca.getPlayer1(),strats);
 			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),strats);
 			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),strats);
@@ -124,14 +124,15 @@ public class JADELauncher {
 				e.printStackTrace();
 			}
 
+	
 			try {
-				ac1 = mainContainer.acceptNewAgent("GreedyAGENT", GreedyAGENT);
+				ac1 = mainContainer.acceptNewAgent("CortaAGENT", CortaAGENT);
 				ac1.start();
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
 			}
 			try {
-				ac1 = mainContainer.acceptNewAgent("CortaAGENT", CortaAGENT);
+				ac1 = mainContainer.acceptNewAgent("GreedyAGENT", GreedyAGENT);
 				ac1.start();
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
