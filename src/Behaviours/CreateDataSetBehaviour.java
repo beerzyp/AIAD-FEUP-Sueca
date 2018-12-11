@@ -26,7 +26,8 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 	int teamAPoints=0;
 	ArrayList<Carta> player1Hand,player2Hand,player3Hand,player4Hand;
 	int teamBPoints=0;
-	public CreateDataSetBehaviour(Jogo suecaGame,boolean flag) {
+	ArrayList<String> strats;
+	public CreateDataSetBehaviour(Jogo suecaGame,boolean flag, ArrayList<String> stratBotThatPlayerPos3) {
 		this.sueca=suecaGame;
 		percepton=flag;
 		calculateInitialScore ();
@@ -34,6 +35,7 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		player2Hand= new ArrayList<Carta>(this.sueca.getPlayer2InitialDeck());
 		player3Hand= new ArrayList<Carta>(this.sueca.getPlayer3InitialDeck());
 		player4Hand= new ArrayList<Carta>(this.sueca.getPlayer4InitialDeck());
+		this.strats=stratBotThatPlayerPos3;
 	}
 
 	public  void calculateInitialScore (){
@@ -134,6 +136,8 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 			sb.append("valueOfPaus");
 			sb.append(',');
 			sb.append("valueOfOuros");
+			sb.append(',');
+			sb.append("strategy");
 			sb.append("\n");//jog.Suit
 			int playerId3rdPosition=3;
 			for(int i=0;i<this.rondas.size();i++) {
@@ -174,8 +178,11 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 				sb.append(',');
 				StringBuilder sp=writeVectorToCsv(this.sueca.getTrunfo().convertToDataSetArray(this.getPlayerN(playerId3rdPosition)));	    
 				sb.append(sp);
+				sb.append(',');
 				StringBuilder sr= writeNumOfNaipeToCsv(valueOfNaipe(this.getPlayerN(playerId3rdPosition)));	    
 				sb.append(sr);
+				sb.append(',');
+				sb.append(this.sueca.getStratsUsedByPlayer3().get(i));
 				sb.append('\n');
 			}
 		}

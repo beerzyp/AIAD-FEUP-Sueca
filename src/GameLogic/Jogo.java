@@ -100,6 +100,7 @@ method) or from within other behaviours.
 		player3InitialDeck=  new ArrayList<Carta>(cartas3);
 		player4InitialDeck= new ArrayList<Carta>(cartas4);
 		matchRounds= new ArrayList<Round>();
+		this.stratsUsedByPlayer3= new ArrayList<String>();
 
 		
 	}
@@ -126,56 +127,20 @@ public ArrayList<Carta> getPlayer3InitialDeck() {
 		return false;
 	}
 	public int callGameLogicRound(Round round,Mao mao1,Mao mao2,Mao mao3,Mao mao4) {
-	
-//			for(int i=0;i<2;i++) {
-//			
-//			ArrayList<Pair<Carta,Integer>> cardsOfRoundByOrder = new ArrayList<Pair<Carta,Integer>>();
-//			Round n = new Round(this,cardsOfRoundByOrder);
-//			if(i==0) {
-//				Carta attemptPlayer1 = mao1.getCartaAt(0);
-//				Carta attemptPlayer2 = mao2.getCartaAt(0);
-//				Carta attemptPlayer3 = mao3.getCartaAt(0);
-//				Carta attemptPlayer4 = mao4.getCartaAt(0);
-//				
-//				//TODO: 
-//				/*
-//				 * INSTEAD OF IF->while, must force player to player a card, iterating through it's deck
-//				 */
-//				
-//				if(gameLogic.validPlay(attemptPlayer1, player1,n )) {
-//					mao1.jogaCarta(attemptPlayer1);
-//					n.insertPlay(new Pair<Carta, Integer>(attemptPlayer1,player1.getJogNum()));//inserts play in round and passes to next player
-//				}
-//				if(gameLogic.validPlay(attemptPlayer2, player2,n )) {
-//					mao1.jogaCarta(attemptPlayer2);
-//					n.insertPlay(new Pair<Carta, Integer>(attemptPlayer2,player2.getJogNum()));//inserts play in round and passes to next player
-//				}
-//				if(gameLogic.validPlay(attemptPlayer3, player3,n )) {
-//					mao1.jogaCarta(attemptPlayer3);
-//					n.insertPlay(new Pair<Carta, Integer>(attemptPlayer3,player3.getJogNum()));//inserts play in round and passes to next player
-//				}
-//				if(gameLogic.validPlay(attemptPlayer4, player4,n )) {
-//					mao1.jogaCarta(attemptPlayer4);
-//					n.insertPlay(new Pair<Carta, Integer>(attemptPlayer4,player4.getJogNum()));//inserts play in round and passes to next player
-//				}
-//			}
-//			else {
-//			//TODO: 
-//			int winnerRound = gameLogic.winner(matchRounds.get(i-1), this);
-//			n.setJogAtual(winnerRound);
-//			System.out.println(winnerRound + "<- winner , jogAtual ->" + n.jogAtual);
-////				
-//				
-//	//			String startingPlayer= "player" + Integer.toString(winnerRound);
-//			}
-//			n.printRonda();
-//			matchRounds.add(n);
-//
-//		}~
 		return 0;
 	}
 	private Carta trunfo;
+	private ArrayList<String> stratsUsedByPlayer3;
 
+	public ArrayList<String> getStratsUsedByPlayer3() {
+		return stratsUsedByPlayer3;
+	}
+	public void insertStratsUsedByPlayer3(String strat) {
+		this.stratsUsedByPlayer3.add(strat);
+	}
+	public void setStratsUsedByPlayer3(ArrayList<String> stratsUsedByPlayer3) {
+		this.stratsUsedByPlayer3 = stratsUsedByPlayer3;
+	}
 	public Carta getTrunfo() {
 		return trunfo;
 	}
@@ -197,6 +162,10 @@ public ArrayList<Carta> getPlayer3InitialDeck() {
 	}
 	public Jogador getPlayer4() {
 		return player4;
+	}
+	public void addStrategy(String strategyUsed) {
+		this.stratsUsedByPlayer3.add(strategyUsed);
+		
 	}
 
 

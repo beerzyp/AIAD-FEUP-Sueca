@@ -99,6 +99,7 @@ public class AskForSmartPlayerMove extends OneShotBehaviour {
 			if(aux[0].equals("valid")){
 				if(this.sueca.makeMove(attempt, playerToMove, currRound)) {
 					validPlay=true;
+					((GameAGENT) this.myAgent).addStratBotThatPlayerPos3(smartBot);
 					break;
 				}
 			}

@@ -22,6 +22,13 @@ public class GameAGENT extends Agent{
 	Behaviour playerMove1,playerMove2,playerMove3,playerMove4,checkWinnerRound,checkWinnerRound1,checkWinnerRoundBehaviour,checkWinnerRoundBehaviour1,calculateScore;
 	String typeOfBot;
 	static int numRonda;
+	ArrayList<String> stratBotThatPlayerPos3;
+	public ArrayList<String> getStratBotThatPlayerPos3() {
+		return stratBotThatPlayerPos3;
+	}
+	public void addStratBotThatPlayerPos3(String strat) {
+		this.stratBotThatPlayerPos3.add(strat);
+	}
 	private ArrayList<Round> rondas;
 	private static int teamPointsA=0,teamPointsB=0;
 	private static int initialteamPointsA=0,initialteamPointsB=0;
@@ -46,6 +53,7 @@ public class GameAGENT extends Agent{
 		System.out.println("TRUNFO: " + this.suecaGame.getTrunfo().toString() + "\n\n");
 		this.rondas=new ArrayList<Round>();
 		numRonda=0;
+		stratBotThatPlayerPos3 = new ArrayList<String>();
 		
 	}
 	public int winner=0;
@@ -72,7 +80,7 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
-		((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
+		((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false,this.stratBotThatPlayerPos3));
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
 
 		

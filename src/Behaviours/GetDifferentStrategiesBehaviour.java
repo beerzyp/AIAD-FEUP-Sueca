@@ -18,6 +18,7 @@ public class GetDifferentStrategiesBehaviour extends CyclicBehaviour {
 	private ArrayList<Pair<String,Carta>> validLogicPlays;
 	private ArrayList<Pair<String,Carta>> strategyPlays;
 	private Stack<String> stackOfAvailableStrategies;
+	private String strategyUsed;
 	private Jogo sueca;
 
 	private static int numOfTimes=0;
@@ -74,6 +75,7 @@ public class GetDifferentStrategiesBehaviour extends CyclicBehaviour {
 	private void askForNextBroadCastPlay() {
 		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
 		String botToPlay=getNextStackbot();
+		this.strategyUsed=botToPlay;
 		System.out.println("Sending req to Strategy:" + botToPlay +"\n");
 		AID botStrategy=new AID(botToPlay, AID.ISLOCALNAME);
 		inform.addReceiver(botStrategy);
@@ -124,6 +126,9 @@ public class GetDifferentStrategiesBehaviour extends CyclicBehaviour {
 			this.myAgent.send(informLogic);
 			numOfTimes++;
 			System.out.println("entered: " + numOfTimes+"\n");
+			if(this.myAgent.getAID().getName().contains("3")){
+				this.sueca.addStrategy(this.strategyUsed);
+			}
 			return true;
 		}
 		else if(validOrNot.equals("NOT-VALID")) {
