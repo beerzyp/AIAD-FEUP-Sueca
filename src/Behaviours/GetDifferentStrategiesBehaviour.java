@@ -40,8 +40,8 @@ public class GetDifferentStrategiesBehaviour extends CyclicBehaviour {
 		//n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 		boolean validPlay=false;
 		//SENDS MESSAGE TO STRATS
-		askForNextBroadCastPlay();
 		while(validPlay==false) {
+			askForNextBroadCastPlay();
 			ACLMessage msg = this.myAgent.blockingReceive(); // mesagem do greedy bot
 			if (msg != null) {
 				if(validatePlay(msg)) {
