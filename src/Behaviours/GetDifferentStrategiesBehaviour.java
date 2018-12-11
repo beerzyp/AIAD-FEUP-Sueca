@@ -1,6 +1,8 @@
 package Behaviours;
 
 import java.util.ArrayList;
+import java.util.Stack;
+
 import Agents.SmartBotAGENT;
 import GameLogic.Carta;
 import GameLogic.Jogo;
@@ -15,6 +17,7 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 	private ArrayList<String> botsToBroadcast;
 	private ArrayList<Pair<String,Carta>> validLogicPlays;
 	private ArrayList<Pair<String,Carta>> strategyPlays;
+	private Stack<String> stackOfAvailableStrategies;
 	private Jogo sueca;
 	public boolean validPlay=false;
 	private static int numOfTimes=0;
@@ -23,7 +26,12 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		strategyPlays = new ArrayList<Pair<String,Carta>>();
 		validLogicPlays = new ArrayList<Pair<String,Carta>>();
 		this.sueca=sueca;
-		
+	    stackOfAvailableStrategies = new Stack<>();
+	    for(int i=0;i<this.botsToBroadcast.size();i++) {
+	    	stackOfAvailableStrategies.push(this.botsToBroadcast.get(i));
+	    }
+
+	    System.out.println("size:"+this.stackOfAvailableStrategies.size());
 	}
 	@Override
 	public void action() {
@@ -31,15 +39,7 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		//Broadcasts message to get different strategies from strat agents
 		//n tries for every Strategy (bot to broadcast) maybe-> timeouts 
 		//SENDS MESSAGE TO STRATS
-		for(int i=0;i<this.botsToBroadcast.size();i++) {
-			ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
-			System.out.println("Sending req to Strategy:" + this.botsToBroadcast.get(i) +"\n");
-			AID botStrategy=new AID(this.botsToBroadcast.get(i), AID.ISLOCALNAME);
-			inform.addReceiver(botStrategy);
-			inform.setLanguage("Portugues");
-			inform.setOntology("Strat");
-			this.myAgent.send(inform);
-		}
+		askForNextBroadCastPlay();
 
 		while(!validPlay) {
 	
@@ -56,7 +56,30 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 		//helpBot(botsToBroadcast);
 
 	}
+	public String getNextStackbot() {
+		if(this.stackOfAvailableStrategies.empty()) {
+			fillStackOfBots();
+		}
+		return this.stackOfAvailableStrategies.pop();
+	}
 	
+	private void fillStackOfBots() {
+	    for(int i=0;i<this.botsToBroadcast.size();i++) {
+	    	stackOfAvailableStrategies.push(this.botsToBroadcast.get(i));
+	    }
+		
+	}
+	private void askForNextBroadCastPlay() {
+		ACLMessage inform= new ACLMessage(ACLMessage.REQUEST);
+		String botToPlay=getNextStackbot();
+		System.out.println("Sending req to Strategy:" + botToPlay +"\n");
+		AID botStrategy=new AID(botToPlay, AID.ISLOCALNAME);
+		inform.addReceiver(botStrategy);
+		inform.setLanguage("Portugues");
+		inform.setOntology("Strat");
+		this.myAgent.send(inform);
+		
+	}
 	public boolean validatePlay(ACLMessage msg) {
 		String agentStrategy = msg.getSender().getName();
 		String carta =null;
@@ -78,7 +101,6 @@ public class GetDifferentStrategiesBehaviour extends Behaviour {
 
 		//Wait For Logic confirmation
 		final ACLMessage getLogicConfirmation = this.myAgent.blockingReceive();
-		
 		String validOrNotPlay= getLogicConfirmation.getContent();
 		String[] aux = validOrNotPlay.split(",");
 		String validOrNot = aux[0];
