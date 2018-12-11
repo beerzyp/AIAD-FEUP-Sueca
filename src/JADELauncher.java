@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Agents.CarefulAGENT;
 import Agents.CortaAGENT;
 import Agents.GameAGENT;
 import Agents.GreedyAGENT;
@@ -35,7 +36,7 @@ public class JADELauncher {
 		
 		Agent randomBotAgent1, randomBotAgent2, randomBotAgent3, randomBotAgent4, 
 			SmartBotAgent1, SmartBotAgent2, SmartBotAgent3, SmartBotAgent4, gameAgent,
-			GreedyAGENT,CortaAGENT,RandomAGENT;
+			GreedyAGENT,CortaAGENT,RandomAGENT, CarefulAGENT;
 
 		Jogo sueca = new Jogo();
 		
@@ -58,6 +59,7 @@ public class JADELauncher {
 			strats.add("CortaAGENT");
 			strats.add("GreedyAGENT");
 			strats.add("RandomAGENT");
+			strats.add("CarefulAGENT");
 			SmartBotAgent1 = new SmartBotAGENT(sueca,sueca.getPlayer1(),strats);
 			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),strats);
 			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),strats);
@@ -65,6 +67,7 @@ public class JADELauncher {
 			GreedyAGENT = new GreedyAGENT(sueca);
 			CortaAGENT = new CortaAGENT(sueca);
 			RandomAGENT = new RandomAGENT(sueca);
+			CarefulAGENT = new CarefulAGENT(sueca);
 		}
 	
 		//Agent NeuralNetworkAGENT = new NeuralNetworkAGENT();
@@ -143,6 +146,12 @@ public class JADELauncher {
 			}
 			try {
 				ac1 = mainContainer.acceptNewAgent("RandomAGENT", RandomAGENT);
+				ac1.start();
+			} catch (StaleProxyException e) {
+				e.printStackTrace();
+			}
+			try {
+				ac1 = mainContainer.acceptNewAgent("CarefulAGENT", CarefulAGENT);
 				ac1.start();
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
