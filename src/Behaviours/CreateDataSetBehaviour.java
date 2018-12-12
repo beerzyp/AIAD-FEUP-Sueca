@@ -242,7 +242,6 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		sp.append(array.get(2).getValue());
 		sp.append(',');
 		sp.append(array.get(3).getValue());
-		sp.append(',');
 			
 		
 		return sp;
@@ -280,7 +279,6 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		sp.append(Paus);
 		sp.append(',');
 		sp.append(Ouros);
-		sp.append(',');
 		return sp;
 
 	}
