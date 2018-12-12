@@ -3,9 +3,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Agents.CarefulAGENT;
 import Agents.CortaAGENT;
 import Agents.GameAGENT;
 import Agents.GreedyAGENT;
+import Agents.RandomAGENT;
 import Agents.RandomBotAGENT;
 import Agents.SmartBotAGENT;
 import GameLogic.Jogo;
@@ -33,7 +35,8 @@ public class JADELauncher {
 		ContainerController container = rt.createAgentContainer(p2);
 		
 		Agent randomBotAgent1, randomBotAgent2, randomBotAgent3, randomBotAgent4, 
-			SmartBotAgent1, SmartBotAgent2, SmartBotAgent3, SmartBotAgent4, gameAgent,GreedyAGENT,CortaAGENT;
+			SmartBotAgent1, SmartBotAgent2, SmartBotAgent3, SmartBotAgent4, gameAgent,
+			GreedyAGENT,CortaAGENT,RandomAGENT, CarefulAGENT;
 
 		Jogo sueca = new Jogo();
 		
@@ -55,12 +58,16 @@ public class JADELauncher {
 			ArrayList<String> strats = new ArrayList<String>();
 			strats.add("CortaAGENT");
 			strats.add("GreedyAGENT");
+			strats.add("RandomAGENT");
+			strats.add("CarefulAGENT");
 			SmartBotAgent1 = new SmartBotAGENT(sueca,sueca.getPlayer1(),strats);
 			SmartBotAgent2 = new SmartBotAGENT(sueca,sueca.getPlayer2(),strats);
 			SmartBotAgent3 = new SmartBotAGENT(sueca,sueca.getPlayer3(),strats);
 			SmartBotAgent4 = new SmartBotAGENT(sueca,sueca.getPlayer4(),strats);
 			GreedyAGENT = new GreedyAGENT(sueca);
 			CortaAGENT = new CortaAGENT(sueca);
+			RandomAGENT = new RandomAGENT(sueca);
+			CarefulAGENT = new CarefulAGENT(sueca);
 		}
 	
 		//Agent NeuralNetworkAGENT = new NeuralNetworkAGENT();
@@ -133,6 +140,18 @@ public class JADELauncher {
 			}
 			try {
 				ac1 = mainContainer.acceptNewAgent("GreedyAGENT", GreedyAGENT);
+				ac1.start();
+			} catch (StaleProxyException e) {
+				e.printStackTrace();
+			}
+			try {
+				ac1 = mainContainer.acceptNewAgent("RandomAGENT", RandomAGENT);
+				ac1.start();
+			} catch (StaleProxyException e) {
+				e.printStackTrace();
+			}
+			try {
+				ac1 = mainContainer.acceptNewAgent("CarefulAGENT", CarefulAGENT);
 				ac1.start();
 			} catch (StaleProxyException e) {
 				e.printStackTrace();
