@@ -86,14 +86,6 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		BufferedWriter bw= new BufferedWriter(fw);
 		pw = new PrintWriter(bw);
 		StringBuilder sb = new StringBuilder();
-		sb.append("numOfSpadesinHand");
-		sb.append(',');
-		sb.append("numOfCopasInHand");
-		sb.append(',');
-		sb.append("numOfPausInHand");
-		sb.append(',');
-		sb.append("numOfOurosInHand");
-		sb.append(',');
 		for(int i=0;i<4;i++) {
 			sb.append("playerNum" + (i+1)); //jogNum
 			sb.append(',');
