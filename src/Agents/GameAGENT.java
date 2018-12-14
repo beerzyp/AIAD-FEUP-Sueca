@@ -81,7 +81,9 @@ public class GameAGENT extends Agent{
 		((SequentialBehaviour) TenRounds).addSubBehaviour(this.callNextRoundBehaviour());
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false));
 		((SequentialBehaviour) TenRounds).addSubBehaviour(createDataSets=new CreateDataSetBehaviour(this.suecaGame,false,this.stratBotThatPlayerPos3));
+		Behaviour exitProcessBehaviour;
 		//((SequentialBehaviour) TenRounds).addSubBehaviour(neuralbehaviour=new CallNeuralBehaviour());
+		((SequentialBehaviour)TenRounds).addSubBehaviour(exitProcessBehaviour = new ExitProcessBehaviour());
 
 		
 		//CALL BEHAVIOUR COUNT POINTS

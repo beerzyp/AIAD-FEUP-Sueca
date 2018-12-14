@@ -86,6 +86,46 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		BufferedWriter bw= new BufferedWriter(fw);
 		pw = new PrintWriter(bw);
 		StringBuilder sb = new StringBuilder();
+		sb.append("numOfSpadesinHand");
+		sb.append(',');
+		sb.append("numOfCopasInHand");
+		sb.append(',');
+		sb.append("numOfPausInHand");
+		sb.append(',');
+		sb.append("numOfOurosInHand");
+		sb.append(',');
+		for(int i=0;i<4;i++) {
+			sb.append("playerNum" + (i+1)); //jogNum
+			sb.append(',');
+			sb.append("card" + (i+1)); //jog.cardValue
+			sb.append(',');
+			sb.append("suit" + (i+1));//jog.Suit
+			sb.append(',');
+		}
+		sb.append("roundWinningPlayer");//jog.Suit
+		sb.append(',');
+		sb.append("handNumber");//jog.Suit
+		sb.append(',');
+		sb.append("trunfo");//jog.Suit
+		sb.append(',');
+		sb.append("valueOfSpades");
+		sb.append(',');
+		sb.append("valueOfCopas");
+		sb.append(',');
+		sb.append("valueOfPaus");
+		sb.append(',');
+		sb.append("valueOfOuros");
+		sb.append(',');
+		sb.append("numOfSpadesinHand");
+		sb.append(',');
+		sb.append("numOfCopasInHand");
+		sb.append(',');
+		sb.append("numOfPausInHand");
+		sb.append(',');
+		sb.append("numOfOurosInHand");
+		sb.append(',');
+		sb.append("strategy");
+		sb.append("\n");//jog.Suit
 		if(this.percepton) {
 			sb.append("teamAiPoints"); //jogNum
 			sb.append(',');
@@ -107,49 +147,17 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 
 		}
 		else {
-			sb.append("numOfSpadesinHand");
-			sb.append(',');
-			sb.append("numOfCopasInHand");
-			sb.append(',');
-			sb.append("numOfPausInHand");
-			sb.append(',');
-			sb.append("numOfOurosInHand");
-			sb.append(',');
-			for(int i=0;i<4;i++) {
-				sb.append("playerNum" + (i+1)); //jogNum
-				sb.append(',');
-				sb.append("card" + (i+1)); //jog.cardValue
-				sb.append(',');
-				sb.append("suit" + (i+1));//jog.Suit
-				sb.append(',');
-			}
-			sb.append("roundWinningPlayer");//jog.Suit
-			sb.append(',');
-			sb.append("handNumber");//jog.Suit
-			sb.append(',');
-			sb.append("trunfo");//jog.Suit
-			sb.append(',');
-			sb.append("valueOfSpades");
-			sb.append(',');
-			sb.append("valueOfCopas");
-			sb.append(',');
-			sb.append("valueOfPaus");
-			sb.append(',');
-			sb.append("valueOfOuros");
-			sb.append(',');
-			sb.append("strategy");
-			sb.append("\n");//jog.Suit
 			int playerId3rdPosition=3;
 			for(int i=0;i<this.rondas.size();i++) {
-				StringBuilder sp=writeVectorToCsv(this.sueca.getTrunfo().convertToDataSetArray(this.getPlayerN(playerId3rdPosition)));	    
-				sb.append(sp);
-				sb.append(',');
+				Carta cartaJogada3=null;
 				for(int j=0;j<this.rondas.get(i).returnTableHand().size();j++) {//maos da ronda
 
 					Carta c1 =this.rondas.get(i).returnTableHand().get(j).getKey();
 					int player = this.rondas.get(i).returnTableHand().get(j).getValue();
 					if(j==2) {//PLAYER 3 DATA SET EVALs
 						playerId3rdPosition=player;
+						cartaJogada3=c1;
+						
 						
 					}
 					if(player==1) {
@@ -179,8 +187,11 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 				sb.append(',');
 				sb.append(this.sueca.getTrunfo().getNaipe()); //trunfo jogo
 				sb.append(',');
-				StringBuilder sr= writeNumOfNaipeToCsv(valueOfNaipe(this.getPlayerN(playerId3rdPosition)));	    
+				StringBuilder sr= writeNumOfNaipeToCsv(valueOfNaipe(this.getPlayerN(playerId3rdPosition),cartaJogada3));	    
 				sb.append(sr);
+				sb.append(',');
+				StringBuilder sp=writeVectorToCsv(this.sueca.getTrunfo().convertToDataSetArray(this.getPlayerN(playerId3rdPosition)),cartaJogada3);	    
+				sb.append(sp);
 				sb.append(',');
 				sb.append(this.sueca.getStratsUsedByPlayer3().get(i));
 				sb.append('\n');
@@ -193,7 +204,7 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 
 
 	// Arrays.sort(arr); 
-	private ArrayList<Pair<Integer,Integer>> valueOfNaipe(ArrayList<Carta> convertToDataSetArray) {
+	private ArrayList<Pair<Integer,Integer>> valueOfNaipe(ArrayList<Carta> convertToDataSetArray,Carta c1) {
 		ArrayList<Integer> spades = new ArrayList<Integer>(),copas = new ArrayList<Integer>(),paus = new ArrayList<Integer>(),ouros = new ArrayList<Integer>();
 		for(int i=0;i<convertToDataSetArray.size();i++) {
 			if(convertToDataSetArray.get(i).getNaipe()==0) {
@@ -211,6 +222,20 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 			}
 			else return null;
 
+		}
+		switch(c1.getNaipe()) {
+		case 0:
+			spades.add(c1.getDataSetCardValue());
+			break;
+		case 1:
+			copas.add(c1.getDataSetCardValue());
+			break;
+		case 2:
+			paus.add(c1.getDataSetCardValue());
+			break;
+		case 3:
+			ouros.add(c1.getDataSetCardValue());
+			break;
 		}
 		ArrayList<Pair<Integer,Integer>> array = new ArrayList<Pair<Integer,Integer>> ();
 		int maxSpade,maxCopas,maxPaus,maxOuros;
@@ -248,7 +273,7 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 		
 	}
 
-	private StringBuilder writeVectorToCsv(ArrayList<Pair<Integer, Integer>> convertToDataSetArray) {
+	private StringBuilder writeVectorToCsv(ArrayList<Pair<Integer, Integer>> convertToDataSetArray,Carta c1) {
 		StringBuilder sp = new StringBuilder();
 		/*
 		 * 		case ESPADAS: return 0; 
@@ -271,6 +296,20 @@ public class CreateDataSetBehaviour extends OneShotBehaviour {
 				Ouros++;
 			}
 
+		}
+		switch(c1.getNaipe()) {
+		case 0:
+			numOfSpades++;
+			break;
+		case 1:
+			Copas++;
+			break;
+		case 2:
+			Paus++;
+			break;
+		case 3:
+			Ouros++;
+			break;
 		}
 		sp.append(numOfSpades);
 		sp.append(',');
