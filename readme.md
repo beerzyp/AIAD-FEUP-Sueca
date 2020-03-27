@@ -1,3 +1,10 @@
-2 Parte do trabalho relatório tópicos:\n
--restruturação do programa para obter melhoes dados (stack) \n
--abstração-> redução do problema (numero de naipes, carta mais alta do naipe)
+![Image of Yaktocat](https://ibb.co/7YGBZc4)
+![Image of Yaktocat](https://ibb.co/dDZM5t2)
+![Image of Yaktocat](https://ibb.co/gZMfz4J)
+![Image of Yaktocat](https://ibb.co/J35y5Z1)
+![Image of Yaktocat](https://ibb.co/QcCCqT0)
+![Image of Yaktocat](https://ibb.co/JKKDb92)
+![Image of Yaktocat](https://ibb.co/t3s7vYw)
+![Image of Yaktocat](https://ibb.co/RY50NtS)
+![Image of Yaktocat](https://ibb.co/z804qGy)
+![Image of Yaktocat](https://ibb.co/yN2PvKx)
